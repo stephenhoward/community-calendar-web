@@ -102,12 +102,12 @@ section.events {
         <router-link :to="'/events/' + event.id" class="event-body" tag="div">
             <div class="info">
                 <h3>
-                    {{ event.title }}
-                    <div v-if="event.parent" class="parent-event">{{ event.parent.title }}</div>
+                    {{ event.get('title') }}
+                    <div v-if="event.parent" class="parent-event">{{ event.parent.get('title') }}</div>
                 </h3>
                 <div v-if="event.end.isBefore(now)" class="datetime">{{ event.start.format('h:mma') }}</div>
                 <div v-if="event.end.isSameOrAfter(now)" class="description">
-                  {{ event.description }}
+                  {{ event.get('description') }}
                 </div>
             </div>
             <img v-if="event.end.isSameOrAfter(now)" src="">

@@ -39,6 +39,7 @@
     moment = require('moment');
     now    = moment();
     then   = moment().subtract(1,'hours');
+    let Event = require('lib/model/event');
 
     module.exports = {
         data : () => {
@@ -50,67 +51,140 @@
                     {
                         date: now,
                         events: [
-                            {
+                            new Event({
                                 id: 1,
-                                title: 'Explore the Science of Space at Your Library!',
+                                info: {
+                                    en: {
+                                        title: 'Explore the Science of Space at Your Library!',                                        
+                                        description: "This event has been engineered to review the principles of space travel, with an emphasis on the 50th anniversary of the landing of the first human on the Moon during NASA's Apollo 11 mission. It also highlights the Apollo mission spinoffs that Earthlings have gained from research into space exploration."
+                                    },
+                                    es: {
+                                        title: '¡Explora la ciencia del espacio en tu biblioteca!',                                        
+                                        description: "Este evento ha sido diseñado para revisar los principios de los viajes espaciales, con un énfasis en el 50 aniversario del aterrizaje del primer humano en la Luna durante la misión Apolo 11 de la NASA. También destaca los beneficios derivados de la misión Apollo que los terrícolas han obtenido de la investigación sobre la exploración espacial."
+                                    }
+                                },
+
                                 start: then,
                                 end: then,
-                                parent: {
-                                    title: 'NASA @ My Library'
-                                },
-                                description: "This event has been engineered to review the principles of space travel, with an emphasis on the 50th anniversary of the landing of the first human on the Moon during NASA's Apollo 11 mission. It also highlights the Apollo mission spinoffs that Earthlings have gained from research into space exploration."
-                            },
-                            {
+                                parent: new Event({
+                                    info: {
+                                        en: {
+                                            title: 'NASA @ My Library'
+                                        },
+                                        es: {
+                                            title: 'NASA @ Mi Biblioteca'
+                                        }
+                                    }
+                                }),
+                            }),
+                            new Event({
                                 id: 2,
+                                info: {
+                                    en: {
+                                        description: 'Brass Roots Movement brings New Orleans jazz to Music In The Park. Music, food, beer & wine, fun for the kids.'
+                                    },
+                                    es: {
+
+                                    }
+                                },
                                 title: 'Brass Roots Movement',
-                                parent: {
-                                    title: 'Monmouth Music in the Park Series'
+                                parent: new Event({
+                                    info: {
+                                        en: {
+                                            title: 'Monmouth Music in the Park Series'
+                                        },
+                                        es: {
+
+                                        }
+                                    },
+                                }),
+                                start: now,
+                                end: now,
+                            }),
+                            new Event({
+                                id: 3,
+                                info: {
+                                    en: {
+                                        title: 'Pop-up Puppet Theater Workshop',
+                                        description: 'Bring your own snowy story to life in this fun workshop. Using art materials, participants will learn how to create their own paper puppets and table-top scenery inspired by the colorful pop-up book art of The Snowflake Man. Space is limited. Sign up 5:30-6:30 pm the day of the event.'
+                                    },
+                                    es: {
+
+                                    }
                                 },
                                 start: now,
-                                end: now,
-                                description: 'Brass Roots Movement brings New Orleans jazz to Music In The Park. Music, food, beer & wine, fun for the kids.'
-                            },
-                            {
-                                id: 3,
-                                title: 'Pop-up Puppet Theater Workshop',
-                                start: now,
-                                end: now,
-                                description: 'Bring your own snowy story to life in this fun workshop. Using art materials, participants will learn how to create their own paper puppets and table-top scenery inspired by the colorful pop-up book art of The Snowflake Man. Space is limited. Sign up 5:30-6:30 pm the day of the event.'
-                            }
+                                end: now
+                            })
                         ]
                     },
                     {
                         date: moment().add(1,'days'),
                         events: [
-                            {
+                            new Event({
                                 id: 1,
-                                title: 'Explore the Science of Space at Your Library!',
+                                info: {
+                                    en: {
+                                        title: 'Explore the Science of Space at Your Library!',                                        
+                                        description: "This event has been engineered to review the principles of space travel, with an emphasis on the 50th anniversary of the landing of the first human on the Moon during NASA's Apollo 11 mission. It also highlights the Apollo mission spinoffs that Earthlings have gained from research into space exploration."
+                                    },
+                                    es: {
+                                        title: '¡Explora la ciencia del espacio en tu biblioteca!',                                        
+                                        description: "Este evento ha sido diseñado para revisar los principios de los viajes espaciales, con un énfasis en el 50 aniversario del aterrizaje del primer humano en la Luna durante la misión Apolo 11 de la NASA. También destaca los beneficios derivados de la misión Apollo que los terrícolas han obtenido de la investigación sobre la exploración espacial."
+                                    }
+                                },
+
                                 start: then,
                                 end: then,
-                                parent: {
-                                    title: 'NASA @ My Library'
-                                },
-                                description: "This event has been engineered to review the principles of space travel, with an emphasis on the 50th anniversary of the landing of the first human on the Moon during NASA's Apollo 11 mission. It also highlights the Apollo mission spinoffs that Earthlings have gained from research into space exploration."
-                            },
-                            {
+                                parent: new Event({
+                                    info: {
+                                        en: {
+                                            title: 'NASA @ My Library'
+                                        },
+                                        es: {
+                                            title: 'NASA @ Mi Biblioteca'
+                                        }
+                                    }
+                                }),
+                            }),
+                            new Event({
                                 id: 2,
+                                info: {
+                                    en: {
+                                        description: 'Brass Roots Movement brings New Orleans jazz to Music In The Park. Music, food, beer & wine, fun for the kids.'
+                                    },
+                                    es: {
+
+                                    }
+                                },
                                 title: 'Brass Roots Movement',
-                                parent: {
-                                    title: 'Monmouth Music in the Park Series'
+                                parent: new Event({
+                                    info: {
+                                        en: {
+                                            title: 'Monmouth Music in the Park Series'
+                                        },
+                                        es: {
+
+                                        }
+                                    },
+                                }),
+                                start: now,
+                                end: now,
+                            }),
+                            new Event({
+                                id: 3,
+                                info: {
+                                    en: {
+                                        title: 'Pop-up Puppet Theater Workshop',
+                                        description: 'Bring your own snowy story to life in this fun workshop. Using art materials, participants will learn how to create their own paper puppets and table-top scenery inspired by the colorful pop-up book art of The Snowflake Man. Space is limited. Sign up 5:30-6:30 pm the day of the event.'
+                                    },
+                                    es: {
+
+                                    }
                                 },
                                 start: now,
                                 end: now,
-                                description: 'Brass Roots Movement brings New Orleans jazz to Music In The Park. Music, food, beer & wine, fun for the kids.'
-                            },
-                            {
-                                id: 3,
-                                title: 'Pop-up Puppet Theater Workshop',
-                                start: now,
-                                end: now,
-                                description: 'Bring your own snowy story to life in this fun workshop. Using art materials, participants will learn how to create their own paper puppets and table-top scenery inspired by the colorful pop-up book art of The Snowflake Man. Space is limited. Sign up 5:30-6:30 pm the day of the event.'
-                            }
+                            })
                         ]
-
                     }
                 ]
             };
