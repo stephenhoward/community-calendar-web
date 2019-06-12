@@ -9,7 +9,6 @@ window.app = new Vue({
         routes   : require('./lib/router.js').routes
     }),
     i18n   : new VueI18n({
-        messages : require('./lib/i18n.js').messages,
         locale   : 'en'
     }),
 });

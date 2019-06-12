@@ -1,0 +1,24 @@
+
+$light-mode-background: #fff;
+$dark-mode-background: #000;
+$light-mode-text: #000;
+$dark-mode-text: #eee;
+
+@mixin flexible-container {
+    display: flex;
+    justify-content: space-between;
+}
+@mixin hstack {
+    @include flexible-container;
+    flex-direction: row;
+}
+@mixin vstack {
+    @include flexible-container;
+    flex-direction: column;
+}
+@mixin flexible {
+    flex: 1 1 auto;
+}
+@mixin inflexible {
+    flex: 0 0 auto;
+}

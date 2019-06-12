@@ -1,22 +1,46 @@
 <style lang="sass">
 section.events {
 
+    @import 'app/scss/_mixins.scss';
+
     div.event {
         border: 1px solid #aaa;
         border-top-color: #ddd;
         border-left-color: #ddd;
-        background-color: #fff;
+        background-color: $light-mode-background;
+        @media (prefers-color-scheme: dark) {
+            background-color: $dark-mode-background;
+        }
         margin: 15px 0;
         padding: 10px;
         box-shadow: 2px 2px 5px rgba(100,100,100,.3);
+        @media (prefers-color-scheme: dark) {
+            box-shadow: 2px 2px 5px rgba(0,0,0,.3);
+            background-color: #222;
+            border-color: #000;
+            border-top-color: #444;
+            border-left-color: #444;
+        }
 
         &.past {
+            @media (prefers-color-scheme: dark) {
+                background-color: transparent;
+            }
             font-size: 14pt;
             opacity: .7;
             border: none;
             box-shadow: none;
             h3 {
                 font-size: 14pt;
+            }
+            @media (min-width: 550px) {
+                div.info {
+                    @include hstack;
+                    align-items: baseline;
+                    h3 {
+                        @include flexible;
+                    }
+                }
             }
         }
         h3 {
@@ -32,11 +56,11 @@ section.events {
         }
 
         div.event-body {
-            display: flex;
-            flex-direction: row;
-            justify-content: space-between;
+            cursor: pointer;
+            @include hstack;
+
             div.info {
-                flex: 1 1 auto;
+                @include flexible;
                 order: 1;
 
                 div.description {
@@ -44,26 +68,29 @@ section.events {
                 }
             }
             img {
-                flex: 0 0 auto;
+                @include inflexible;
                 order: 2;
                 height: 100px;
                 width: 100px;
                 border: 1px solid #eee;
                 margin-left: 15px;
+                @media (min-width: 550px) {
+                    height: 200px;
+                    width: 200px;
+                }
             }
         }
 
         ul.event-footer {
             list-style-type: none;
-            display: flex;
-            align-items: baseline;
+            @include hstack;
             margin: 0;
             padding: 10px 0 0 0;
 
             li {
                 margin: 0;
                 padding: 0;
-                flex: 1 1 auto;
+                @include flexible;
             }
         }
     }
@@ -71,23 +98,23 @@ section.events {
 </style>
 
 <template>
-    <div class="event">
-        <div class="event-body">
+    <div v-bind:class="'event' + ( event.end.isBefore(now) ? ' past' : '')">
+        <router-link :to="'/events/' + event.id" class="event-body" tag="div">
             <div class="info">
                 <h3>
                     {{ event.title }}
                     <div v-if="event.parent" class="parent-event">{{ event.parent.title }}</div>
                 </h3>
                 <div v-if="event.end.isBefore(now)" class="datetime">{{ event.start.format('h:mma') }}</div>
-                <div class="description">
+                <div v-if="event.end.isSameOrAfter(now)" class="description">
                   {{ event.description }}
                 </div>
             </div>
-            <img src="">
-        </div>
+            <img v-if="event.end.isSameOrAfter(now)" src="">
+        </router-link>
         <ul v-if="event.end.isSameOrAfter(now)" class="event-footer">
           <li class="datetime">
-            {{ model.start.format('h:mma') }}
+            {{ event.start.format('h:mma') }}
           </li>
         </ul>
     </div>
@@ -96,6 +123,6 @@ section.events {
 <script>
 
     module.exports = {
-        props: ['event'],
+        props: ['event','now'],
     }
 </script>

@@ -52,12 +52,35 @@
 <template>
     <div class="root">
         <nav>
-            <li><router-link to="/">Happening Today</router-link></li>
-            <li><router-link to="/this-week">Events This Week</router-link></li>
-            <li><router-link to="/events">Search Events</router-link></li>
-            <li><router-link to="/submit-events">Submit an Event</router-link></li>
-            <li><router-link to="/login">Log In</router-link></li>        
+            <li><router-link to="/">{{ $t('happening_today') }}</router-link></li>
+            <li><router-link to="/this-week">{{ $t('this_week') }}</router-link></li>
+            <li><router-link to="/events">{{ $t('search') }}</router-link></li>
+            <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
+            <li><router-link to="/login">{{ $t('login') }}</router-link></li>
         </nav>
         <router-view></router-view>
     </div>
 </template>
+
+<script>
+    module.exports = {
+        i18n: {
+            messages: {
+                "en": {
+                    "happening_today": "Happening Today",
+                    "this_week": "Events This Week",
+                    "search": "Search Events",
+                    "add_event": "Submit an Event",
+                    "login": "Log In"
+                },
+                "es": {
+                    "happening_today": "Pasando Hoy",
+                    "this_week": "Eventos Esta Semana",
+                    "search": "Buscar Eventos",
+                    "add_event": "Enviar un Evento",
+                    "login": "Iniciar sesión"
+                }
+            },
+        }
+    };
+</script>
