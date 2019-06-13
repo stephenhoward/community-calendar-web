@@ -6,7 +6,25 @@ let App       = require('./vues/app.vue');
 console.log();
 
 window.i18n = new VueI18n({
-    locale   : navigator.language.substring(0,2) || 'en'
+    locale   : navigator.language.substring(0,2) || 'en',
+    dateTimeFormats: {
+        en: {
+            time: {
+                hour: 'numeric', minute: 'numeric', hour12: true
+            },
+            short: {
+                month: 'short', day: 'numeric'
+            }
+        },
+        es: {
+            time: {
+                hour: 'numeric', minute: 'numeric', hour12: true
+            },
+            short: {
+                month: 'short', day: 'numeric'
+            }
+        }
+    }
 });
 
 window.app = new Vue({

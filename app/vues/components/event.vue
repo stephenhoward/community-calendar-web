@@ -105,7 +105,7 @@ section.events {
                     {{ event.get('title') }}
                     <div v-if="event.parent" class="parent-event">{{ event.parent.get('title') }}</div>
                 </h3>
-                <div v-if="event.end.isBefore(now)" class="datetime">{{ event.start.format('h:mma') }}</div>
+                <div v-if="event.end.isBefore(now)" class="datetime">{{ $d( event.start.toDate(), 'time' ) }}</div>
                 <div v-if="event.end.isSameOrAfter(now)" class="description">
                   {{ event.get('description') }}
                 </div>
@@ -114,7 +114,7 @@ section.events {
         </router-link>
         <ul v-if="event.end.isSameOrAfter(now)" class="event-footer">
           <li class="datetime">
-            {{ event.start.format('h:mma') }}
+            {{ $d( event.start.toDate(), 'time' ) }}
           </li>
         </ul>
     </div>

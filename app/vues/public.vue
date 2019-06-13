@@ -57,6 +57,11 @@
             <li><router-link to="/events">{{ $t('search') }}</router-link></li>
             <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
             <li><router-link to="/login">{{ $t('login') }}</router-link></li>
+            <li>
+                <select v-model="$root.$i18n.locale">
+                <option v-for="(lang,i) in langs" :selected="$root.$i18n.locale == lang ? true : false" :value="lang">{{ lang }}</option>
+                </select>
+            </li>
         </nav>
         <router-view></router-view>
     </div>
@@ -64,6 +69,11 @@
 
 <script>
     module.exports = {
+        data: () => {
+            return {
+                langs: ['en','es']
+            };
+        },
         i18n: {
             messages: {
                 "en": {

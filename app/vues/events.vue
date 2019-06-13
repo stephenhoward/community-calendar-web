@@ -19,11 +19,11 @@
 <template>
     <div>
         <header>
-            <h2>{{ this.title }}</h2>
+            <h2>{{ $t('title') }}</h2>
         </header>
         <main>
             <section v-for="day in days" class="events">
-                <h3 v-if="day.date">{{ day.date.format('MMM D') }}</h3>
+                <h3 v-if="day.date">{{ $d( day.date.toDate(), 'short' ) }}</h3>
                 <event
                     v-for="event in day.events"
                     v-bind:event="event"
@@ -42,14 +42,23 @@
     let Event = require('lib/model/event');
 
     module.exports = {
+        i18n: {
+            messages: {
+                en: {
+                    title: 'This Week'
+                },
+                es: {
+                    title: 'Esta Semana'
+                }
+            }
+        },
         data : () => {
 
             return {
-                title: 'This Week',
                 now: now,
                 days: [
                     {
-                        date: now,
+                        date: moment('2019/01/05', 'YYYY/MM/DD' ),
                         events: [
                             new Event({
                                 id: 1,
@@ -94,7 +103,7 @@
                                             title: 'Monmouth Music in the Park Series'
                                         },
                                         es: {
-
+                                            title: 'Musica en el parque'
                                         }
                                     },
                                 }),
