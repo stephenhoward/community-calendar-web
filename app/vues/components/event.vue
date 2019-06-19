@@ -40,6 +40,9 @@ section.events {
                     h3 {
                         @include flexible;
                     }
+                    div.datetime {
+                        margin-left: 10px;
+                    }
                 }
             }
         }
