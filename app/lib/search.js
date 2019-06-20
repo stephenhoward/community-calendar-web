@@ -8,7 +8,7 @@ function search(params) {
 
         axios.get( '/v1/events', {
             repsonseType: 'json',
-            query: params
+            params: params
         })
             .then( (response) => {
                 let json                = response.data;

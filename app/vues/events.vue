@@ -19,7 +19,9 @@
 <template>
     <div>
         <header>
-            <h2>{{ $t('title') }}</h2>
+            <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
+            <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
+            <h2 v-else>{{ $t('search_title') }}</h2>
         </header>
         <main>
             <section v-for="day in days" class="events">
@@ -38,34 +40,67 @@
 <script>
     let moment = require('moment');
     let search = require('lib/search');
-    let now    = moment();
 
     module.exports = {
         i18n: {
             messages: {
                 en: {
-                    title: 'This Week'
+                    today_title:  'Today',
+                    week_title:   'This Week',
+                    search_title: 'Search'
                 },
                 es: {
-                    title: 'Esta Semana'
+                    today_title:  'Hoy',
+                    week_title:   'Esta Semana',
+                    search_title: 'Búsqueda'
                 }
             }
         },
-        data : () => {
+        data : function() {
 
             return {
-                now: now,
-                days: []
+                title: '',
+                now:   moment(),
+                days:  []
             };
         },
+        watch: {
+            '$route': function(to, from) {
+                this.initData(to.name);
+            }
+        },
         created: function() {
-            this.fetchData();
+            this.initData(this.$route.name);
         },
         methods: {
 
-            fetchData: function() {
-                let self = this
-                search({}).then( json => self.days = json );
+            initData: function(name) {
+                switch( name ) {
+                    case 'today':
+                        this.title  = 'today_title';
+                        this.fetchData({
+                            from: moment().format('YYYY-MM-DD'),
+                            to:   moment().format('YYYY-MM-DD')
+                        });
+                        break;
+                    case 'this-week':
+                        this.title  = 'week_title';
+                        this.fetchData({
+                            from: moment().format('YYYY-MM-DD'),
+                            to:   moment().endOf('week').format('YYYY-MM-DD')
+                        });
+                        break;
+                    default:
+                        this.title = 'search_title';
+                        this.fetchData({
+                            from: moment().format('YYYY-MM-DD'),
+                            to:   moment().add( 30, 'days' )
+                        });
+                }
+            },
+            fetchData: function(params) {
+                let self = this;
+                search(params).then( json => self.days = json );
             }
         },
         components: {
