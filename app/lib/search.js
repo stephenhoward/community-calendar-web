@@ -2,9 +2,15 @@ const axios  = require('axios');
 const moment = require('moment');
 const Event  = require('lib/model/event');
 
+let current_query = {};
+
 function search(params) {
 
     return new Promise( ( resolve, reject ) => {
+
+        for ( let key in params ) {
+            current_query[key] = params[key];
+        }
 
         axios.get( '/v1/events', {
             repsonseType: 'json',
@@ -177,11 +183,15 @@ function search(params) {
             })
             .catch( (error) => {
                 console.log(error);
-                reject(error)
+                reject(error);
                 // TODO
             });
 
     });
 }
 
-module.exports = search;
+module.exports = {
+
+    search: search,
+    current_query: current_query
+};

@@ -34,14 +34,19 @@
                 </event>
             </section>
         </main>
+        <search-filter></search-filter>
     </div>
 </template>
 
 <script>
     let moment = require('moment');
-    let search = require('lib/search');
+    let search = require('lib/search').search;
 
     module.exports = {
+        components: {
+            'event':         require('./components/event.vue'),
+            'search-filter': require('./components/filter.vue')
+        },
         i18n: {
             messages: {
                 en: {
@@ -94,17 +99,20 @@
                         this.title = 'search_title';
                         this.fetchData({
                             from: moment().format('YYYY-MM-DD'),
-                            to:   moment().add( 30, 'days' )
+                            to:   moment().add( 30, 'days' ).format('YYYY-MM-DD')
                         });
                 }
             },
             fetchData: function(params) {
                 let self = this;
                 search(params).then( json => self.days = json );
+            },
+            toggleFilters: function() {
+                console.log('clicked');
+                console.log(this.filterExpanded);
+                this.filterExpanded = ! this.filterExpanded;
+                console.log(this.filterExpanded);
             }
-        },
-        components: {
-            event: require('./components/event.vue')
         }
     };
 </script>
