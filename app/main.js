@@ -14,6 +14,15 @@ window.i18n = new VueI18n({
             },
             short: {
                 month: 'short', day: 'numeric'
+            },
+            'month': {
+                month: 'long'
+            },
+            'month-year': {
+                month: 'long', year: 'numeric'
+            },
+            'assist': {
+                weekday: 'long', month: 'long', day: 'numeric'
             }
         },
         es: {
@@ -22,6 +31,15 @@ window.i18n = new VueI18n({
             },
             short: {
                 month: 'short', day: 'numeric'
+            },
+            'month': {
+                month: 'long'
+            },
+            'month-year': {
+                month: 'long', year: 'numeric'
+            },
+            'assist': {
+                weekday: 'long', month: 'long', day: 'numeric'
             }
         }
     }

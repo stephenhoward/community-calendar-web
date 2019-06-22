@@ -52,6 +52,7 @@
             <label>End Date   <input type="date" v-model="current_query.to" /></label>
             <label>Categories</label>
             <label>Age Range</label>
+            <calendar :selected_date="current_query.from"></calendar>
             <button type="button">Filter</button>
         </form>
     </footer>
@@ -60,8 +61,12 @@
 <script>
     let moment = require('moment');
     let current_query = require('lib/search').current_query;
+    let calendar = require('./calendar.vue');
 
     module.exports = {
+        components: {
+            calendar
+        },
         i18n: {
             messages: {
                 en: {
