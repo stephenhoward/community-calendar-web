@@ -92,7 +92,7 @@
                         this.title  = 'week_title';
                         this.fetchData({
                             from: moment().format('YYYY-MM-DD'),
-                            to:   moment().endOf('week').format('YYYY-MM-DD')
+                            to:   moment().day(7).format('YYYY-MM-DD')
                         });
                         break;
                     default:
