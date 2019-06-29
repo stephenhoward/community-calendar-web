@@ -48,21 +48,29 @@ div.calendar {
 </style>
 
 <template>
-    <div aria-role="lisbox" aria-labelledby="" class="calendar">
+    <div
+        aria-role="lisbox"
+        tabindex="-1"
+        aria-labelledby=""
+        class="calendar"
+        @keyup="navigateCalendar($event)"
+    >
+        <button type="button" @click="$emit('close')">close</button>
         <div class="header">
             <h4 v-if="current_month.isSame(today,'year')">{{ $d( month, 'month' ) }}</h4>
             <h4 v-else>{{ $d( month, 'month-year' ) }}</h4>
-            <button type="button" class="prev" v-on:click="previousMonth">prev</button>
-            <button type="button" class="next" v-on:click="nextMonth">next</button>
+            <button type="button" class="prev" @click="previousMonth">prev</button>
+            <button type="button" class="next" @click="nextMonth">next</button>
         </div>
         <div aria-role="option"
             class="day"
+            v-for="day in days"
             :class="{
                 today: day.isSame(today)                 ? true  : false,
                 skip:  day.isSame(current_month,'month') ? false : true,
                 selected: day.isSame(selected)           ? true  : false
             }"
-            v-for="day in days"
+            @click="$emit('close',day)"
         >{{ day.isSame(current_month,'month') ? day.date() : '' }}</div>
     </div>
 </template>
@@ -87,7 +95,10 @@ div.calendar {
         },
         created: function() {
             this.current_month = moment().startOf('month');
-            this.buildMonth()
+            this.buildMonth();
+        },
+        mounted: function() {
+            this.$el.focus();
         },
         methods: {
             buildMonth() {
@@ -111,6 +122,46 @@ div.calendar {
             nextMonth: function() {
                 this.current_month = moment(this.current_month).add(1,'months');
                 this.buildMonth();
+            },
+            navigateCalendar($event) {
+                console.log($event);
+                switch( $event.key ) {
+                    case 'Escape':
+                        this.$emit('close');
+                        break;
+                    case 'ArrowUp':
+                        this.selected.subtract(7,'days');
+                        break;
+                    case 'ArrowDown':
+                        this.selected.add(7,'days');
+                        break;
+                    case 'ArrowLeft':
+                        this.selected.subtract(1,'days');
+                        break;
+                    case 'ArrowRight':
+                        this.selected.add(1,'days');
+                        break;
+                    case 'PageUp':
+                        this.selected.subtract(1,'months');
+                        break;
+                    case 'PageDown':
+                        this.selected.add(1,'months');
+                        break;
+                    case 'Home':
+                        this.selected.startOf('week');
+                        break;
+                    case 'End':
+                        this.selected.endOf('week');
+                        break;
+                    case 'Enter':
+                        this.$emit('close',this.selected);
+                        break;
+                }
+                if ( ! this.current_month.isSame( moment(this.selected).startOf('month') ) ) {
+                    this.current_month = moment( this.selected ).startOf('month');
+                }
+                this.buildMonth();
+                $event.stopPropagation();
             }
         }
     };

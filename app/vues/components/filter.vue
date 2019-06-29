@@ -48,11 +48,11 @@
     <footer v-bind:class="{ expanded: filterExpanded }">
         <h3 v-on:click="toggleFilters">Filter</h3>
         <form>
-            <label>Start Date <input type="date" v-model="current_query.from" /></label>
-            <label>End Date   <input type="date" v-model="current_query.to" /></label>
+            <label>Start Date <button @click="showCalendar=true" type="button">{{ current_query.from }}</button></label>
+            <label>End Date   <button @click="showCalendar=true" type="button">{{ current_query.to   }}</button></label>
             <label>Categories</label>
             <label>Age Range</label>
-            <calendar :selected_date="current_query.from"></calendar>
+            <calendar v-if="showCalendar" :selected_date="current_query.from" @close="hideCalendar" ref="datepicker" ></calendar>
             <button type="button">Filter</button>
         </form>
     </footer>
@@ -88,13 +88,20 @@
                 title: '',
                 now:   moment(),
                 days:  [],
-                filterExpanded: false
+                filterExpanded: false,
+                showCalendar: false
             };
         },
         methods: {
 
             toggleFilters: function() {
                 this.filterExpanded = ! this.filterExpanded;
+            },
+            hideCalendar: function(day) {
+                if ( day ) {
+                    console.log( day );
+                }
+                this.showCalendar = false;
             }
         },
     };
