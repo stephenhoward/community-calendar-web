@@ -42,6 +42,7 @@ div.calendar {
         &.selected {
             font-weight: 700;
             background-color: red;
+            color: white;
         }
     }
 }

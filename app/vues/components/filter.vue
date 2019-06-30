@@ -48,11 +48,11 @@
     <footer v-bind:class="{ expanded: filterExpanded }">
         <h3 v-on:click="toggleFilters">Filter</h3>
         <form>
-            <label>Start Date <button @click="showCalendar=true" type="button">{{ current_query.from }}</button></label>
-            <label>End Date   <button @click="showCalendar=true" type="button">{{ current_query.to   }}</button></label>
+            <label>Start Date <button @click="loadCalendar('from')" type="button">{{ current_query.from }}</button></label>
+            <label>End Date   <button @click="loadCalendar('to')" type="button">{{ current_query.to   }}</button></label>
             <label>Categories</label>
             <label>Age Range</label>
-            <calendar v-if="showCalendar" :selected_date="current_query.from" @close="hideCalendar" ref="datepicker" ></calendar>
+            <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
             <button type="button">Filter</button>
         </form>
     </footer>
@@ -89,7 +89,8 @@
                 now:   moment(),
                 days:  [],
                 filterExpanded: false,
-                showCalendar: false
+                showCalendar: false,
+                calendarDate: moment()
             };
         },
         methods: {
@@ -97,12 +98,18 @@
             toggleFilters: function() {
                 this.filterExpanded = ! this.filterExpanded;
             },
+            loadCalendar: function(which) {
+                this.whichCalendarDate = which;
+                this.calendarDate = current_query[which];
+                this.showCalendar = true;
+            },
             hideCalendar: function(day) {
                 if ( day ) {
                     console.log( day );
+                    current_query[ this.whichCalendarDate ] = day.format('YYYY-MM-DD');
                 }
                 this.showCalendar = false;
             }
-        },
+        }
     };
 </script>
