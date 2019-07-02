@@ -11,7 +11,7 @@ div.calendar-wrapper {
     position: fixed;
     top: 0;
     left: 0;
-    background: rgba(0,0,0,.5);
+    background: rgba(0,0,0,.7);
 }
 div.calendar {
     padding: 5px;
@@ -20,12 +20,30 @@ div.calendar {
     max-width: 300px;
     justify-content: flex-start;
     background: #fff;
+    box-shadow: 3px 3px 5px rgba(0,0,0,.5);
+    @media (prefers-color-scheme: dark) {
+        background-color: $dark-mode-background;
+        color: $dark-mode-text;
+    }
 
+    button.nav {
+        font-size: 16pt;
+        width: 30px;
+        height: 30px;
+        text-align: center;
+        padding: 0;
+        background-color: transparent;
+    }
+    button.close {
+        font-size: 12pt;
+        border: none;
+    }
     div.header {
         text-align: center;
         width: 100%;
         margin-bottom: 8px;
         @include hstack;
+        align-items: baseline;
         h4 {
             @include flexible;
             order: 2;
@@ -69,12 +87,12 @@ div.calendar {
         class="calendar"
         @keyup="navigateCalendar($event)"
     >
-        <button tabindex="3" type="button" @click="$emit('close')">close</button>
+        <button :aria-label="$t('close_calendar')" tabindex="3" class="nav close icofont-ui-close" type="button" @click="$emit('close')"></button>
         <div class="header">
             <h4 v-if="current_month.isSame(today,'year')">{{ $d( month, 'month' ) }}</h4>
             <h4 v-else>{{ $d( month, 'month-year' ) }}</h4>
-            <button tabindex="1" type="button" class="prev" @click="previousMonth">prev</button>
-            <button tabindex="2" type="button" class="next" @click="nextMonth">next</button>
+            <button :aria-label="$t('previous_month')" tabindex="1" type="button" class="nav prev icofont-arrow-left" @click="previousMonth"></button>
+            <button :aria-label="$t('next_month')"     tabindex="2" type="button" class="nav next icofont-arrow-right" @click="nextMonth"></button>
         </div>
         <div aria-role="option"
             class="day"
@@ -116,6 +134,20 @@ div.calendar {
                 month:         null,
                 days:          [],
             };
+        },
+        i18n: {
+            messages: {
+                en: {
+                    next_month: 'next month',
+                    previous_month: 'previous month',
+                    close_calendar: 'close calendar'
+                },
+                es: {
+                    next_month: 'próximo mes',
+                    previous_month: 'mes anterior',
+                    close_calendar: 'cerrar calendario'
+                }
+            }
         },
         created: function() {
             this.current_month = moment(this.selected).startOf('month');

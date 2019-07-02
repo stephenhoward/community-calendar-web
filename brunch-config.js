@@ -1,8 +1,7 @@
 module.exports = {
     files: {
-        javascripts: {
-            joinTo: 'app.js'
-        }
+        javascripts: { joinTo: 'app.js' },
+        stylesheets: { joinTo: 'vendor.css' },
     },
     plugins: {
         vue: {
