@@ -2,12 +2,24 @@
 
 @import 'app/scss/_mixins.scss';
 
+div.calendar-wrapper {
+    width: 100%;
+    height: 100%;
+    @include hstack;
+    justify-content: center;
+    align-items: center;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: rgba(0,0,0,.5);
+}
 div.calendar {
     padding: 5px;
     @include hstack;
     flex-wrap: wrap;
     max-width: 300px;
     justify-content: flex-start;
+    background: #fff;
 
     div.header {
         text-align: center;
@@ -49,19 +61,20 @@ div.calendar {
 </style>
 
 <template>
+<div class="calendar-wrapper">
     <div
         aria-role="lisbox"
-        tabindex="-1"
+        tabindex="0"
         aria-labelledby=""
         class="calendar"
         @keyup="navigateCalendar($event)"
     >
-        <button type="button" @click="$emit('close')">close</button>
+        <button tabindex="3" type="button" @click="$emit('close')">close</button>
         <div class="header">
             <h4 v-if="current_month.isSame(today,'year')">{{ $d( month, 'month' ) }}</h4>
             <h4 v-else>{{ $d( month, 'month-year' ) }}</h4>
-            <button type="button" class="prev" @click="previousMonth">prev</button>
-            <button type="button" class="next" @click="nextMonth">next</button>
+            <button tabindex="1" type="button" class="prev" @click="previousMonth">prev</button>
+            <button tabindex="2" type="button" class="next" @click="nextMonth">next</button>
         </div>
         <div aria-role="option"
             class="day"
@@ -74,10 +87,20 @@ div.calendar {
             @click="$emit('close',day)"
         >{{ day.isSame(current_month,'month') ? day.date() : '' }}</div>
     </div>
+</div>
 </template>
 
 <script>
     let moment = require('moment');
+
+    let calendar_is_active      = false;
+    let cancel_window_scrolling = function(e) {
+        // space and arrow keys
+        if( calendar_is_active && [32, 37, 38, 39, 40].indexOf(e.keyCode) > -1) {
+            e.preventDefault();
+        }
+    }
+    window.addEventListener("keydown", cancel_window_scrolling, false );
 
     module.exports = {
         props: [ 'selected_date' ],
@@ -87,7 +110,7 @@ div.calendar {
             let today = moment().startOf('day');
 
             return {
-                selected: moment(this.selected_date,'YYYY-MM-DD'),
+                selected: this.selected_date,
                 today: today,
                 current_month: null,
                 month:         null,
@@ -95,11 +118,15 @@ div.calendar {
             };
         },
         created: function() {
-            this.current_month = moment().startOf('month');
+            this.current_month = moment(this.selected).startOf('month');
             this.buildMonth();
         },
         mounted: function() {
-            this.$el.focus();
+            this.$el.firstChild.focus();
+            calendar_is_active = true;
+        },
+        beforeDestroy: function() {
+            calendar_is_active = false;
         },
         methods: {
             buildMonth() {
@@ -125,7 +152,6 @@ div.calendar {
                 this.buildMonth();
             },
             navigateCalendar($event) {
-                console.log($event);
                 switch( $event.key ) {
                     case 'Escape':
                         this.$emit('close');
@@ -162,7 +188,6 @@ div.calendar {
                     this.current_month = moment( this.selected ).startOf('month');
                 }
                 this.buildMonth();
-                $event.stopPropagation();
             }
         }
     };

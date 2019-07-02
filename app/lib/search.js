@@ -12,6 +12,12 @@ function search(params) {
             current_query[key] = params[key];
         }
 
+        for ( let date of [ 'from','to' ] ) {
+            if ( params[date] ) {
+                params[date] = params[date].format('YYYY-MM-DD');
+            }
+        }
+
         axios.get( '/v1/events', {
             repsonseType: 'json',
             params: params

@@ -26,6 +26,8 @@
             display: block;
             padding: 15px;
             background-color: rgba(255,255,255,.9);
+            box-shadow: 0px -2px 5px rgba(0,0,0,.2);
+
             @media (prefers-color-scheme: dark) {
                 background-color: rgba(34,34,34,.9);
             }
@@ -35,6 +37,7 @@
                 border-radius: 0;
                 background-color: transparent;
                 margin: 0 0 15px 0;
+                box-shadow: none;
             }
             form {
                 display: block;
@@ -45,17 +48,22 @@
 </style>
 
 <template>
+<div class="filter-component">
     <footer v-bind:class="{ expanded: filterExpanded }">
-        <h3 v-on:click="toggleFilters">Filter</h3>
+        <h3 v-on:click="toggleFilters">{{ $t('filter') }}</h3>
         <form>
-            <label>Start Date <button @click="loadCalendar('from')" type="button">{{ current_query.from }}</button></label>
-            <label>End Date   <button @click="loadCalendar('to')" type="button">{{ current_query.to   }}</button></label>
+            <fieldset>
+                <legend>{{ $t('date_range') }}:</legend>
+                <label>{{ $t('from') }} <button @click="loadCalendar('from')" type="button">{{ $d( from, 'long' ) }}</button></label>
+                <label>{{ $t('to')   }} <button @click="loadCalendar('to')" type="button">{{ $d( to, 'long' ) }}</button></label>
+            </fieldset>
             <label>Categories</label>
             <label>Age Range</label>
-            <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
-            <button type="button">Filter</button>
+            <button type="button">{{ $t('filter') }}</button>
         </form>
     </footer>
+    <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
+</div>
 </template>
 
 <script>
@@ -70,24 +78,25 @@
         i18n: {
             messages: {
                 en: {
-                    today_title:  'Today',
-                    week_title:   'This Week',
-                    search_title: 'Search'
+                    date_range: 'date range',
+                    from:       'from',
+                    to:         'to',
+                    filter:     'filter'
                 },
                 es: {
-                    today_title:  'Hoy',
-                    week_title:   'Esta Semana',
-                    search_title: 'Búsqueda'
+                    date_range: 'dias',
+                    from:       'de',
+                    to:         'a',
+                    filter:     'filtrar'
                 }
             }
         },
         data : function() {
 
             return {
-                current_query: current_query,
-                title: '',
                 now:   moment(),
-                days:  [],
+                from: moment().toDate(),
+                to: moment().toDate(),
                 filterExpanded: false,
                 showCalendar: false,
                 calendarDate: moment()
@@ -105,8 +114,8 @@
             },
             hideCalendar: function(day) {
                 if ( day ) {
-                    console.log( day );
-                    current_query[ this.whichCalendarDate ] = day.format('YYYY-MM-DD');
+                    current_query[ this.whichCalendarDate ] = day;
+                    this[ this.whichCalendarDate ] = day.toDate();
                 }
                 this.showCalendar = false;
             }

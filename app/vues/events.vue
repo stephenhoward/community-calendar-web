@@ -84,22 +84,22 @@
                     case 'today':
                         this.title  = 'today_title';
                         this.fetchData({
-                            from: moment().format('YYYY-MM-DD'),
-                            to:   moment().format('YYYY-MM-DD')
+                            from: moment(),
+                            to:   moment()
                         });
                         break;
                     case 'this-week':
                         this.title  = 'week_title';
                         this.fetchData({
-                            from: moment().format('YYYY-MM-DD'),
-                            to:   moment().day(7).format('YYYY-MM-DD')
+                            from: moment(),
+                            to:   moment().day(7)
                         });
                         break;
                     default:
                         this.title = 'search_title';
                         this.fetchData({
-                            from: moment().format('YYYY-MM-DD'),
-                            to:   moment().add( 30, 'days' ).format('YYYY-MM-DD')
+                            from: moment(),
+                            to:   moment().add( 30, 'days' )
                         });
                 }
             },
@@ -108,10 +108,7 @@
                 search(params).then( json => self.days = json );
             },
             toggleFilters: function() {
-                console.log('clicked');
-                console.log(this.filterExpanded);
                 this.filterExpanded = ! this.filterExpanded;
-                console.log(this.filterExpanded);
             }
         }
     };

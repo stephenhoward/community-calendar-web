@@ -3,8 +3,6 @@ let VueRouter = require('vue-router');
 let VueI18n   = require('vue-i18n');
 let App       = require('./vues/app.vue');
 
-console.log();
-
 window.i18n = new VueI18n({
     locale   : navigator.language.substring(0,2) || 'en',
     dateTimeFormats: {
@@ -14,6 +12,9 @@ window.i18n = new VueI18n({
             },
             short: {
                 month: 'short', day: 'numeric'
+            },
+            'long': {
+                month: 'long', day: 'numeric',
             },
             'month': {
                 month: 'long'
@@ -31,6 +32,9 @@ window.i18n = new VueI18n({
             },
             short: {
                 month: 'short', day: 'numeric'
+            },
+            'long': {
+                month: 'long', day: 'numeric',
             },
             'month': {
                 month: 'long'
