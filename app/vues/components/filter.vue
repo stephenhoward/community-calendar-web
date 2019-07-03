@@ -26,6 +26,31 @@
         form,h3 {
             display: none;
         }
+        fieldset {
+            border: none;
+            padding: 0 0 0 10px;
+            margin: 10px 0;
+            legend {
+                padding: 0;
+                margin: 0 0 5px -10px;
+            }
+            label {
+                font-size: 10pt;
+                button {
+                    font-size: 10pt;
+                    border: 1px dashed $light-mode-border;
+                    border-radius: 1px;
+                    background: transparent;
+                    color: $light-mode-text;
+                    cursor: pointer;
+                    @media (prefers-color-scheme: dark ) {
+                        color: $dark-mode-text;
+                        border-color: $dark-mode-border;
+
+                    }
+                }
+            }
+        }
         &.expanded {
             display: block;
             padding: 15px;
@@ -82,13 +107,13 @@
             <button type="button" :aria-label=" filterExpanded ? $t('close_button') : $t('filter_button')" @click="toggleFilters" id="filter-toggle" class="icofont-search-1"></button>
         </div>
         <form>
-            <fieldset>
+            <fieldset class="dates">
                 <legend>{{ $t('date_range') }}:</legend>
                 <label>{{ $t('from') }} <button @click="loadCalendar('from')" type="button">{{ $d( from, 'long' ) }}</button></label>
                 <label>{{ $t('to')   }} <button @click="loadCalendar('to')" type="button">{{ $d( to, 'long' ) }}</button></label>
             </fieldset>
-            <label>Categories</label>
-            <label>Age Range</label>
+            <fieldset><legend>{{ $t('categories') }}</legend></fieldset>
+            <fieldset><legend>{{ $t('ages') }}</legend></fieldset>
             <button type="button">{{ $t('filter') }}</button>
         </form>
     </footer>
@@ -108,7 +133,9 @@
         i18n: {
             messages: {
                 en: {
-                    date_range: 'date range',
+                    date_range: 'Date Range',
+                    categories: 'Categories',
+                    ages:       'Ages',
                     from:       'from',
                     to:         'to',
                     filter:     'filter events',
@@ -116,7 +143,9 @@
                     close_button: 'hide filters'
                 },
                 es: {
-                    date_range: 'dias',
+                    date_range: 'Dias',
+                    categories: 'Las Categorías',
+                    ages:       'Rango de edad',
                     from:       'de',
                     to:         'a',
                     filter:     'filtrar eventos',
