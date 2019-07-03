@@ -9,9 +9,12 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        h3 {
+        div.filter-toggle {
             height: 40px;
             width: 40px;
+            font-size: 16pt;
+            padding: 8px;
+            color: #fff;
             border-radius: 21px;
             background-color: red;
             margin: 0 42px 42px 0;
@@ -19,7 +22,7 @@
             overflow: hidden;
             cursor: pointer;
         }
-        form {
+        form,h3 {
             display: none;
         }
         &.expanded {
@@ -31,15 +34,14 @@
             @media (prefers-color-scheme: dark) {
                 background-color: rgba(34,34,34,.9);
             }
-            h3 {
-                width: auto;
-                height: auto;
-                border-radius: 0;
+            div.filter-toggle {
                 background-color: transparent;
-                margin: 0 0 15px 0;
                 box-shadow: none;
             }
-            form {
+            h3 {
+                margin: 0 0 15px 0;
+            }
+            form,h3 {
                 display: block;
             }
         }
@@ -50,7 +52,8 @@
 <template>
 <div class="filter-component">
     <footer v-bind:class="{ expanded: filterExpanded }">
-        <h3 v-on:click="toggleFilters">{{ $t('filter') }}</h3>
+        <div :aria-label="$t('filter_button')" @click="toggleFilters" class="filter-toggle icofont-search-1"></div>
+        <h3>{{ $t('filter') }}</h3>
         <form>
             <fieldset>
                 <legend>{{ $t('date_range') }}:</legend>
@@ -81,13 +84,15 @@
                     date_range: 'date range',
                     from:       'from',
                     to:         'to',
-                    filter:     'filter'
+                    filter:     'filter events',
+                    filter_button: 'filter events'
                 },
                 es: {
                     date_range: 'dias',
                     from:       'de',
                     to:         'a',
-                    filter:     'filtrar'
+                    filter:     'filtrar eventos',
+                    filter_button: 'filter events'
                 }
             }
         },
@@ -95,8 +100,8 @@
 
             return {
                 now:   moment(),
-                from: moment().toDate(),
-                to: moment().toDate(),
+                from: current_query.from.toDate(),
+                to: current_query.to.toDate(),
                 filterExpanded: false,
                 showCalendar: false,
                 calendarDate: moment()

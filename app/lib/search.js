@@ -14,7 +14,8 @@ function search(params) {
 
         for ( let date of [ 'from','to' ] ) {
             if ( params[date] ) {
-                params[date] = params[date].format('YYYY-MM-DD');
+                current_query[date] = params[date].startOf('day');
+                params[date]        = params[date].format('YYYY-MM-DD');
             }
         }
 

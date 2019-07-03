@@ -12,6 +12,9 @@ div.calendar-wrapper {
     top: 0;
     left: 0;
     background: rgba(0,0,0,.7);
+    @media (prefers-color-scheme: dark) {
+        background: rgba(0,0,0,.9);
+    }
 }
 div.calendar {
     padding: 5px;
@@ -24,6 +27,9 @@ div.calendar {
     @media (prefers-color-scheme: dark) {
         background-color: $dark-mode-background;
         color: $dark-mode-text;
+        button.nav {
+            color: $dark-mode-text;
+        }
     }
 
     button.nav {
@@ -33,6 +39,7 @@ div.calendar {
         text-align: center;
         padding: 0;
         background-color: transparent;
+        border: none;
     }
     button.close {
         font-size: 12pt;
@@ -44,9 +51,14 @@ div.calendar {
         margin-bottom: 8px;
         @include hstack;
         align-items: baseline;
+        background: #eee;
+        @media (prefers-color-scheme: dark) {
+            background: #555;
+        }
         h4 {
             @include flexible;
             order: 2;
+            margin: 0;
         }
         button.prev {
             order: 1;
@@ -79,7 +91,7 @@ div.calendar {
 </style>
 
 <template>
-<div class="calendar-wrapper">
+<div class="calendar-wrapper" @click="$emit('close')">
     <div
         aria-role="lisbox"
         tabindex="0"
@@ -87,8 +99,7 @@ div.calendar {
         class="calendar"
         @keyup="navigateCalendar($event)"
     >
-        <button :aria-label="$t('close_calendar')" tabindex="3" class="nav close icofont-ui-close" type="button" @click="$emit('close')"></button>
-        <div class="header">
+        <div class="header" @click.stop="">
             <h4 v-if="current_month.isSame(today,'year')">{{ $d( month, 'month' ) }}</h4>
             <h4 v-else>{{ $d( month, 'month-year' ) }}</h4>
             <button :aria-label="$t('previous_month')" tabindex="1" type="button" class="nav prev icofont-arrow-left" @click="previousMonth"></button>
@@ -102,7 +113,7 @@ div.calendar {
                 skip:  day.isSame(current_month,'month') ? false : true,
                 selected: day.isSame(selected)           ? true  : false
             }"
-            @click="$emit('close',day)"
+            @click.stop="$emit('close',day)"
         >{{ day.isSame(current_month,'month') ? day.date() : '' }}</div>
     </div>
 </div>
@@ -138,14 +149,14 @@ div.calendar {
         i18n: {
             messages: {
                 en: {
-                    next_month: 'next month',
-                    previous_month: 'previous month',
-                    close_calendar: 'close calendar'
+                    next_month: 'next month (page down)',
+                    previous_month: 'previous month (page up)',
+                    close_calendar: 'close calendar (escape)'
                 },
                 es: {
-                    next_month: 'próximo mes',
-                    previous_month: 'mes anterior',
-                    close_calendar: 'cerrar calendario'
+                    next_month: 'próximo mes (página abajo)',
+                    previous_month: 'mes anterior (página arriba)',
+                    close_calendar: 'cerrar calendario (escapar)'
                 }
             }
         },
