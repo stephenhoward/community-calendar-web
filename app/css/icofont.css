@@ -58,11 +58,6 @@ url("./fonts/icofont.woff") format("woff");
   content: "\ef50";
 }
 
-.icofont-ui-close:before
-{
-  content: "\ec4f";
-}
-
 .icofont-ui-calendar:before
 {
   content: "\ec45";
@@ -101,6 +96,11 @@ url("./fonts/icofont.woff") format("woff");
 .icofont-phone:before
 {
   content: "\efbb";
+}
+
+.icofont-close:before
+{
+  content: "\eee4";
 }
 
 .icofont-xs

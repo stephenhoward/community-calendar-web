@@ -9,13 +9,14 @@
         bottom: 0;
         left: 0;
         width: 100%;
-        div.filter-toggle {
+        #filter-toggle {
             height: 40px;
             width: 40px;
             font-size: 16pt;
             padding: 8px;
             color: #fff;
             border-radius: 21px;
+            border: none;
             background-color: red;
             margin: 0 42px 42px 0;
             box-shadow: 3px 3px 5px rgba(0,0,0,.2);
@@ -34,12 +35,24 @@
             @media (prefers-color-scheme: dark) {
                 background-color: rgba(34,34,34,.9);
             }
-            div.filter-toggle {
-                background-color: transparent;
-                box-shadow: none;
-            }
-            h3 {
-                margin: 0 0 15px 0;
+            div.filter-header {
+                @include hstack;
+                align-items: baseline;
+                #filter-toggle {
+                    font-size: 14pt;
+                    @include inflexible;
+                    background-color: transparent;
+                    box-shadow: none;
+                    margin: 0;
+                    color: $light-mode-text;
+                    @media (prefers-color-scheme: dark) {
+                        color: $dark-mode-text;
+                    }
+                }
+                h3 {
+                    @include flexible;
+                    margin: 0 0 15px 0;
+                }
             }
             form,h3 {
                 display: block;
@@ -52,8 +65,10 @@
 <template>
 <div class="filter-component">
     <footer v-bind:class="{ expanded: filterExpanded }">
-        <div :aria-label="$t('filter_button')" @click="toggleFilters" class="filter-toggle icofont-search-1"></div>
-        <h3>{{ $t('filter') }}</h3>
+        <div class="filter-header">
+            <h3>{{ $t('filter') }}</h3>
+            <button type="button" :aria-label=" filterExpanded ? $t('close_button') : $t('filter_button')" @click="toggleFilters" id="filter-toggle" class="icofont-search-1"></button>
+        </div>
         <form>
             <fieldset>
                 <legend>{{ $t('date_range') }}:</legend>
@@ -85,14 +100,16 @@
                     from:       'from',
                     to:         'to',
                     filter:     'filter events',
-                    filter_button: 'filter events'
+                    filter_button: 'filter events',
+                    close_button: 'hide filters'
                 },
                 es: {
                     date_range: 'dias',
                     from:       'de',
                     to:         'a',
                     filter:     'filtrar eventos',
-                    filter_button: 'filter events'
+                    filter_button: 'filtrar eventos',
+                    close_button: 'ocultar filtros',
                 }
             }
         },
@@ -111,6 +128,9 @@
 
             toggleFilters: function() {
                 this.filterExpanded = ! this.filterExpanded;
+                document.getElementById('filter-toggle').className = this.filterExpanded
+                    ? 'icofont-close'
+                    : 'icofont-search-1';
             },
             loadCalendar: function(which) {
                 this.whichCalendarDate = which;
