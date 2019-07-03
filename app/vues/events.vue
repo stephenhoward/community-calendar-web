@@ -14,10 +14,25 @@
         }
     }
 
+    @media (min-width: 1024px ) {
+        div.body {
+            display: grid;
+            grid-template-columns: [main] 70% [main-end filter] 30% [filter-end];
+            grid-template-rows: [header] auto [header-end body] auto [body-end];
+
+            header {
+                grid-area: header / main / header-end / filter-end;
+            }
+            main {
+                grid-area: body / main / body-end / main-end;
+            }
+        }
+    }
+
 </style>
 
 <template>
-    <div>
+    <div class="body">
         <header>
             <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
             <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>

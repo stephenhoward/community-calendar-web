@@ -58,6 +58,18 @@
                 display: block;
             }
         }
+        @media (min-width: 1024px ) {
+            grid-area: body / filter / body-end / filter-end;
+            position: static;
+            display: block;
+            form,h3 {
+                display: block;
+            }
+            #filter-toggle {
+                display: none;
+            }
+        }
+
     }
 
 </style>
