@@ -158,6 +158,7 @@
 
             return {
                 now:   moment(),
+                current_query: current_query,
                 from: current_query.from.toDate(),
                 to: current_query.to.toDate(),
                 filterExpanded: false,
@@ -165,13 +166,18 @@
                 calendarDate: moment()
             };
         },
+        watch: {
+            'current_query.from': function(newVal,oldVal) {
+                this.from = newVal.toDate();
+            },
+            'current_query.to': function(newVal,oldVal) {
+                this.to = newVal.toDate();
+            },
+        },
         methods: {
 
             toggleFilters: function() {
                 this.filterExpanded = ! this.filterExpanded;
-                document.getElementById('filter-toggle').className = this.filterExpanded
-                    ? 'icofont-close'
-                    : 'icofont-search-1';
             },
             loadCalendar: function(which) {
                 this.whichCalendarDate = which;
