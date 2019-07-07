@@ -54,7 +54,6 @@
         <nav>
             <li><router-link to="/">{{ $t('happening_today') }}</router-link></li>
             <li><router-link to="/this-week">{{ $t('this_week') }}</router-link></li>
-            <li><router-link to="/events">{{ $t('search') }}</router-link></li>
             <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
             <li><router-link to="/login">{{ $t('login') }}</router-link></li>
             <li>
@@ -79,14 +78,12 @@
                 "en": {
                     "happening_today": "Happening Today",
                     "this_week": "Events This Week",
-                    "search": "Search Events",
                     "add_event": "Submit an Event",
                     "login": "Log In"
                 },
                 "es": {
                     "happening_today": "Pasando Hoy",
                     "this_week": "Eventos Esta Semana",
-                    "search": "Buscar Eventos",
                     "add_event": "Enviar un Evento",
                     "login": "Iniciar sesión"
                 }

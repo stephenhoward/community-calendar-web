@@ -2,29 +2,31 @@
 
     @import 'app/scss/_mixins.scss';
 
-    footer {
+    #filters {
         @include hstack;
         justify-content: flex-end;
-        position: fixed;
-        bottom: 0;
-        left: 0;
         width: 100%;
         #filter-toggle {
             height: 40px;
             width: 40px;
             font-size: 16pt;
             padding: 8px;
-            color: #fff;
-            border-radius: 21px;
+            color: $light-mode-text;
             border: none;
-            background-color: red;
+            background: transparent;
             margin: 0 42px 42px 0;
-            box-shadow: 3px 3px 5px rgba(0,0,0,.2);
             overflow: hidden;
             cursor: pointer;
+            @media (prefers-color-scheme: dark) {
+                color: $dark-mode-text;
+            }
         }
         form,h3 {
             display: none;
+        }
+        input.search {
+            @include flexible;
+            font-size: 12pt;
         }
         fieldset {
             border: none;
@@ -66,13 +68,7 @@
                 #filter-toggle {
                     font-size: 14pt;
                     @include inflexible;
-                    background-color: transparent;
-                    box-shadow: none;
                     margin: 0;
-                    color: $light-mode-text;
-                    @media (prefers-color-scheme: dark) {
-                        color: $dark-mode-text;
-                    }
                 }
                 h3 {
                     @include flexible;
@@ -101,10 +97,16 @@
 
 <template>
 <div class="filter-component">
-    <footer v-bind:class="{ expanded: filterExpanded }">
+    <aside id="filters" v-bind:class="{ expanded: filterExpanded }">
         <div class="filter-header">
             <h3>{{ $t('filter') }}</h3>
-            <button type="button" :aria-label=" filterExpanded ? $t('close_button') : $t('filter_button')" @click="toggleFilters" id="filter-toggle" class="icofont-search-1"></button>
+            <search></search>
+            <button type="button"
+                id="filter-toggle"
+                :class="filterExpanded ? 'icofont-close' : 'icofont-settings' "
+                :aria-label=" filterExpanded ? $t('close_button') : $t('filter_button')"
+                @click="toggleFilters"
+            ></button>
         </div>
         <form>
             <fieldset class="dates">
@@ -116,7 +118,7 @@
             <fieldset><legend>{{ $t('ages') }}</legend></fieldset>
             <button type="button">{{ $t('filter') }}</button>
         </form>
-    </footer>
+    </aside>
     <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
 </div>
 </template>
@@ -125,9 +127,11 @@
     let moment = require('moment');
     let current_query = require('lib/search').current_query;
     let calendar = require('./calendar.vue');
+    let search   = require('./search.vue');
 
     module.exports = {
         components: {
+            search,
             calendar
         },
         i18n: {

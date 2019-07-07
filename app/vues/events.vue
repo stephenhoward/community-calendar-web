@@ -33,6 +33,7 @@
 
 <template>
     <div class="body">
+        <search-filter></search-filter>
         <header>
             <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
             <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
@@ -49,7 +50,6 @@
                 </event>
             </section>
         </main>
-        <search-filter></search-filter>
     </div>
 </template>
 
