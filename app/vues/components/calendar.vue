@@ -6,6 +6,7 @@ div.calendar-wrapper {
     width: 100%;
     height: 100%;
     @include hstack;
+    z-index: 100;
     justify-content: center;
     align-items: center;
     position: fixed;
