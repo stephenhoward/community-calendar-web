@@ -8,6 +8,8 @@ function search(params) {
 
     return new Promise( ( resolve, reject ) => {
 
+        current_query.search = '';
+
         for ( let key in params ) {
             current_query[key] = params[key];
         }

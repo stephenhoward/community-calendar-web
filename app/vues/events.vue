@@ -112,10 +112,21 @@
                         break;
                     default:
                         this.title = 'search_title';
-                        this.fetchData({
-                            from: moment(),
-                            to:   moment().add( 30, 'days' )
-                        });
+                        let query = this.$route.query;
+
+                        for ( let date of ['to','from'] ) {
+
+                            if ( query[date] ) {
+                                query[date] = moment(query[date],'YYYY-MM-DD');
+                            }
+                            else {
+                                query[date] = date == 'from'
+                                    ? moment()
+                                    : moment().add(30,'days');
+                            }
+                        }
+
+                        this.fetchData(query);
                 }
             },
             fetchData: function(params) {

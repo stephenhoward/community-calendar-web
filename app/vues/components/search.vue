@@ -58,6 +58,11 @@ div.search {
                 }
             }
         },
+        watch: {
+            query: function (newVal, oldVal) {
+                this.search_terms = newVal;
+            }
+        },
         methods: {
             checkSearch($event) {
                 switch( $event.key ) {
@@ -67,10 +72,14 @@ div.search {
                     case 'Enter':
                         this.$emit('search',this.search_terms);
                         break;
+                    default:
+                        this.$emit('update-search',this.search_terms);
+                        break;
                 }
             },
             clearSearch() {
                 this.search_terms = '';
+                this.$emit('update-search',this.search_terms);
             }
         }
     };

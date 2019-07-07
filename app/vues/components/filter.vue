@@ -100,7 +100,11 @@
     <aside id="filters" v-bind:class="{ expanded: filterExpanded }">
         <div class="filter-header">
             <h3>{{ $t('filter') }}</h3>
-            <search></search>
+            <search
+                :query="search_terms"
+                @search="doFilter"
+                @update-search="updateSearch"
+            ></search>
             <button type="button"
                 id="filter-toggle"
                 :class="filterExpanded ? 'icofont-close' : 'icofont-settings' "
@@ -116,7 +120,7 @@
             </fieldset>
             <fieldset><legend>{{ $t('categories') }}</legend></fieldset>
             <fieldset><legend>{{ $t('ages') }}</legend></fieldset>
-            <button type="button">{{ $t('filter') }}</button>
+            <button type="button" @click="doFilter">{{ $t('filter') }}</button>
         </form>
     </aside>
     <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
@@ -163,6 +167,7 @@
             return {
                 now:   moment(),
                 current_query: current_query,
+                search_terms: current_query.search,
                 from: current_query.from.toDate(),
                 to: current_query.to.toDate(),
                 filterExpanded: false,
@@ -176,6 +181,10 @@
             },
             'current_query.to': function(newVal,oldVal) {
                 this.to = newVal.toDate();
+            },
+            'current_query.search': function(newVal,oldVal) {
+                console.log('search changed');
+                this.search_terms = newVal;
             },
         },
         methods: {
@@ -194,6 +203,34 @@
                     this[ this.whichCalendarDate ] = day.toDate();
                 }
                 this.showCalendar = false;
+            },
+            updateSearch(search) {
+
+                if ( typeof search == 'string' ) {
+                    current_query.search = search;
+                }
+            },
+            doFilter: function(search) {
+
+                if ( typeof search == 'string' ) {
+                    current_query.search = search;
+                }
+
+                let query = {};
+
+                for ( let key in current_query ) {
+                    if ( key == 'from' || key == 'to' ) {
+                        query[key] = current_query[key].format('YYYY-MM-DD');
+                    }
+                    else {
+                        query[key] = current_query[key];
+                    }
+                }
+
+                this.$router.push({
+                    path: 'events',
+                    query: query
+                });
             }
         }
     };
