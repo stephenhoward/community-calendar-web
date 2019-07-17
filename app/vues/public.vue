@@ -1,76 +1,30 @@
 <style lang="sass">
-    html,body {
-      margin: 0;
-      padding: 0;
-    }
-    * {
-      font-family: 'Helvetica Neue';
-    }
-    .sr-only {
-        position: absolute;
-        width: 1px;
-        height: 1px;
-        padding: 0;
-        overflow: hidden;
-        clip: rect(0, 0, 0, 0);
-        white-space: nowrap;
-        -webkit-clip-path: inset(50%);
-        clip-path: inset(50%);
-        border: 0;
-    }
-    header,main {
-      padding: 15px;
-    }
-    div.splash {
-        display: flex;
-        flex-direction: column;
-        color: #fff;
-        background-color: #555;
-        margin: -15px;
-        padding: 15px;
-        padding-left: 40px;
-
-        h1 {
-            order: 2;
-            flex: 1 1 auto;
-        }
-        nav {
-            order: 1;
-            flex: 0 0 auto;
-            list-style-type: none;
-            display: flex;
-            flex-direction: row;
-            justify-content: flex-end;
-            li {
-                margin-left: 15px;
-                padding: 5px;
-            }
-        }
-    }
 </style>
 
 <template>
     <div class="root">
-        <nav>
-            <li><router-link to="/">{{ $t('happening_today') }}</router-link></li>
-            <li><router-link to="/this-week">{{ $t('this_week') }}</router-link></li>
-            <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
-            <li><router-link to="/login">{{ $t('login') }}</router-link></li>
-            <li>
-                <select v-model="$root.$i18n.locale">
-                <option v-for="(lang,i) in langs" :selected="$root.$i18n.locale == lang ? true : false" :value="lang">{{ lang }}</option>
-                </select>
-            </li>
-        </nav>
-        <router-view></router-view>
+        <aside>
+            <nav>
+                <li><router-link to="/">{{ $t('happening_today') }}</router-link></li>
+                <li><router-link to="/this-week">{{ $t('this_week') }}</router-link></li>
+                <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
+                <li><router-link to="/login">{{ $t('login') }}</router-link></li>
+            </nav>
+        </aside>
+        <language-selector></language-selector>
+        <main>
+            <router-view></router-view>
+        </main>
     </div>
 </template>
 
 <script>
     module.exports = {
+        components: {
+            'language-selector': require('./components/language-selector.vue')
+        },
         data: () => {
             return {
-                langs: ['en','es']
             };
         },
         i18n: {

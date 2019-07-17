@@ -2,6 +2,27 @@
 
     @import 'app/scss/_mixins.scss';
 
+    html,body {
+      margin: 0;
+      padding: 0;
+      width: 100%;
+    }
+    * {
+      font-family: 'Helvetica Neue';
+    }
+    .sr-only {
+        position: absolute;
+        width: 1px;
+        height: 1px;
+        padding: 0;
+        overflow: hidden;
+        clip: rect(0, 0, 0, 0);
+        white-space: nowrap;
+        -webkit-clip-path: inset(50%);
+        clip-path: inset(50%);
+        border: 0;
+    }
+
     :root {
         color-scheme: light dark; 
         background-color: $light-mode-background;
@@ -13,17 +34,6 @@
             background-color: $dark-mode-background;
             color: $dark-mode-text;
         }
-    }
-
-    body {
-        @include vstack;
-        justify-content: center;
-    }
-    header {
-        @include flexible;
-    }
-    main {
-        @include flexible;
     }
 
 .sr-only {
@@ -64,6 +74,44 @@ body {
     display: grid;
     height: 100%;
     min-height: 100%;
+    div.root {
+        display: grid;
+        grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
+        grid-template-rows: [top] auto [bottom];
+
+        & > aside {
+
+            grid-area: top / left-rail / bottom / main;
+            background-color: rgba(0,0,0,.8);
+            nav {
+                list-style-type: none;
+                ul {
+                    list-style-type: none;
+                    margin: 15px 0 0 0;
+                    padding: 0;
+                }
+                li {
+                    margin: 0;
+                    padding: 8px 20px;
+
+                    a {
+                        text-decoration: none;
+                    }
+                }
+            }
+        }
+        & > main {
+            grid-area: top / main / bottom / end;
+        }
+
+    }
+    #language-selector {
+        grid-row-start: top;
+        grid-column-end: end;
+        justify-self: end;
+        margin: 10px 10px 0 0;
+    }
+
     div.login, div.forgot_password,div.password_reset_sent {
         padding: 20px 15px;
         max-width: 300px;

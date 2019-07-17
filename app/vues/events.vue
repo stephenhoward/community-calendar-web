@@ -131,7 +131,7 @@
             },
             fetchData: function(params) {
                 let self = this;
-                search(params).then( json => self.days = json );
+                search(params).then( results => self.days = results );
             },
             toggleFilters: function() {
                 this.filterExpanded = ! this.filterExpanded;

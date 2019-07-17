@@ -164,18 +164,7 @@ function search(params) {
 
                 for ( var e of json ) {
 
-                    for( var date of [ 'start', 'end' ] ) {
-
-                        if ( e[date] ) {
-                            e[date] = moment(e[date],'YYYY-MM-DD HH:mm');
-                        }
-                    }
-
-                    if ( e.parent ) {
-                        e.parent = new Event(e.parent);
-                    }
-
-                    let event      = new Event(e);
+                    let event      = Event.newFromJson(e);
                     let start_date = moment( event.start ).startOf('day');
 
                     if ( ! current_date || ! current_date.isSame( start_date ) ) {

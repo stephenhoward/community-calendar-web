@@ -16,6 +16,10 @@ window.i18n = new VueI18n({
             'long': {
                 month: 'long', day: 'numeric',
             },
+            'long-datetime': {
+                weekday: 'long', month: 'long', day: 'numeric',
+                hour: 'numeric', minute: 'numeric', hour12: true
+            },
             'month': {
                 month: 'long'
             },
@@ -35,6 +39,10 @@ window.i18n = new VueI18n({
             },
             'long': {
                 month: 'long', day: 'numeric',
+            },
+            'long-datetime': {
+                weekday: 'long', month: 'long', day: 'numeric',
+                hour: 'numeric', minute: 'numeric', hour12: true
             },
             'month': {
                 month: 'long'
