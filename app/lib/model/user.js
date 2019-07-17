@@ -2,7 +2,7 @@ let Model = require('lib/model').Model;
 
 module.exports = class User extends Model {
 
-    // baseUrl = '/events';
+    static baseUrl() { return this.apiVersion() + '/users' };
 
     hasRole(...roles) {
         for (var role of roles) {

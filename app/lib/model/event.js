@@ -4,7 +4,7 @@ let Translatable = require('lib/model').Translatable;
 
 module.exports = class Event extends Translatable {
 
-    // baseUrl = '/events';
+    static baseUrl() { return this.apiVersion() + '/events' };
 
     static newFromJson(json) {
 

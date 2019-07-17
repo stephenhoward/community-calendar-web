@@ -21,7 +21,7 @@ function search(params) {
             }
         }
 
-        axios.get( '/v1/events', {
+        axios.get( Event.baseUrl(), {
             repsonseType: 'json',
             params: params
         })

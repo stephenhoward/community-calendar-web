@@ -11,12 +11,16 @@ class Model {
         }
     }
 
+    static apiVersion() { return '/v1' }
+
     static fetch(id) {
+
+        let cls = this;
 
         return new Promise( ( resolve, reject ) => {
 
             // eventually need a baseUrl class property
-            axios.get( '/v1/events/' + id , {
+            axios.get( cls.baseUrl() + '/' + id , {
                 repsonseType: 'json',
             })
                 .then( (response) => {
@@ -38,7 +42,7 @@ class Model {
 
         return new Promise( (resolve, reject ) => {
 
-            axios.get( '/v1/events', {} )
+            axios.get( cls.baseUrl(), {} )
                 .then(  response => resolve( response.data.map( json => cls.newFromJson(json) )  ) )
                 .catch( error    => reject(  error  ) );
         });
