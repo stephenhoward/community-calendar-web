@@ -18,10 +18,10 @@ module.exports = {
         { 
             path: '/', component: require('../vues/public.vue'),
             children: [
-                { path: '',                     component: require('../vues/events.vue'), name: 'today',     props: true },
-                { path: 'this-week',            component: require('../vues/events.vue'), name: 'this-week', props: true  },
-                { path: 'events',               component: require('../vues/events.vue'), name: 'events',    props: true  },
-                { path: 'events/:id',           component: require('../vues/event.vue'), name: 'event', props: true  },
+                { path: '',                     component: require('../vues/public/events.vue'), name: 'today',     props: true },
+                { path: 'this-week',            component: require('../vues/public/events.vue'), name: 'this-week', props: true  },
+                { path: 'events',               component: require('../vues/public/events.vue'), name: 'events',    props: true  },
+                { path: 'events/:id',           component: require('../vues/public/event.vue'), name: 'event', props: true  },
                 // { path: 'categories',           component: require('../vues/categories.vue')  },
                 // { path: 'categories/:id/:slug', component: require('../vues/category.vue')  }
             ]

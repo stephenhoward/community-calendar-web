@@ -130,7 +130,7 @@
 <script>
     let moment = require('moment');
     let current_query = require('lib/search').current_query;
-    let calendar = require('./calendar.vue');
+    let calendar = require('../../components/calendar.vue');
     let search   = require('./search.vue');
 
     module.exports = {

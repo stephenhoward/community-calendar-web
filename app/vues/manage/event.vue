@@ -76,7 +76,7 @@ const compose = require('../../lib/compose');
 module.exports = {
     props: ['model'],
     components: {
-        'translation-control': compose.Vue(Event,require('./translate.vue'),{
+        'translation-control': compose.Vue(Event,require('./components/translate.vue'),{
             'translate-form': require('./event-i18n.vue')
         })
     },

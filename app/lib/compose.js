@@ -1,5 +1,5 @@
 const listVue = require('../vues/components/list.vue');
-const editVue = require('../vues/manage/editor.vue');
+const editVue = require('../vues/manage/components/editor.vue');
 
 const composeVue = function(type,templateVue,componentVues) {
 
