@@ -60,15 +60,7 @@
 
 <template>
     <div class="event">
-        Something
-        <section class="translations" v-for="(info,lang) in event.info">
-            <h3>{{ lang }}</h3>
-            <div class="info">
-                <label>Title <input :model="info.title" name="title" placeholder="title"></label>
-                <label>Event Description <textarea :model="info.description"></textarea></label>
-                <label>Accessibility Information <textarea :model="info.accessibility_information"></textarea></label>
-            </div>
-        </section>
+        <translation-control v-bind:model="event"></translation-control>
         <section class="datetimes">
         </section>
         <section class="options">
@@ -77,16 +69,16 @@
 </template>
 
 <script>
-let moment = require('moment');
+const moment = require('moment');
+const Event  = require('../../lib/model/event');
+const compose = require('../../lib/compose');
 
 module.exports = {
     props: ['model'],
-    i18n: {
-        messages: {            
-            en: {
-                accessibility_information: 'Accessibility Information'
-            }
-        }
+    components: {
+        'translation-control': compose.Vue(Event,require('./translate.vue'),{
+            'translate-form': require('./event-i18n.vue')
+        })
     },
     data: function() {
         return {

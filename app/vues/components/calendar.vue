@@ -2,21 +2,6 @@
 
 @import 'app/scss/_mixins.scss';
 
-div.calendar-wrapper {
-    width: 100%;
-    height: 100%;
-    @include hstack;
-    z-index: 100;
-    justify-content: center;
-    align-items: center;
-    position: fixed;
-    top: 0;
-    left: 0;
-    background: rgba(0,0,0,.7);
-    @media (prefers-color-scheme: dark) {
-        background: rgba(0,0,0,.9);
-    }
-}
 div.calendar {
     padding: 5px;
     @include hstack;
@@ -92,7 +77,7 @@ div.calendar {
 </style>
 
 <template>
-<div class="calendar-wrapper" @click="$emit('close')">
+<div class="popup-wrapper" @click="$emit('close')">
     <div
         aria-role="lisbox"
         tabindex="0"

@@ -90,7 +90,7 @@
 </template>
 
 <script>
-    let moment = require('moment');
+let moment = require('moment');
 const Event  = require('lib/model/event');
 
 

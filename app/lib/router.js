@@ -1,30 +1,7 @@
 
-const listVue = require('../vues/components/list.vue');
-const editVue = require('../vues/manage/editor.vue');
 const Event   = require('./model/event');
+const compose = require('./compose');
 
-function composeListVue(type,vues) {
-
-    let components = {
-        'model-summary': vues['model-summary'],
-        'model-create':  composeEditorDialog( type,{ 'model-form': vues['model-form'] } )
-    };
-
-    let component = Object.assign( { components }, listVue );
-
-    component.methods.type = () => { return type };
-
-    return component;
-}
-
-function composeEditorDialog(type,vues) {
-
-    let component = Object.assign( { components: vues }, editVue );
-
-    component.methods.type = () => { return type };
-
-    return component;
-}
 
 module.exports = {
 
@@ -32,7 +9,7 @@ module.exports = {
         {
             path: '/manage', component: require('../vues/manage.vue'),
             children: [
-                { path: 'events', component: composeListVue( Event, {
+                { path: 'events', component: compose.ListVue( Event, {
                     'model-summary': require('../vues/manage/event_summary.vue'),
                     'model-form':    require('../vues/manage/event.vue')
                 }) }
