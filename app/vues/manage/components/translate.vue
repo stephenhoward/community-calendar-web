@@ -21,11 +21,15 @@ ul.language-selector {
     }
 }
 div.translate {
+    div.info {
+        background-color: #ddd;
+        padding: 10px;
+    }
     ul.tabs {
         width: 100%;
         @include hstack;
         justify-content: flex-start;
-        align-items: baseline;
+        align-items: stretch;
         list-style-type: none;
         margin: 0;
         padding: 0;
@@ -33,6 +37,7 @@ div.translate {
             padding: 4px 8px;
             margin: 0 10px 0 0;
             &.language {
+                color: #555;
                 @include flexible;
                 @include hstack;
                 justify-content: space-between; 
@@ -45,11 +50,11 @@ div.translate {
                 }
                 &:hover {
                     background-color: #eee;
+                    color: #000;
                 }
                 &.selected {
+                    color: #000;
                     background-color: #ddd;
-                    border: 1px solid #aaa;
-                    border-bottom: none;
                     &:hover {
                         background-color: #ddd;
                     }
