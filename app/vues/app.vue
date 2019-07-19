@@ -66,6 +66,8 @@ body {
         display:               grid;
         grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
         grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
+        height:                100%;
+        min-height:            100%;
 
         & > aside {
 
