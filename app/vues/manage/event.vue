@@ -69,8 +69,8 @@
 </template>
 
 <script>
-const moment = require('moment');
-const Event  = require('../../lib/model/event');
+const moment  = require('moment');
+const Event   = require('../../lib/model/event');
 const compose = require('../../lib/compose');
 
 module.exports = {

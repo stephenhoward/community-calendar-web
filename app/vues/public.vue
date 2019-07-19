@@ -19,29 +19,29 @@
 </template>
 
 <script>
-    module.exports = {
-        components: {
-            'language-selector': require('./components/language-selector.vue')
-        },
-        data: () => {
-            return {
-            };
-        },
-        i18n: {
-            messages: {
-                "en": {
-                    "happening_today": "Happening Today",
-                    "this_week": "Events This Week",
-                    "add_event": "Submit an Event",
-                    "login": "Log In"
-                },
-                "es": {
-                    "happening_today": "Pasando Hoy",
-                    "this_week": "Eventos Esta Semana",
-                    "add_event": "Enviar un Evento",
-                    "login": "Iniciar sesión"
-                }
+module.exports = {
+    components: {
+        'language-selector': require('./components/language-selector.vue')
+    },
+    data: () => {
+        return {
+        };
+    },
+    i18n: {
+        messages: {
+            "en": {
+                "happening_today": "Happening Today",
+                "this_week": "Events This Week",
+                "add_event": "Submit an Event",
+                "login": "Log In"
             },
-        }
-    };
+            "es": {
+                "happening_today": "Pasando Hoy",
+                "this_week": "Eventos Esta Semana",
+                "add_event": "Enviar un Evento",
+                "login": "Iniciar sesión"
+            }
+        },
+    }
+};
 </script>

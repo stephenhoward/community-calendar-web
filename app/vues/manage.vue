@@ -50,37 +50,38 @@
 </template>
 
 <script>
-    const User  = require('lib/model/user');
-    module.exports = {
-        components: {
-            'language-selector': require('./components/language-selector.vue')
-        },
-        data: () => {
-            return {
-                langs: {
-                    'English': 'en',
-                    'Español': 'es'
-                },
-                user: new User({
-                    name: 'Stephen',
-                    roles: {
-                        administrator: false,
-                        group_administrator: true,
-                        editor: false,
-                        contributor: true
-                    }
-                })
-            };
-        },
-        i18n: {
-            messages: {
-                "en": {
-                    "home": "Home",
-                },
-                "es": {
-                    "home": "Página Principal",
-                }
+const User  = require('lib/model/user');
+
+module.exports = {
+    components: {
+        'language-selector': require('./components/language-selector.vue')
+    },
+    data: () => {
+        return {
+            langs: {
+                'English': 'en',
+                'Español': 'es'
             },
-        }
-    };
+            user: new User({
+                name: 'Stephen',
+                roles: {
+                    administrator: false,
+                    group_administrator: true,
+                    editor: false,
+                    contributor: true
+                }
+            })
+        };
+    },
+    i18n: {
+        messages: {
+            "en": {
+                "home": "Home",
+            },
+            "es": {
+                "home": "Página Principal",
+            }
+        },
+    }
+};
 </script>

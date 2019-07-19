@@ -1,9 +1,9 @@
 <style lang="sass">
     #language-selector {
-        grid-row-start: top;
+        grid-row-start:  top;
         grid-column-end: end;
-        justify-self: end;
-        margin: 10px 10px 0 0;
+        justify-self:    end;
+        margin:          10px 10px 0 0;
     }
 </style>
 
@@ -20,8 +20,9 @@
         data: () => {
             return {
                 langs: {
-                    'English': 'en',
-                    'Español': 'es'
+                    'English':  'en',
+                    'Español':  'es',
+                    'Français': 'fr'
                 }
             };
         }

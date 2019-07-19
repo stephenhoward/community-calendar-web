@@ -15,9 +15,9 @@
     module.exports = {
         data: function() {
             return {
-                models: [],
-                showNew: false,
-                current_model:null
+                models:        [],
+                showNew:       false,
+                current_model: null
             };
         },
         created: function() {

@@ -1,33 +1,19 @@
 <style lang="sass">
 
-    @import 'app/scss/_mixins.scss';
+@import 'app/scss/_mixins.scss';
 
-    section.events {
-        max-width: 700px;
-        border: 1px solid #ccc;
-        padding: 15px;
-        border-radius: 4px;
-        margin-bottom: 25px;
-        @media (prefers-color-scheme: dark) {
-            background-color: #111;
-            border-color: #222;
-        }
+section.events {
+    max-width:     700px;
+    padding:       15px;
+    margin-bottom: 25px;
+    border-radius: 4px;
+    border:        1px solid #ccc;
+
+    @media (prefers-color-scheme: dark) {
+        background-color: #111;
+        border-color:     #222;
     }
-
-    @media (min-width: 1024px ) {
-        div.body {
-            display: grid;
-            grid-template-columns: [main] 70% [main-end filter] 30% [filter-end];
-            grid-template-rows: [header] auto [header-end body] auto [body-end];
-
-            header {
-                grid-area: header / main / header-end / filter-end;
-            }
-            main {
-                grid-area: body / main / body-end / main-end;
-            }
-        }
-    }
+}
 
 </style>
 

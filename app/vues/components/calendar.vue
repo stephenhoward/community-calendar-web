@@ -3,47 +3,49 @@
 @import 'app/scss/_mixins.scss';
 
 div.calendar {
-    padding: 5px;
     @include hstack;
-    flex-wrap: wrap;
-    max-width: 300px;
+    flex-wrap:       wrap;
     justify-content: flex-start;
-    background: #fff;
-    box-shadow: 3px 3px 5px rgba(0,0,0,.5);
+    max-width:       300px;
+    padding:         5px;
+    background:      #fff;
+    box-shadow:      3px 3px 5px rgba(0,0,0,.5);
+
     @media (prefers-color-scheme: dark) {
         background-color: $dark-mode-background;
-        color: $dark-mode-text;
+        color:            $dark-mode-text;
         button.nav {
             color: $dark-mode-text;
         }
     }
 
     button.nav {
-        font-size: 16pt;
-        width: 30px;
-        height: 30px;
-        text-align: center;
-        padding: 0;
+        width:            30px;
+        height:           30px;
+        padding:          0;
+        font-size:        16pt;
+        text-align:       center;
         background-color: transparent;
-        border: none;
+        border:           none;
     }
     button.close {
         font-size: 12pt;
-        border: none;
+        border:    none;
     }
     div.header {
-        text-align: center;
-        width: 100%;
-        margin-bottom: 8px;
         @include hstack;
-        align-items: baseline;
-        background: #eee;
+        align-items:   baseline;
+        text-align:    center;
+        width:         100%;
+        margin-bottom: 8px;
+        background:    #eee;
+
         @media (prefers-color-scheme: dark) {
             background: #555;
         }
         h4 {
             @include flexible;
-            order: 2;
+            order:  2;
             margin: 0;
         }
         button.prev {
@@ -54,10 +56,10 @@ div.calendar {
         }
     }
     div.day {
-        width: 14%;
+        width:      14%;
         box-sizing: border-box;
-        height: 35px;
-        padding: 4px;
+        height:     35px;
+        padding:    4px;
         text-align: right;
         border-radius: 5px;
         &.skip { }
@@ -68,9 +70,9 @@ div.calendar {
             }
         }
         &.selected {
-            font-weight: 700;
+            font-weight:      700;
             background-color: red;
-            color: white;
+            color:            white;
         }
     }
 }
@@ -95,9 +97,9 @@ div.calendar {
             class="day"
             v-for="day in days"
             :class="{
-                today: day.isSame(today)                 ? true  : false,
-                skip:  day.isSame(current_month,'month') ? false : true,
-                selected: day.isSame(selected)           ? true  : false
+                today:    day.isSame(today)                 ? true  : false,
+                skip:     day.isSame(current_month,'month') ? false : true,
+                selected: day.isSame(selected)              ? true  : false
             }"
             @click.stop="$emit('close',day)"
         >{{ day.isSame(current_month,'month') ? day.date() : '' }}</div>
@@ -125,8 +127,8 @@ div.calendar {
             let today = moment().startOf('day');
 
             return {
-                selected: this.selected_date,
-                today: today,
+                selected:      this.selected_date,
+                today:         today,
                 current_month: null,
                 month:         null,
                 days:          [],
@@ -135,12 +137,12 @@ div.calendar {
         i18n: {
             messages: {
                 en: {
-                    next_month: 'next month (page down)',
+                    next_month:     'next month (page down)',
                     previous_month: 'previous month (page up)',
                     close_calendar: 'close calendar (escape)'
                 },
                 es: {
-                    next_month: 'próximo mes (página abajo)',
+                    next_month:     'próximo mes (página abajo)',
                     previous_month: 'mes anterior (página arriba)',
                     close_calendar: 'cerrar calendario (escapar)'
                 }
