@@ -106,12 +106,6 @@ button {
     border-radius: 6px;
 }
 
-#language-selector {
-    grid-row-start:  top;
-    grid-column-end: end;
-    justify-self:    end;
-    margin:          10px 10px 0 0;
-}
 </style>
 
 <template>

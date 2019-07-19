@@ -2,15 +2,20 @@
 
     @import 'app/scss/_mixins.scss';
 
-    div.model > button {
+    div.editor {
+        background-color: #fff;
+        padding: 15px;
+        border-radius: 6px;
+        & > button {
 
+        }
     }
 
 </style>
 
 <template>
-    <div class="model">
-        <model-form v-bind:model="m"></model-form>
+    <div class="editor">
+        <model-form v-bind:model="m" @update="updateModel"></model-form>
         <button type="button" @click="$emit('close')">{{ $t('close') }}</button>
         <button v-if="m.id" type="button" @click="createModel">{{ $t('save') }}</button>
         <button v-else      type="button" @click="createModel">{{ $t('create') }}</button>
@@ -38,6 +43,15 @@ module.exports = {
     methods: {
         createModel: function() {
             this.$emit('close',this.m);
+        },
+        updateModel: function(model) {
+            this.m = model;
+        }
+    },
+    watch: {
+        model: function(newVal,oldVal) {
+            console.log('prop model changed');
+            this.m = newVal;
         }
     }
 

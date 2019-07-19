@@ -33,6 +33,11 @@ url("./fonts/icofont.woff") format("woff");
   -webkit-font-smoothing: antialiased;
 }
 
+.icofont-arrow-down:before
+{
+  content: "\ea5b";
+}
+
 .icofont-arrow-left:before
 {
   content: "\ea5c";
@@ -43,9 +48,19 @@ url("./fonts/icofont.woff") format("woff");
   content: "\ea5d";
 }
 
-.icofont-close:before
+.icofont-arrow-up:before
 {
-  content: "\eee4";
+  content: "\ea5e";
+}
+
+.icofont-info:before
+{
+  content: "\ef50";
+}
+
+.icofont-ui-calendar:before
+{
+  content: "\ec45";
 }
 
 .icofont-search-1:before
@@ -53,14 +68,24 @@ url("./fonts/icofont.woff") format("woff");
   content: "\ed11";
 }
 
-.icofont-settings:before
+.icofont-external-link:before
 {
-  content: "\efe2";
+  content: "\ef1f";
 }
 
-.icofont-navigation-menu:before
+.icofont-link:before
 {
-  content: "\efa2";
+  content: "\ef71";
+}
+
+.icofont-share-alt:before
+{
+  content: "\efe3";
+}
+
+.icofont-info-circle:before
+{
+  content: "\ef4e";
 }
 
 .icofont-ticket:before
@@ -68,9 +93,19 @@ url("./fonts/icofont.woff") format("woff");
   content: "\f00f";
 }
 
-.icofont-link:before
+.icofont-phone:before
 {
-  content: "\ef71";
+  content: "\efbb";
+}
+
+.icofont-close:before
+{
+  content: "\eee4";
+}
+
+.icofont-plus:before
+{
+  content: "\efc2";
 }
 
 .icofont-xs

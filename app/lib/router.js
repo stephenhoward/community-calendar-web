@@ -2,7 +2,6 @@
 const Event   = require('./model/event');
 const compose = require('./compose');
 
-
 module.exports = {
 
     routes : [
@@ -10,9 +9,10 @@ module.exports = {
             path: '/manage', component: require('../vues/manage.vue'),
             children: [
                 { path: 'events', component: compose.ListVue( Event, {
-                    'model-summary': require('../vues/manage/event_summary.vue'),
-                    'model-form':    require('../vues/manage/event.vue')
-                }) }
+                    'model-summary': require('../vues/manage/list/event.vue'),
+                    'model-form':    require('../vues/manage/edit/event.vue')
+                }) },
+                { path: 'events/:id', component: compose.editVue( Event, require('../vues/manage/edit/event.vue') ), props: true },
             ]
         },
         { 

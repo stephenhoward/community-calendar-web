@@ -2,9 +2,11 @@
 
     @import 'app/scss/_mixins.scss';
 
+    div.editor div.event {
+        padding: 0;
+    }
+
     div.event {
-        margin: 15px 0;
-        padding: 10px;
 
         h3 {
             margin: 0;
@@ -60,7 +62,7 @@
 
 <template>
     <div class="event">
-        <translation-control v-bind:model="event"></translation-control>
+        <translation-control v-bind:model="event" @update="updateInfo"></translation-control>
         <section class="datetimes">
         </section>
         <section class="options">
@@ -70,15 +72,13 @@
 
 <script>
 const moment  = require('moment');
-const Event   = require('../../lib/model/event');
-const compose = require('../../lib/compose');
+const Event   = require('../../../lib/model/event');
+const compose = require('../../../lib/compose');
 
 module.exports = {
     props: ['model'],
     components: {
-        'translation-control': compose.Vue(Event,require('./components/translate.vue'),{
-            'translate-form': require('./event-i18n.vue')
-        })
+        'translation-control': compose.translationVue( Event, require('./translate/event.vue') )
     },
     data: function() {
         return {
@@ -86,6 +86,19 @@ module.exports = {
             event: this.model
         };
     },
+    methods: {
+        updateInfo: function(lang,info) {
+            this.event.info[lang] = info;
+        }
+    },
+    watch: {
+        event: {
+            handler: function(newVal,oldVal) {
+                this.$emit('update',this.event);
+            },
+            deep: true
+        }
+    }
 
 }
 </script>

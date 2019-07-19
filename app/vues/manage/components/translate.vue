@@ -3,6 +3,7 @@
 @import 'app/scss/_mixins.scss';
 
 ul.language-selector {
+    border-radius: 6px;
     background-color: #fff;
     margin: 0;
     padding: 0;
@@ -36,6 +37,20 @@ div.translate {
         li {
             padding: 4px 8px;
             margin: 0 10px 0 0;
+            &.add {
+                margin-left: -10px;
+                padding-left: none;
+                button {
+                    background: transparent;
+                    opacity: .6;
+                    border: none;
+                    &:hover {
+                        opacity: 1;
+                        background: #777;
+                        color: #fff;
+                    }
+                }
+            }
             &.language {
                 color: #555;
                 @include flexible;
@@ -84,18 +99,18 @@ div.translate {
                 :class="'language' + ( lang == current_language ? ' selected' : '')"
                 @click="selectLanguage(lang)"
             >
-                <span>{{ lang }}</span>
-                <button type="button" @click="removeLanguage(lang)" class="icofont-close"></button>
+                <span>{{ all_languages[lang] }}</span>
+                <button v-if="lang != default_language" type="button" @click.stop="removeLanguage(lang)" class="icofont-close"></button>
             </li>
-            <li v-if="active_languages.length < all_languages.length"><button type="button" @click="showLanguages">+</button></li>
+            <li class="add" v-if="active_languages.length < Object.keys(all_languages).length"><button class="icofont-plus" type="button" @click="showLanguages"></button></li>
         </ul>
 
-        <translate-form v-bind:info="current_info"></translate-form>
+        <translate-form v-bind:info="current_info" @update="updateCurrentInfo"></translate-form>
 
         <div v-if="revealLanguages" class="popup-wrapper" @click="hideLanguages">
             <ul class="language-selector">
                 <li v-for="lang in inactive_languages" @click="addLanguage(lang)">
-                    {{ lang }}
+                    {{ all_languages[lang] }}
                 </li>
             </ul>
         </div>
@@ -115,23 +130,34 @@ module.exports = {
             }
         }
     },
-    created: function() {
-        console.log(this.active_languages);
-    },
     data: function() {
         return {
-            all_languages: [ 'English', 'Español', 'Français' ],
-            active_languages: [ 'English' ],
-            current_language: 'English',
-            info: this.model.info,
-            current_info: this.model.info.en,
+            all_languages: {
+                'en': 'English',
+                'es': 'Español',
+                'fr': 'Français'
+            },
+            default_language: 'en',
+            active_languages: [],
+            current_language: null,
+            info: this.model.info || {},
+            current_info: {},
             revealLanguages: false
         };
     },
     computed: {
         inactive_languages: function() {
-            return this.all_languages.filter( l => this.active_languages.indexOf(l) < 0 );
+            return Object.keys(this.all_languages).filter( l => this.active_languages.indexOf(l) < 0 );
         }
+    },
+    created: function() {
+        this.addLanguage( this.default_language );
+        for( code in this.info ) {
+            if ( code != this.default_language ) {
+                this.addLanguage(code);
+            }
+        }
+        this.selectLanguage(this.default_language);
     },
     methods: {
         showLanguages: function() {
@@ -141,18 +167,28 @@ module.exports = {
             this.revealLanguages = false;
         },
         selectLanguage: function(lang) {
-            console.log('selecting language ' + lang);
             this.current_language = lang;
+            if( ! ( lang in this.info ) ) {
+                this.info[lang] = {};
+            }
+            this.current_info = this.info[lang];
         },
         addLanguage: function(lang) {
-            console.log('adding language');
             this.revealLanguages = false;
             this.active_languages.push(lang);
             this.selectLanguage(lang);
         },
         removeLanguage: function(lang) {
-            console.log('remove language');
             this.active_languages = this.active_languages.filter( l => l != lang );
+            if ( this.active_languages.length ) {
+                this.selectLanguage(this.active_languages[0]);
+            }
+        },
+        updateCurrentInfo: function(info) {
+            this.info[this.current_language] = info;
+            this.current_info = info;
+
+            this.$emit( 'update', this.current_language, info );
         }
     }
 
