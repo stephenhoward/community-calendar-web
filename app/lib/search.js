@@ -21,10 +21,7 @@ function search(params) {
             }
         }
 
-        axios.get( Event.baseUrl(), {
-            repsonseType: 'json',
-            params: params
-        })
+        Event.list(params)
             .then( (response) => {
                 let json                = response.data;
                 let current_date        = null;

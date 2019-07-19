@@ -36,13 +36,13 @@ class Model {
 
     }
 
-    static list() {
+    static list(params) {
 
         let cls = this;
 
         return new Promise( (resolve, reject ) => {
 
-            axios.get( cls.baseUrl(), {} )
+            axios.get( cls.baseUrl(), { responseType: 'json', params: params } )
                 .then(  response => resolve( response.data.map( json => cls.newFromJson(json) )  ) )
                 .catch( error    => reject(  error  ) );
         });
