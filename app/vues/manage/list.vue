@@ -58,7 +58,7 @@
             },
             closeNew: function(model) {
                 if ( model ) {
-                    // TODO: send model to server
+                    model.save();
                     this.models.unshift(model);
                 }
                 this.showNew = false;

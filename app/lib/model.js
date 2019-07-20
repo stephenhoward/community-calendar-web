@@ -36,6 +36,37 @@ class Model {
 
     }
 
+    dump() {
+        let json = {};
+
+        for ( var attr in this ) {
+            if ( typeof this[attr] == 'array' ) {
+                json[attr] = [
+                    this[attr].map( i => i instanceof Model ? i.dump() : i )
+                ];
+            }
+            else if ( typeof this[attr] instanceof Model ) {
+                json[attr] = this[attr].dump()
+            }
+            else {
+                json[attr] = this[attr];
+            }
+        }
+
+        return json;
+    }
+
+    save(){
+        let self = this;
+
+        return new Promise( ( resolve, reject ) => {
+
+            axios.post( self.modelUrl(), { model: self.dump() } )
+                .then(  response => resolve( json => self.updateFromJson(json) ) )
+                .catch( error    => reject(  error ) );
+        });
+    }
+
     static list(params) {
 
         let cls = this;

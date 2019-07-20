@@ -45,12 +45,8 @@
         methods: {
             closeEditor: function(model) {
                 if ( model ) {
-                    // TODO: send model to server
                     this.model = model;
-                    console.log('save edit');
-                }
-                else {
-                    console.log('cancel edit');                    
+                    this.model.save();
                 }
             }
         }
