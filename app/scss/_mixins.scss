@@ -25,3 +25,15 @@ $dark-mode-border: rgba(238,238,238,.5);
 @mixin inflexible {
     flex: 0 0 auto;
 }
+
+@mixin medium-size-device {
+    @media ( min-width: 600px ) {
+        @content;
+    }
+}
+
+@mixin dark-mode {
+    @media (prefers-color-scheme: dark) {
+        @content;
+    }
+}

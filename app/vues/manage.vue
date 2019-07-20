@@ -19,25 +19,26 @@
 </style>
 
 <template>
-<div class="root">
+<div :class="{ root: true, 'hide-menu': ! menuVisible }">
+    <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
     <aside>
         <nav>
             <ul>
                 <li><router-link to="/">{{ $t('home') }}</router-link></li>
             </ul>
             <ul v-if="user.hasRole('administrator','group_administrator')">
-                <li v-if="user.hasRole('administrator', 'group_administrator')" ><router-link to="/manage/users">People</router-link></li>
-                <li v-if="user.hasRole('administrator')"><router-link to="/manage/groups">Organizations</router-link></li>
+                <li v-if="user.hasRole('administrator', 'group_administrator')" ><router-link @click.native="toggleMenu" to="/manage/users">People</router-link></li>
+                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/groups">Organizations</router-link></li>
             </ul>
             <ul>
-                <li><router-link to="/manage/events">Events</router-link></li>
-                <li><router-link to="/manage/series">Series</router-link></li>
-                <li><router-link to="/manage/locations">Locations</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/events">Events</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/series">Series</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/locations">Locations</router-link></li>
             </ul>
             <ul>
-                <li><router-link to="/manage/profile">My Profile</router-link></li>
-                <li v-if="user.hasRole('administrator')"><router-link to="/manage/settings">Site Settings</router-link></li>
-                <li v-else-if="user.hasRole('group_administrator')"><router-link to="/manage/settings">Organization Settings</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/profile">My Profile</router-link></li>
+                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/settings">Site Settings</router-link></li>
+                <li v-else-if="user.hasRole('group_administrator')"><router-link @click.native="toggleMenu" to="/manage/settings">Organization Settings</router-link></li>
                 <li><router-link to="/logout">Logout</router-link></li>
             </ul>
         </nav>
@@ -62,6 +63,7 @@ module.exports = {
                 'English': 'en',
                 'Español': 'es'
             },
+            menuVisible: true,
             user: new User({
                 name: 'Stephen',
                 roles: {
@@ -82,6 +84,11 @@ module.exports = {
                 "home": "Página Principal",
             }
         },
+    },
+    methods: {
+        toggleMenu: function() {
+            this.menuVisible = ! this.menuVisible;
+        }
     }
 };
 </script>

@@ -52,7 +52,7 @@ div.popup-wrapper {
     align-items:     center;
     background:      rgba(0,0,0,.7);
 
-    @media (prefers-color-scheme: dark) {
+    @include dark-mode {
         background: rgba(0,0,0,.9);
     }
 }
@@ -63,16 +63,29 @@ body {
     min-height: 100%;
 
     div.root {
+
         display:               grid;
-        grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
-        grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
         height:                100%;
         min-height:            100%;
+        grid-template-columns: [ left-rail ] auto [ main ] 0 [ end ];
+        grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
+        @include medium-size-device {
+            grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
+            grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
+            &.hide-menu {
+                grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
+            }
+        }
+        &.hide-menu {
+            grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
+        }
 
         & > aside {
 
             grid-area:        top / left-rail / bottom / main;
             background-color: rgba(0,0,0,.8);
+            overflow-x:       hidden;
+            overflow-y:       visible;
             nav {
                 list-style-type: none;
                 ul {
@@ -91,7 +104,9 @@ body {
             }
         }
         & > main {
-            grid-area: main / main / end / end;
+            grid-area:  main / main / end / end;
+            overflow-x: hidden;
+            overflow-y: visible;
         }
 
     }
@@ -104,6 +119,13 @@ button {
     background:    white;
     border:        1px solid #aaa;
     border-radius: 6px;
+}
+
+#menu-toggle {
+    grid-row-start:    top;
+    grid-column-start: main;
+    justify-self:      start;
+    margin:            10px 0 0 10px;
 }
 
 </style>

@@ -108,6 +108,16 @@ url("./fonts/icofont.woff") format("woff");
   content: "\efc2";
 }
 
+.icofont-settings:before
+{
+  content: "\efe2";
+}
+
+.icofont-navigation-menu:before
+{
+  content: "\efa2";
+}
+
 .icofont-xs
 {
   font-size: .5em;
