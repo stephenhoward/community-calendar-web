@@ -1,6 +1,6 @@
 <style lang="sass">
     div.root {
-        & > aside {
+        & > div.menu {
             background-color: rgba(0,0,0,.8);
             nav {
                 ul {
@@ -22,7 +22,7 @@
 <div :class="{ root: true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
     <h1>{{ pageTitle }}</h1>
-    <aside>
+    <div class="menu">
         <nav>
             <ul>
                 <li><router-link to="/">{{ $t('home') }}</router-link></li>
@@ -43,7 +43,7 @@
                 <li><router-link to="/logout">Logout</router-link></li>
             </ul>
         </nav>
-    </aside>
+    </div>
     <language-selector></language-selector>
     <main>
     <router-view></router-view>

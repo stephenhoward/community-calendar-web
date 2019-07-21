@@ -33,6 +33,11 @@ $main-area-menu-gutter: 40px;
         @content;
     }
 }
+@mixin large-size-device {
+    @media ( min-width: 1024px ) {
+        @content;
+    }
+}
 
 @mixin dark-mode {
     @media (prefers-color-scheme: dark) {

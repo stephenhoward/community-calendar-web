@@ -2,7 +2,7 @@
 
     @import 'app/scss/_mixins.scss';
 
-    #filters {
+    div.filter-component > div {
         @include hstack;
         justify-content: flex-end;
         width: 100%;
@@ -79,25 +79,13 @@
                 display: block;
             }
         }
-        @media (min-width: 1024px ) {
-            grid-area: body / filter / body-end / filter-end;
-            position: static;
-            display: block;
-            form,h3 {
-                display: block;
-            }
-            #filter-toggle {
-                display: none;
-            }
-        }
-
     }
 
 </style>
 
 <template>
 <div class="filter-component">
-    <aside id="filters" v-bind:class="{ expanded: filterExpanded }">
+    <div id="filters" v-bind:class="{ expanded: filterExpanded }">
         <div class="filter-header">
             <h3>{{ $t('filter') }}</h3>
             <search
@@ -113,16 +101,34 @@
             ></button>
         </div>
         <form>
-            <fieldset class="dates">
-                <legend>{{ $t('date_range') }}:</legend>
-                <label>{{ $t('from') }} <button @click="loadCalendar('from')" type="button">{{ $d( from, 'long' ) }}</button></label>
-                <label>{{ $t('to')   }} <button @click="loadCalendar('to')" type="button">{{ $d( to, 'long' ) }}</button></label>
+            <fieldset class="dates" aria-labelledby="dates-legend">
+                <legend id="dates-legend">{{ $t('date_range') }}:</legend>
+                <label>
+                    <span class="aria-hidden">{{ $t('from') }}</span>
+                    <button
+                        :aria-label="$t('aria_date_start') + $d( from, 'long') + $t('aria_click_to_change')"
+                        @click="loadCalendar('from')"
+                        type="button"
+                    >
+                        {{ $d( from, 'long' ) }}
+                    </button>
+                </label>
+                <label>
+                    <span class="aria-hidden">{{ $t('to')   }}</span>
+                    <button
+                        :aria-label="$t('aria_date_end') + $d( from, 'long') + $t('aria_click_to_change')"
+                        @click="loadCalendar('to')"
+                        type="button"
+                    >
+                        {{ $d( to, 'long' ) }}
+                    </button>
+                </label>
             </fieldset>
             <fieldset><legend>{{ $t('categories') }}</legend></fieldset>
             <fieldset><legend>{{ $t('ages') }}</legend></fieldset>
             <button type="button" @click="doFilter">{{ $t('filter') }}</button>
         </form>
-    </aside>
+    </div>
     <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
 </div>
 </template>
@@ -146,6 +152,10 @@
                     ages:       'Ages',
                     from:       'from',
                     to:         'to',
+                    aria_date_start: 'starting ',
+                    aria_date_end: 'ending ',
+                    aria_click_to_change: '. click to change',
+
                     filter:     'filter events',
                     filter_button: 'filter events',
                     close_button: 'hide filters'

@@ -1,17 +1,18 @@
 <template>
     <div :class="{ root: true, 'hide-menu': ! menuVisible }">
-        <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
+        <span aria-hidden="true" id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
         <h1>Events Calendar</h1>
-        <aside>
+        <a href="#main" class="sr-only">Skip Navigation</a>
+        <div class="menu" aria-role="menu">
             <nav>
                 <li><router-link @click.native="toggleMenu" to="/">{{ $t('happening_today') }}</router-link></li>
                 <li><router-link @click.native="toggleMenu" to="/this-week">{{ $t('this_week') }}</router-link></li>
                 <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
                 <li><router-link to="/login">{{ $t('login') }}</router-link></li>
             </nav>
-        </aside>
+        </div>
         <language-selector></language-selector>
-        <main>
+        <main id="main" aria-role="none">
             <router-view></router-view>
         </main>
     </div>

@@ -84,7 +84,7 @@ body {
             @include page-title-positioning;
         }
 
-        & > aside {
+        & > div.menu {
 
             grid-area:        top / left-rail / bottom / main;
             background-color: rgba(0,0,0,.8);

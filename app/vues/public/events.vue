@@ -2,30 +2,69 @@
 
 @import 'app/scss/_mixins.scss';
 
-section.events {
-    max-width:     700px;
-    padding:       15px;
-    margin-bottom: 25px;
-    border-radius: 4px;
-    border:        1px solid #ccc;
+div.events {
+    @include vstack;
 
-    @media (prefers-color-scheme: dark) {
-        background-color: #111;
-        border-color:     #222;
+    & > h2 {
+        order: 1;
     }
+    div.days {
+        order: 3;
+    }
+    div.filter-component {
+        order: 2;
+    }
+
+    section.events {
+        max-width:     700px;
+        padding:       15px;
+        margin-bottom: 25px;
+        border-radius: 4px;
+        border:        1px solid #ccc;
+
+        @include dark-mode {
+            background-color: #111;
+            border-color:     #222;
+        }
+    }
+
+    @include large-size-device {
+        @include hstack;
+        flex-wrap: wrap;
+        & > h2 {
+            @include inflexible;
+            width: 100%;
+        }
+        div.days {
+            order: 2;
+            @include flexible;
+            max-width: 70%;
+        }
+        div.filter-component {
+            order: 3;
+            @include flexible;
+            max-width: 30%;
+            form,h3 {
+                display: block;
+            }
+            #filter-toggle {
+                display: none;
+            }
+        }
+    }
+
+
 }
 
 </style>
 
 <template>
     <div class="events">
-        <search-filter></search-filter>
-        <header>
-            <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
-            <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
-            <h2 v-else>{{ $t('search_title') }}</h2>
-        </header>
-        <div>
+        <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
+        <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
+        <h2 v-else>{{ $t('search_title') }}</h2>
+        <a href="#filters" class="sr-only">Skip to Search Filters</a>
+        <div class="days">
             <section v-for="day in days" class="events">
                 <h3 v-if="day.date">{{ $d( day.date.toDate(), 'short' ) }}</h3>
                 <event
@@ -36,6 +75,7 @@ section.events {
                 </event>
             </section>
         </div>
+        <search-filter></search-filter>
     </div>
 </template>
 

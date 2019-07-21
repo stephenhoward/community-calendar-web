@@ -173,6 +173,8 @@ div.calendar {
 
                 this.days  = days;
                 this.month = this.current_month.toDate();
+                this.$el.getElementsByClassName('selected')[0].focus();
+
             },
             previousMonth: function() {
                 this.current_month = moment(this.current_month).subtract(1,'months');
