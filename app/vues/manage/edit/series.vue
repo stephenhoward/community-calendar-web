@@ -2,16 +2,16 @@
 
     @import 'app/scss/_mixins.scss';
 
-    div.editor div.event {
+    div.editor div.series {
         padding: 0;
     }
 
-    div.event {
+    div.series {
 
         h3 {
             margin: 0;
             font-size: 18pt;
-            div.parent-event {
+            div.parent-series {
                 font-size: 14pt;
                 font-weight: 400;
             }
@@ -20,7 +20,7 @@
           margin: 10px 0 0 0;
         }
 
-        div.event-body {
+        div.series-body {
             @include hstack;
 
             div.info {
@@ -45,7 +45,7 @@
             }
         }
 
-        ul.event-footer {
+        ul.series-footer {
             list-style-type: none;
             @include hstack;
             margin: 0;
@@ -61,8 +61,8 @@
 </style>
 
 <template>
-    <div class="event">
-        <translation-control v-bind:model="event" @update="updateInfo"></translation-control>
+    <div class="series">
+        <translation-control v-bind:model="series" @update="updateInfo"></translation-control>
         <section class="datetimes">
         </section>
         <section class="options">
@@ -72,29 +72,29 @@
 
 <script>
 const moment  = require('moment');
-const Event   = require('../../../lib/model/event');
+const Series   = require('../../../lib/model/series');
 const compose = require('../../../lib/compose');
 
 module.exports = {
     props: ['model'],
     components: {
-        'translation-control': compose.translationVue( require('./translate/event.vue') )
+        'translation-control': compose.translationVue( require('./translate/series.vue') )
     },
     data: function() {
         return {
             now: moment(),
-            event: this.model
+            series: this.model
         };
     },
     methods: {
         updateInfo: function(lang,info) {
-            this.event.info[lang] = info;
+            this.series.info[lang] = info;
         }
     },
     watch: {
-        event: {
+        series: {
             handler: function(newVal,oldVal) {
-                this.$emit('update',this.event);
+                this.$emit('update',this.series);
             },
             deep: true
         }

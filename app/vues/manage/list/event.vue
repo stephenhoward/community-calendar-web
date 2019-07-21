@@ -1,9 +1,3 @@
-<style lang="sass">
-
-    @import 'app/scss/_mixins.scss';
-
-</style>
-
 <template>
     <div class="event">
         <h3>{{ event.get('title') }}</h3>

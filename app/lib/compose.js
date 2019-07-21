@@ -3,37 +3,33 @@ const editVue        = require('../vues/manage/edit.vue');
 const editorVue      = require('../vues/manage/components/editor.vue');
 const translationVue = require('../vues/manage/components/translate.vue');
 
-const composeVue = function(type,templateVue,componentVues) {
+const composeVue = function(templateVue,componentVues) {
 
-    let component = Object.assign( { components: componentVues }, templateVue );
-
-    component.methods.type = () => { return type };
-
-    return component;
+    return Object.assign( { components: componentVues }, templateVue );
 };
 
-const composeListVue = function(type,vues) {
+const composeListVue = function(vues) {
 
     let components = {
         'model-summary': vues['model-summary'],
-        'model-create':  composeVue( type, editorVue, { 'model-form': vues['model-form'] } )
+        'model-create':  composeVue( editorVue, { 'model-form': vues['model-form'] } )
     };
 
-    return composeVue( type, listVue, components );
+    return composeVue( listVue, components );
 };
 
-const composeEditVue = function(type,formVue) {
+const composeEditVue = function(formVue) {
 
     let components = {
-        'model-edit':  composeVue( type, editorVue, { 'model-form': formVue } )
+        'model-edit':  composeVue( editorVue, { 'model-form': formVue } )
     };
 
-    return composeVue( type, editVue, components );
+    return composeVue( editVue, components );
 };
 
-const composeTranslationVue = function(type,formVue) {
+const composeTranslationVue = function(formVue) {
 
-    return composeVue( type, translationVue, {'translate-form': formVue } );
+    return composeVue( translationVue, {'translate-form': formVue } );
 }
 
 module.exports = {

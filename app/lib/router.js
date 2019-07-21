@@ -1,6 +1,29 @@
 
 const Event   = require('./model/event');
+const Series  = require('./model/series');
 const compose = require('./compose');
+
+const routesForModel = function(type, path) {
+
+    let type_component = type.name.toLowerCase();
+
+    return [
+        {
+            path:      path,
+            name:      path,
+            component: compose.ListVue( {
+                'model-summary': require('../vues/manage/list/' + type_component + '.vue'),
+                'model-form':    require('../vues/manage/edit/' + type_component + '.vue')
+            }),
+            props: { type: type }
+        },
+        {
+            path:      path + '/:id',
+            component: compose.editVue( require('../vues/manage/edit/' + type_component + '.vue') ),
+            props:     (route) => ( { id: route.params.id, type: type } )
+        }
+    ];
+}
 
 module.exports = {
 
@@ -8,11 +31,8 @@ module.exports = {
         {
             path: '/manage', component: require('../vues/manage.vue'),
             children: [
-                { path: 'events', component: compose.ListVue( Event, {
-                    'model-summary': require('../vues/manage/list/event.vue'),
-                    'model-form':    require('../vues/manage/edit/event.vue')
-                }) },
-                { path: 'events/:id', component: compose.editVue( Event, require('../vues/manage/edit/event.vue') ), props: true },
+                ...routesForModel( Series, 'series'),
+                ...routesForModel( Event,  'events'),
             ]
         },
         { 

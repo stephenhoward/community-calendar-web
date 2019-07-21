@@ -30,17 +30,15 @@
 
 <script>
     module.exports = {
-        props: ['id'],
+        props: ['type','id'],
         data: function() {
             return {
-                model: null,
+                model:      null,
+                model_type: this.type.name
             };
         },
         created: function() {
-            this.type().fetch(this.id).then( (model) => { this.model = model } );
-        },
-        computed: {
-            model_type: function() { return this.type().name }
+            this.type.fetch(this.id).then( (model) => { this.model = model } );
         },
         methods: {
             closeEditor: function(model) {

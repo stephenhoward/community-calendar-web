@@ -37,22 +37,21 @@
 
 <script>
     module.exports = {
+        props: ['type'],
         data: function() {
             return {
                 models:        [],
                 showNew:       false,
-                current_model: null
+                current_model: null,
+                model_type:    this.type.name,
             };
         },
         created: function() {
-            this.type().list().then( (models) => { this.models = models } );
-        },
-        computed: {
-            model_type: function() { return this.type().name }
+            this.type.list().then( (models) => { this.models = models } );
         },
         methods: {
             newModel: function() {
-                let type = this.type()
+                let type = this.type;
                 this.current_model = new type({});
                 this.showNew = true;
             },

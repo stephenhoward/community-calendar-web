@@ -21,6 +21,7 @@
 <template>
 <div :class="{ root: true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
+    <h1>{{ pageTitle }}</h1>
     <aside>
         <nav>
             <ul>
@@ -52,6 +53,8 @@
 
 <script>
 const User  = require('lib/model/user');
+const Event  = require('lib/model/event');
+const Series  = require('lib/model/series');
 
 module.exports = {
     components: {
@@ -64,6 +67,7 @@ module.exports = {
                 'Español': 'es'
             },
             menuVisible: true,
+            pageTitle: '',
             user: new User({
                 name: 'Stephen',
                 roles: {
@@ -74,6 +78,14 @@ module.exports = {
                 }
             })
         };
+    },
+    watch: {
+        '$route': function(to, from) {
+            this.setTitle(to.name);
+        }
+    },
+    created: function() {
+        this.setTitle(this.$route.name);
     },
     i18n: {
         messages: {
@@ -88,6 +100,9 @@ module.exports = {
     methods: {
         toggleMenu: function() {
             this.menuVisible = ! this.menuVisible;
+        },
+        setTitle: function(name) {
+            this.pageTitle = name;
         }
     }
 };
