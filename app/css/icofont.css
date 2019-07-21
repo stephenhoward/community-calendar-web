@@ -118,6 +118,11 @@ url("./fonts/icofont.woff") format("woff");
   content: "\efa2";
 }
 
+.icofont-exchange:before
+{
+  content: "\ef18";
+}
+
 .icofont-xs
 {
   font-size: .5em;

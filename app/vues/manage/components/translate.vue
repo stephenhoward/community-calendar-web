@@ -2,25 +2,6 @@
 
 @import 'app/scss/_mixins.scss';
 
-ul.language-selector {
-    border-radius: 6px;
-    background-color: #fff;
-    margin: 0;
-    padding: 0;
-    list-style-type: none;
-    li {
-        margin: 0;
-        padding: 8px 10px;
-        border-bottom: 1px solid #aaa;
-        cursor: pointer;
-        &:hover {
-            background-color: #ddd;
-        }
-        &:last-child {
-            border-bottom: none;
-        }
-    }
-}
 div.translate {
     div.info {
         background-color: #ddd;
@@ -108,11 +89,14 @@ div.translate {
         <translate-form v-bind:info="current_info" @update="updateCurrentInfo"></translate-form>
 
         <div v-if="revealLanguages" class="popup-wrapper" @click="hideLanguages">
-            <ul class="language-selector">
-                <li v-for="lang in inactive_languages" @click="addLanguage(lang)">
-                    {{ all_languages[lang] }}
-                </li>
-            </ul>
+            <div class="language-selector">
+                <h3>{{ $t('add_language') }}</h3>
+                <ul>
+                    <li v-for="lang in inactive_languages" @click="addLanguage(lang)">
+                        {{ all_languages[lang] }}
+                    </li>
+                </ul>
+            </div>
         </div>
     </div>
 </template>
@@ -124,6 +108,7 @@ module.exports = {
     i18n: {
         messages: {            
             en: {
+                add_language: 'Add a Language',
                 close:  'Cancel',
                 create: 'Create',
                 save:   'Save'
