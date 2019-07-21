@@ -1,6 +1,7 @@
 <template>
     <div :class="{ root: true, 'hide-menu': ! menuVisible }">
         <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
+        <h1>Events Calendar</h1>
         <aside>
             <nav>
                 <li><router-link @click.native="toggleMenu" to="/">{{ $t('happening_today') }}</router-link></li>

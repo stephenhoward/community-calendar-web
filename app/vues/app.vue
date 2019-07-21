@@ -67,7 +67,7 @@ body {
         display:               grid;
         height:                100%;
         min-height:            100%;
-        grid-template-columns: [ left-rail ] auto [ main ] 0 [ end ];
+        grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
         grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
         @include medium-size-device {
             grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
@@ -78,6 +78,10 @@ body {
         }
         &.hide-menu {
             grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
+        }
+
+        & > h1 {
+            @include page-title-positioning;
         }
 
         & > aside {
@@ -107,6 +111,12 @@ body {
             grid-area:  main / main / end / end;
             overflow-x: hidden;
             overflow-y: visible;
+            padding: 0 10px 40px $main-area-menu-gutter;
+
+            & > * {
+                overflow-x: hidden;
+                overflow-y: visible;
+            }
         }
 
     }
@@ -125,7 +135,7 @@ button {
     grid-row-start:    top;
     grid-column-start: main;
     justify-self:      start;
-    margin:            10px 0 0 10px;
+    margin:            20px 0 0 10px;
 }
 
 </style>

@@ -18,14 +18,14 @@ section.events {
 </style>
 
 <template>
-    <div class="body">
+    <div class="events">
         <search-filter></search-filter>
         <header>
             <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
             <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
             <h2 v-else>{{ $t('search_title') }}</h2>
         </header>
-        <main>
+        <div>
             <section v-for="day in days" class="events">
                 <h3 v-if="day.date">{{ $d( day.date.toDate(), 'short' ) }}</h3>
                 <event
@@ -35,7 +35,7 @@ section.events {
                 >
                 </event>
             </section>
-        </main>
+        </div>
     </div>
 </template>
 
