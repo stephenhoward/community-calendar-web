@@ -85,9 +85,9 @@
 
 <template>
 <div class="filter-component">
-    <div id="filters" v-bind:class="{ expanded: filterExpanded }">
+    <div role="search" v-bind:class="{ expanded: filterExpanded }">
         <div class="filter-header">
-            <h3>{{ $t('filter') }}</h3>
+            <h3 id="filters" tabindex="-1">{{ $t('filter') }}</h3>
             <search
                 :query="search_terms"
                 @search="doFilter"
@@ -106,7 +106,9 @@
                 <label>
                     <span class="aria-hidden">{{ $t('from') }}</span>
                     <button
-                        :aria-label="$t('aria_date_start') + $d( from, 'long') + $t('aria_click_to_change')"
+                        ref="from"
+                        :aria-label="fromLabel"
+                        aria-describedby="dateButtonInstructions"
                         @click="loadCalendar('from')"
                         type="button"
                     >
@@ -116,13 +118,16 @@
                 <label>
                     <span class="aria-hidden">{{ $t('to')   }}</span>
                     <button
-                        :aria-label="$t('aria_date_end') + $d( from, 'long') + $t('aria_click_to_change')"
+                        ref="to"
+                        :aria-label="$t('aria_date_end') + $d( from, 'long')"
+                        aria-describedby="dateButtonInstructions"
                         @click="loadCalendar('to')"
                         type="button"
                     >
                         {{ $d( to, 'long' ) }}
                     </button>
                 </label>
+                <span aria-hidden="true" class="sr-only" id="dateButtonInstructions">{{ $t('aria_click_to_change') }}</span>
             </fieldset>
             <fieldset><legend>{{ $t('categories') }}</legend></fieldset>
             <fieldset><legend>{{ $t('ages') }}</legend></fieldset>
@@ -152,9 +157,9 @@
                     ages:       'Ages',
                     from:       'from',
                     to:         'to',
-                    aria_date_start: 'starting ',
-                    aria_date_end: 'ending ',
-                    aria_click_to_change: '. click to change',
+                    aria_date_start: 'starting',
+                    aria_date_end: 'ending',
+                    aria_click_to_change: 'click to change date',
 
                     filter:     'filter events',
                     filter_button: 'filter events',
@@ -167,6 +172,7 @@
                     from:       'de',
                     to:         'a',
                     filter:     'filtrar eventos',
+                    aria_click_to_change: 'haga clic para cambiar esta fecha',
                     filter_button: 'filtrar eventos',
                     close_button: 'ocultar filtros',
                 }
@@ -197,6 +203,15 @@
                 this.search_terms = newVal;
             },
         },
+        computed: {
+            fromLabel: function() {
+                return this.$t('aria_date_start') + ' ' + this.$d( this.from, 'long');
+
+            },
+            toLabel: function() {
+                return this.$t('aria_date_start') + ' ' + this.$d( this.to, 'long');
+            }
+        },
         methods: {
 
             toggleFilters: function() {
@@ -210,7 +225,10 @@
             hideCalendar: function(day) {
                 if ( day ) {
                     current_query[ this.whichCalendarDate ] = day;
-                    this[ this.whichCalendarDate ] = day.toDate();
+                    this[ this.whichCalendarDate ]          = day.toDate();
+                    // this[ this.whichCalendarDate + 'Label'] = this.$t('aria_date_start') + ' ' +
+                    //                                         + this.$d( this[ this.whichCalendarDate ], 'long');
+                    this.$refs[ this.whichCalendarDate ].focus();
                 }
                 this.showCalendar = false;
             },

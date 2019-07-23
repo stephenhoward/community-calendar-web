@@ -81,8 +81,7 @@ div.calendar {
 <template>
 <div class="popup-wrapper" @click="$emit('close')">
     <div
-        aria-role="lisbox"
-        tabindex="0"
+        tabindex="-1"
         aria-labelledby=""
         class="calendar"
         @keyup="navigateCalendar($event)"
@@ -93,14 +92,19 @@ div.calendar {
             <button :aria-label="$t('previous_month')" tabindex="1" type="button" class="nav prev icofont-arrow-left" @click="previousMonth"></button>
             <button :aria-label="$t('next_month')"     tabindex="2" type="button" class="nav next icofont-arrow-right" @click="nextMonth"></button>
         </div>
-        <div aria-role="option"
+        <span class="sr-only" id="calendarInstructions">Use arrow keys to navigate, press enter to select date</span>
+        <div role="button"
             class="day"
+            tabindex="-1"
+            :aria-label="day.date() + ' ' + $d( month, 'month' )"
+            aria-describedby="calendarInstructions"
             v-for="day in days"
             :class="{
                 today:    day.isSame(today)                 ? true  : false,
                 skip:     day.isSame(current_month,'month') ? false : true,
                 selected: day.isSame(selected)              ? true  : false
             }"
+            :aria-selected="day.isSame(selected) ? 'true' : 'false'"
             @click.stop="$emit('close',day)"
         >{{ day.isSame(current_month,'month') ? day.date() : '' }}</div>
     </div>
@@ -173,7 +177,9 @@ div.calendar {
 
                 this.days  = days;
                 this.month = this.current_month.toDate();
-                this.$el.getElementsByClassName('selected')[0].focus();
+                this.$nextTick().then(() => {
+                    this.$el.getElementsByClassName('selected')[0].focus() 
+                });
 
             },
             previousMonth: function() {

@@ -74,11 +74,13 @@ div.translate {
 
 <template>
     <div class="translate">
-        <ul class="tabs">
+        <ul class="tabs" aria-role="tablist">
             <li
                 v-for="lang in active_languages"
                 :class="'language' + ( lang == current_language ? ' selected' : '')"
                 @click="selectLanguage(lang)"
+                aria-role="tab"
+                :aria-selected=" lang == current_language ? 'true' : 'false'"
             >
                 <span>{{ all_languages[lang] }}</span>
                 <button v-if="lang != default_language" type="button" @click.stop="removeLanguage(lang)" class="icofont-close"></button>

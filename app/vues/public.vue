@@ -2,18 +2,18 @@
     <div :class="{ root: true, 'hide-menu': ! menuVisible }">
         <span aria-hidden="true" id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
         <h1>Events Calendar</h1>
-        <a href="#main" class="sr-only">Skip Navigation</a>
-        <div class="menu" aria-role="menu">
+        <a href="#main" @click.prevent="skipTo('main')" class="sr-only">Skip Navigation</a>
+        <div class="menu" role="menu">
             <nav>
-                <li><router-link @click.native="toggleMenu" to="/">{{ $t('happening_today') }}</router-link></li>
-                <li><router-link @click.native="toggleMenu" to="/this-week">{{ $t('this_week') }}</router-link></li>
+                <li><router-link @click.native="navigate" to="/">{{ $t('happening_today') }}</router-link></li>
+                <li><router-link @click.native="navigate" to="/this-week">{{ $t('this_week') }}</router-link></li>
                 <li><router-link to="/submit-events">{{ $t('add_event') }}</router-link></li>
                 <li><router-link to="/login">{{ $t('login') }}</router-link></li>
             </nav>
         </div>
         <language-selector></language-selector>
-        <main id="main" aria-role="none">
-            <router-view></router-view>
+        <main id="main" tabindex="-1" role="none">
+            <router-view ref="subView"></router-view>
         </main>
     </div>
 </template>
@@ -47,6 +47,13 @@ module.exports = {
     methods: {
         toggleMenu: function() {
             this.menuVisible = ! this.menuVisible;
+        },
+        navigate: function() {
+            this.toggleMenu();
+            this.$refs.subView.focusTitle();
+        },
+        skipTo: function(id) {
+            document.getElementById(id).focus();
         }
     }
 };

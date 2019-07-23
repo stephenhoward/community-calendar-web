@@ -30,7 +30,7 @@ div.search {
 
 <template>
 <div class="search" >
-    <input type="text" v-model="search_terms" :placeholder="$t('search_placeholder')" @keyup="checkSearch($event)" />
+    <input role="searchbox" type="text" v-model="search_terms" :placeholder="$t('search_placeholder')" @keyup="checkSearch($event)" />
     <button v-if="search_terms" :class="{ 'icofont-close': true, 'hidden': ! search_terms.length }" :aria-label="$t('clear_search')" type="button" @click="clearSearch"></button>
 </div>
 </template>

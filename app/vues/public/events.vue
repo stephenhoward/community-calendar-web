@@ -60,10 +60,10 @@ div.events {
 
 <template>
     <div class="events">
-        <h2 v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
-        <h2 v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
-        <h2 v-else>{{ $t('search_title') }}</h2>
-        <a href="#filters" class="sr-only">Skip to Search Filters</a>
+        <h2 ref="heading" tabindex="-1" v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
+        <h2 ref="heading" tabindex="-1" v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
+        <h2 ref="heading" tabindex="-1" v-else>{{ $t('search_title') }}</h2>
+        <a href="#filters" @click.prevent="skipTo('filters')" class="sr-only">Skip to Search Filters</a>
         <div class="days">
             <section v-for="day in days" class="events">
                 <h3 v-if="day.date">{{ $d( day.date.toDate(), 'short' ) }}</h3>
@@ -153,6 +153,7 @@ div.events {
                         }
 
                         this.fetchData(query);
+                        this.$nextTick().then(() => this.$refs.heading.focus() );
                 }
             },
             fetchData: function(params) {
@@ -161,6 +162,12 @@ div.events {
             },
             toggleFilters: function() {
                 this.filterExpanded = ! this.filterExpanded;
+            },
+            focusTitle: function() {
+                this.$refs.heading.focus();
+            },
+            skipTo: function(id) {
+                document.getElementById(id).focus();
             }
         }
     };
