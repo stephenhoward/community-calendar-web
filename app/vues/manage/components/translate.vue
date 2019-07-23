@@ -74,24 +74,24 @@ div.translate {
 
 <template>
     <div class="translate">
-        <ul class="tabs" aria-role="tablist">
+        <ul class="tabs" role="tablist">
             <li
                 v-for="lang in active_languages"
                 :class="'language' + ( lang == current_language ? ' selected' : '')"
                 @click="selectLanguage(lang)"
-                aria-role="tab"
+                role="tab"
                 :aria-selected=" lang == current_language ? 'true' : 'false'"
             >
                 <span>{{ all_languages[lang] }}</span>
                 <button v-if="lang != default_language" type="button" @click.stop="removeLanguage(lang)" class="icofont-close"></button>
             </li>
-            <li class="add" v-if="active_languages.length < Object.keys(all_languages).length"><button class="icofont-plus" type="button" @click="showLanguages"></button></li>
+            <li class="add" v-if="active_languages.length < Object.keys(all_languages).length"><button class="icofont-plus" aria-label="add a language" type="button" @click="showLanguages"></button></li>
         </ul>
 
-        <translate-form v-bind:info="current_info" @update="updateCurrentInfo"></translate-form>
+        <translate-form tabindex="-1" ref="currentForm" role="tabpanel" v-bind:info="current_info" @update="updateCurrentInfo"></translate-form>
 
         <div v-if="revealLanguages" class="popup-wrapper" @click="hideLanguages">
-            <div class="language-selector">
+            <div tabindex="-1" ref="languageSelector" class="language-selector">
                 <h3>{{ $t('add_language') }}</h3>
                 <ul>
                     <li v-for="lang in inactive_languages" @click="addLanguage(lang)">
@@ -149,6 +149,7 @@ module.exports = {
     methods: {
         showLanguages: function() {
             this.revealLanguages = true;
+            this.$refs.languageSelector.focus()
         },
         hideLanguages: function() {
             this.revealLanguages = false;
@@ -159,6 +160,7 @@ module.exports = {
                 this.info[lang] = {};
             }
             this.current_info = this.info[lang];
+            this.$refs.currentForm.focus();
         },
         addLanguage: function(lang) {
             this.revealLanguages = false;

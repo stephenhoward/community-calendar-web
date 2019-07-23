@@ -22,6 +22,7 @@
 <div :class="{ root: true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
     <h1>{{ pageTitle }}</h1>
+    <a href="#main" @click.prevent="skipTo('main')" class="sr-only">Skip Navigation</a>
     <div class="menu">
         <nav>
             <ul>
@@ -45,7 +46,7 @@
         </nav>
     </div>
     <language-selector></language-selector>
-    <main>
+    <main tabindex="-1" id="main">
     <router-view></router-view>
     </main>
 </div>
@@ -103,6 +104,9 @@ module.exports = {
         },
         setTitle: function(name) {
             this.pageTitle = name;
+        },
+        skipTo: function(id) {
+            document.getElementById(id).focus();
         }
     }
 };

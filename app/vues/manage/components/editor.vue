@@ -14,7 +14,7 @@
 </style>
 
 <template>
-    <div class="editor">
+    <div class="editor" tabindex="-1">
         <model-form v-bind:model="m" @update="updateModel"></model-form>
         <button type="button" @click="$emit('close')">{{ $t('close') }}</button>
         <button v-if="m.id" type="button" @click="createModel">{{ $t('save') }}</button>
@@ -39,6 +39,9 @@ module.exports = {
         return {
             m: this.model
         };
+    },
+    mounted: function() {
+        this.$el.focus();
     },
     methods: {
         createModel: function() {
