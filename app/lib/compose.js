@@ -5,10 +5,21 @@ const translationVue = require('../vues/manage/components/translate.vue');
 
 const composeVue = function(templateVue,componentVues) {
 
+    if( typeof componentVues != 'object' ) {
+        throw new Error("must supply child components");
+    }
     return Object.assign( { components: componentVues }, templateVue );
 };
 
 const composeListVue = function(vues) {
+
+    if (
+        typeof vues != 'object' ||
+        !( 'model-summary' in vues ) ||
+        !( 'model-form' in vues )
+    ) {
+        throw new Error("must supply an object with model-summary and model-form components");
+    }
 
     let components = {
         'model-summary': vues['model-summary'],
