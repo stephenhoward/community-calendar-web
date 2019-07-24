@@ -13,13 +13,16 @@
   "scripts": {
     "dev": "brunch watch --server",
     "build": "brunch build -p",
-    "test": "ava test/**/*.spec.js",
+    "test": "nyc ava test/**/*.spec.js",
     "cover": "nyc ava"
   },
   "ava": {
     "require": [
       "./test/setup.js"
     ]
+  },
+  "nyc": {
+    "extension": [ ".js", ".vue" ]
   },
   "dependencies": {
     "axios": "^0.19.0",
