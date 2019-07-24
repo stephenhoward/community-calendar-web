@@ -187,10 +187,12 @@ div.calendar {
             },
             previousMonth: function() {
                 this.current_month = moment(this.current_month).subtract(1,'months');
+                this.selected      = moment(this.current_month).startOf('month');
                 this.buildMonth();
             },
             nextMonth: function() {
                 this.current_month = moment(this.current_month).add(1,'months');
+                this.selected      = moment(this.current_month).startOf('month');
                 this.buildMonth();
             },
             navigateCalendar($event) {
