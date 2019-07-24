@@ -31,6 +31,10 @@ const composeListVue = function(vues) {
 
 const composeEditVue = function(formVue) {
 
+    if ( typeof formVue == undefined || ! Object.keys(formVue).length ) {
+        throw new Error("must supply a component to render the model's edit form");
+    }
+
     let components = {
         'model-edit':  composeVue( editorVue, { 'model-form': formVue } )
     };
