@@ -1,65 +1,11 @@
 window.Vue    = require('vue');
 let VueRouter = require('vue-router');
-let VueI18n   = require('vue-i18n');
 let App       = require('./vues/app.vue');
 
-window.i18n = new VueI18n({
-    locale   : navigator.language.substring(0,2) || 'en',
-    dateTimeFormats: {
-        en: {
-            time: {
-                hour: 'numeric', minute: 'numeric', hour12: true
-            },
-            short: {
-                month: 'short', day: 'numeric'
-            },
-            'long': {
-                month: 'long', day: 'numeric',
-            },
-            'long-datetime': {
-                weekday: 'long', month: 'long', day: 'numeric',
-                hour: 'numeric', minute: 'numeric', hour12: true
-            },
-            'month': {
-                month: 'long'
-            },
-            'month-year': {
-                month: 'long', year: 'numeric'
-            },
-            'assist': {
-                weekday: 'long', month: 'long', day: 'numeric'
-            }
-        },
-        es: {
-            time: {
-                hour: 'numeric', minute: 'numeric', hour12: true
-            },
-            short: {
-                month: 'short', day: 'numeric'
-            },
-            'long': {
-                month: 'long', day: 'numeric',
-            },
-            'long-datetime': {
-                weekday: 'long', month: 'long', day: 'numeric',
-                hour: 'numeric', minute: 'numeric', hour12: true
-            },
-            'month': {
-                month: 'long'
-            },
-            'month-year': {
-                month: 'long', year: 'numeric'
-            },
-            'assist': {
-                weekday: 'long', month: 'long', day: 'numeric'
-            }
-        }
-    }
-});
 
 window.app = new Vue({
     render : h => h(App),
-    i18n   : i18n,
+    i18n   : require('./lib/i18n').i18n,
     router : new VueRouter({
         routes   : require('./lib/router.js').routes
     })

@@ -131,7 +131,7 @@ div.calendar {
             let today = moment().startOf('day');
 
             return {
-                selected:      this.selected_date,
+                selected:      moment(this.selected_date),
                 today:         today,
                 current_month: null,
                 month:         null,
@@ -178,7 +178,10 @@ div.calendar {
                 this.days  = days;
                 this.month = this.current_month.toDate();
                 this.$nextTick().then(() => {
-                    this.$el.getElementsByClassName('selected')[0].focus() 
+                    let selectedDay = this.$el.getElementsByClassName('selected')[0];
+                    if ( selectedDay ) {
+                        selectedDay.focus();
+                    }
                 });
 
             },
