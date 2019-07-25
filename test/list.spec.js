@@ -1,8 +1,28 @@
 import test from 'ava';
+import sinon from 'sinon';
 import Vue from 'vue';
 import { createLocalVue, shallowMount } from '@vue/test-utils';
 import list from '../app/vues/manage/list.vue';
-import MockModel from './lib/mock/model.js';
+import axios from 'axios';
+import { Model } from '../app/lib/model.js';
+
+var getStub = sinon.stub(axios,"get").callsFake(() => {
+        return new Promise( (resolve, reject) => {
+            resolve({ data :[]});
+        });
+});
+var postStub = sinon.stub(axios,"post").callsFake(() => {
+        return new Promise( (resolve, reject) => {
+            resolve({data: {}});
+        });
+});
+
+class testModel extends Model {
+
+    static baseUrl() { return this.apiVersion() + '/mock' }
+
+    modelUrl() { return this.id ? testModel.baseUrl() + '/' + this.id : testModel.baseUrl() }
+}
 
 const localVue = createLocalVue( Vue.extend({
     i18n: require('../app/lib/i18n').i18n
@@ -31,7 +51,7 @@ test( 'start new model', t => {
 test( 'add created model', t => {
 
         const wrapper = initList();
-        const model   = new MockModel();
+        const model   = new testModel();
 
         t.is( wrapper.vm.models.length, 0 );
 
@@ -52,7 +72,7 @@ function initList() {
         localVue,
         attachToDocument: true,
         propsData: {
-            type: MockModel
+            type: testModel
         }
     });
 }
