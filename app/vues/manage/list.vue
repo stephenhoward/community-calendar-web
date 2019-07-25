@@ -60,7 +60,8 @@
                     model.save();
                     this.models.unshift(model);
                 }
-                this.showNew = false;
+                this.current_model = null;
+                this.showNew       = false;
             }
         }
     };

@@ -11,6 +11,10 @@ class Model {
         }
     }
 
+    initEmpty() {
+        // override me
+    }
+
     static apiVersion() { return '/v1' }
 
     static fetch(id) {
@@ -19,7 +23,6 @@ class Model {
 
         return new Promise( ( resolve, reject ) => {
 
-            // eventually need a baseUrl class property
             axios.get( cls.baseUrl() + '/' + id , {
                 repsonseType: 'json',
             })
