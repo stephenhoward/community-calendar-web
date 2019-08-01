@@ -129,7 +129,11 @@
                 </label>
                 <span aria-hidden="true" class="sr-only" id="dateButtonInstructions">{{ $t('aria_click_to_change') }}</span>
             </fieldset>
-            <fieldset><legend>{{ $t('categories') }}</legend></fieldset>
+            <fieldset><legend>{{ $t('categories') }}</legend>
+                <label v-for="category in categories">
+                    <input v-model="category.selected" type="checkbox" name="category" /> {{ category.get('name') }}
+                </label>
+            </fieldset>
             <fieldset><legend>{{ $t('ages') }}</legend></fieldset>
             <button type="button" @click="doFilter">{{ $t('filter') }}</button>
         </form>
@@ -143,6 +147,7 @@
     let current_query = require('lib/search').current_query;
     let calendar = require('../../components/calendar.vue');
     let search   = require('./search.vue');
+    let Category = require('lib/model/category');
 
     module.exports = {
         components: {
@@ -188,7 +193,36 @@
                 to: current_query.to.toDate(),
                 filterExpanded: false,
                 showCalendar: false,
-                calendarDate: moment()
+                calendarDate: moment(),
+                categories: [
+                    new Category({
+                        id: '12345',
+                        info: {
+                            en: {
+                                name: 'Music',
+                                description:'music desc'
+                            },
+                            es: {
+                                name: 'Música',
+                                description: ''
+                            }
+                        },
+                        selected: true
+                    }),
+                    new Category({
+                        id: '54321',
+                        info: {
+                            en: {
+                                name: 'Sports',
+                                description:'sports desc'
+                            },
+                            es: {
+                                name: 'Deportes',
+                                description: ''
+                            }
+                        }
+                    })
+                ]
             };
         },
         watch: {
@@ -254,6 +288,11 @@
                         query[key] = current_query[key];
                     }
                 }
+
+                query.categories = this.categories
+                    .filter( c => c.selected ? true : false )
+                    .map( c => c.id )
+                    .join(',');
 
                 this.$router.push({
                     path: 'events',

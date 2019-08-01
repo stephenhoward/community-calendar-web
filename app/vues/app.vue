@@ -78,6 +78,11 @@ body {
         }
         &.hide-menu {
             grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
+
+            main {
+                padding: 0 10px 40px 10px;
+
+            }
         }
 
         & > h1 {
