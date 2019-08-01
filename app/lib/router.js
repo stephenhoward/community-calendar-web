@@ -1,6 +1,7 @@
 
 const Event   = require('./model/event');
 const Series  = require('./model/series');
+const User  = require('./model/user');
 const compose = require('./compose');
 
 const routesForModel = function(type, path) {
@@ -33,6 +34,7 @@ module.exports = {
             children: [
                 ...routesForModel( Series, 'series'),
                 ...routesForModel( Event,  'events'),
+                ...routesForModel( User,   'users'),
             ]
         },
         { 

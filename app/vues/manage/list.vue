@@ -20,13 +20,13 @@
 <template>
     <div class="model-list">
         <div v-if="models.length > 0">
-        <button type="button" @click="newModel">New {{ model_type }}  <span class="icofont-plus"></span></button>
+        <button type="button" @click="newModel">{{ $t('New_' + model_type) }}  <span class="icofont-plus"></span></button>
         <model-summary v-for="model in models" v-bind:model="model" ></model-summary>
         </div>
         <div v-else class="empty-list">
             <div>
-                <div class="message">No {{ model_type }}s</div>
-                <button type="button" @click="newModel">New {{ model_type }} <span class="icofont-plus"></span></button>
+                <div class="message">{{ $t( 'No_' + model_type ) }}</div>
+                <button type="button" @click="newModel">{{ $t( 'New_' + model_type ) }} <span class="icofont-plus"></span></button>
             </div>
         </div>
         <div v-if="showNew" class="popup-wrapper">
@@ -38,6 +38,20 @@
 <script>
     module.exports = {
         props: ['type'],
+        i18n: {
+            messages: {
+                en: {
+                    'No_User': 'No People',
+                    'New_User': 'New Person',
+                    'No_Event': 'No Events',
+                    'New_Event': 'New Event',
+                    'No_Series': 'No Series',
+                    'New_Series': 'New Series',
+                    'No_Category': 'No Categories',
+                    'New_Category': 'New Category'
+                }
+            }
+        },
         data: function() {
             return {
                 models:        [],

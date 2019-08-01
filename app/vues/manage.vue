@@ -21,7 +21,7 @@
 <template>
 <div :class="{ root: true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
-    <h1>{{ pageTitle }}</h1>
+    <h1>{{ $t( pageTitle ) }}</h1>
     <a href="#main" @click.prevent="skipTo('main')" class="sr-only">Skip Navigation</a>
     <div class="menu">
         <nav>
@@ -82,16 +82,21 @@ module.exports = {
     },
     watch: {
         '$route': function(to, from) {
-            this.setTitle(to.name);
+            this.setTitle(to.name + '_title');
         }
     },
     created: function() {
-        this.setTitle(this.$route.name);
+        this.setTitle(this.$route.name + '_title');
     },
     i18n: {
         messages: {
             "en": {
                 "home": "Home",
+                "users_title": "People",
+                "events_title": "Events",
+                "categories_title": "Categories",
+                "series_title": "Event Series",
+                "locations_title": "Locations"
             },
             "es": {
                 "home": "Página Principal",
