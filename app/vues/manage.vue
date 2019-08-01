@@ -36,6 +36,7 @@
                 <li><router-link @click.native="toggleMenu" to="/manage/events">Events</router-link></li>
                 <li><router-link @click.native="toggleMenu" to="/manage/series">Series</router-link></li>
                 <li><router-link @click.native="toggleMenu" to="/manage/locations">Locations</router-link></li>
+                <li v-if="user.hasRole('editor')"><router-link @click.native="toggleMenu" to="/manage/categories">Categories</router-link></li>
             </ul>
             <ul>
                 <li><router-link @click.native="toggleMenu" to="/manage/profile">My Profile</router-link></li>
@@ -72,9 +73,9 @@ module.exports = {
             user: new User({
                 name: 'Stephen',
                 roles: {
-                    administrator: false,
+                    administrator: true,
                     group_administrator: true,
-                    editor: false,
+                    editor: true,
                     contributor: true
                 }
             })

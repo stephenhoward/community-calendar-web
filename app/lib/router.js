@@ -2,6 +2,7 @@
 const Event   = require('./model/event');
 const Series  = require('./model/series');
 const User  = require('./model/user');
+const Category  = require('./model/category');
 const compose = require('./compose');
 
 const routesForModel = function(type, path) {
@@ -32,6 +33,7 @@ module.exports = {
         {
             path: '/manage', component: require('../vues/manage.vue'),
             children: [
+                ...routesForModel( Category, 'categories'),
                 ...routesForModel( Series, 'series'),
                 ...routesForModel( Event,  'events'),
                 ...routesForModel( User,   'users'),
