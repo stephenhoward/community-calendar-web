@@ -48,34 +48,34 @@ test( 'basic compose', t => {
 test( 'missing list components', t => {
 
     t.throws( () => {
-        let newVue = compose.ListVue();
+        let newVue = compose.listPage();
     });
 });
 
 test( 'empty list components', t => {
 
     t.throws( () => {
-        let newVue = compose.ListVue({});
+        let newVue = compose.listPage({});
     });
 });
 
 test( 'missing list summary component', t => {
 
     t.throws( () => {
-        let newVue = compose.ListVue({ 'model-form': testVue });
+        let newVue = compose.listPage({ 'model-form': testVue });
     });
 });
 
 test( 'missing list form component', t => {
 
     t.throws( () => {
-        let newVue = compose.ListVue({ 'model-summary': testVue });
+        let newVue = compose.listPage({ 'model-summary': testVue });
     });
 });
 
 test ( 'list compose', t => {
 
-    let newVue = compose.ListVue({
+    let newVue = compose.listPage({
         'model-summary': testVue,
         'model-form': testVue2,
         'bad-vue': {}
@@ -92,20 +92,20 @@ test ( 'list compose', t => {
 test( 'missing edit components', t => {
 
     t.throws( () => {
-        let newVue = compose.editVue();
+        let newVue = compose.editPage();
     });
 });
 
 test( 'bad edit form component', t => {
 
     t.throws( () => {
-        let newVue = compose.editVue([]);
+        let newVue = compose.editPage([]);
     });
 });
 
 test ( 'edit compose', t => {
 
-    let newVue = compose.editVue(testVue);
+    let newVue = compose.editPage(testVue);
 
     t.true( 'props' in newVue );
     t.true( newVue.props[0] == 'type' );

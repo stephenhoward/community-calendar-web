@@ -7,31 +7,16 @@
 </template>
 
 <script>
+const translateForm = require('./model.vue');
 
 module.exports = {
-    props: ['info'],
+    extends: translateForm,
     i18n: {
         messages: {            
             en: {
                 accessibility_information: 'Accessibility Information'
             }
         }
-    },
-    data: function() {
-
-        return { i18n: this.info };
-    },
-    watch: {
-        'i18n': {
-            handler: function( newVal, oldVal ) {
-                this.$emit('update',newVal);
-            },
-            deep: true
-        },
-        'info': function(newVal, oldVal) {
-            this.i18n = newVal;
-        }
     }
-
-}
+};
 </script>

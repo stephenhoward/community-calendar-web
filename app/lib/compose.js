@@ -1,5 +1,5 @@
-const listVue        = require('../vues/manage/list.vue');
-const editVue        = require('../vues/manage/edit.vue');
+const listPage       = require('../vues/manage/list.vue');
+const editPage       = require('../vues/manage/edit.vue');
 const editorVue      = require('../vues/manage/components/editor.vue');
 const translationVue = require('../vues/manage/components/translate.vue');
 
@@ -11,7 +11,7 @@ const composeVue = function(templateVue,componentVues) {
     return Object.assign( { components: componentVues }, templateVue );
 };
 
-const composeListVue = function(vues) {
+const composeListPage = function(vues) {
 
     if (
         typeof vues != 'object' ||
@@ -26,10 +26,10 @@ const composeListVue = function(vues) {
         'model-create':  composeVue( editorVue, { 'model-form': vues['model-form'] } )
     };
 
-    return composeVue( listVue, components );
+    return composeVue( listPage, components );
 };
 
-const composeEditVue = function(formVue) {
+const composeEditPage = function(formVue) {
 
     if ( typeof formVue == undefined || ! Object.keys(formVue).length ) {
         throw new Error("must supply a component to render the model's edit form");
@@ -39,7 +39,7 @@ const composeEditVue = function(formVue) {
         'model-edit':  composeVue( editorVue, { 'model-form': formVue } )
     };
 
-    return composeVue( editVue, components );
+    return composeVue( editPage, components );
 };
 
 const composeTranslationVue = function(formVue) {
@@ -49,7 +49,7 @@ const composeTranslationVue = function(formVue) {
 
 module.exports = {
     Vue:            composeVue,
-    ListVue:        composeListVue,
-    editVue:        composeEditVue,
+    listPage:       composeListPage,
+    editPage:       composeEditPage,
     translationVue: composeTranslationVue
 };

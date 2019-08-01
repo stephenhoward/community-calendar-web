@@ -62,7 +62,7 @@
 
 <template>
     <div class="series">
-        <translation-control v-bind:model="series" @update="updateInfo"></translation-control>
+        <translation-control v-bind:model="mod" @update="updateInfo"></translation-control>
         <section class="datetimes">
         </section>
         <section class="options">
@@ -71,34 +71,18 @@
 </template>
 
 <script>
-const moment  = require('moment');
-const Series   = require('../../../lib/model/series');
-const compose = require('../../../lib/compose');
+const translatableForm = require('./translatable.vue');
+const compose  = require('../../../lib/compose');
 
 module.exports = {
-    props: ['model'],
+    extends: translatableForm,
     components: {
         'translation-control': compose.translationVue( require('./translate/series.vue') )
     },
     data: function() {
         return {
-            now: moment(),
             series: this.model
         };
-    },
-    methods: {
-        updateInfo: function(lang,info) {
-            this.series.info[lang] = info;
-        }
-    },
-    watch: {
-        series: {
-            handler: function(newVal,oldVal) {
-                this.$emit('update',this.series);
-            },
-            deep: true
-        }
     }
-
-}
+};
 </script>

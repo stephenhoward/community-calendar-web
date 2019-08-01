@@ -5,12 +5,12 @@
 </style>
 
 <template>
-    <div class="user">
-        <label>Name <input v-model="user.name" /></label>
-        <label>Email <input v-model="user.email" /></label>
+    <div class="model">
+        <label>Name <input v-model="mod.name" /></label>
+        <label>Email <input v-model="mod.email" /></label>
         <fieldset>
             <legend>Permissions</legend>
-            <div v-for="role in user.roles">
+            <div v-for="role in mod.roles">
                 <span v-if="role.organization">{{ role.organization }}</span>
                 <span v-else>Site-wide</span>
                 <select v-model="role.type">
@@ -24,22 +24,20 @@
 </template>
 
 <script>
-const User   = require('../../../lib/model/user');
+const modelForm = require('./model.vue');
 
 module.exports = {
-    props: ['model'],
+    extends: modelForm,
     data: function() {
         return {
-            user: this.model,
+            mod: this.model,
             role_types: [ 'Contributor','Editor','Administrator']
         };
     },
-    methods: {
-    },
     watch: {
-        user: {
+        mod: {
             handler: function(newVal,oldVal) {
-                this.$emit('update',this.user);
+                this.$emit('update',this.mod);
             },
             deep: true
         }

@@ -49,7 +49,7 @@
 
 <template>
     <div class="category">
-        <translation-control v-bind:model="category" @update="updateInfo"></translation-control>
+        <translation-control v-bind:model="mod" @update="updateInfo"></translation-control>
         <section class="datetimes">
         </section>
         <section class="options">
@@ -58,34 +58,13 @@
 </template>
 
 <script>
-const moment  = require('moment');
-const Event   = require('../../../lib/model/category');
-const compose = require('../../../lib/compose');
+const translatableForm = require('./translatable.vue');
+const compose  = require('../../../lib/compose');
 
 module.exports = {
-    props: ['model'],
+    extends: translatableForm,
     components: {
         'translation-control': compose.translationVue( require('./translate/category.vue') )
-    },
-    data: function() {
-        return {
-            now: moment(),
-            category: this.model
-        };
-    },
-    methods: {
-        updateInfo: function(lang,info) {
-            this.category.info[lang] = info;
-        }
-    },
-    watch: {
-        category: {
-            handler: function(newVal,oldVal) {
-                this.$emit('update',this.category);
-            },
-            deep: true
-        }
     }
-
-}
+};
 </script>
