@@ -6,19 +6,19 @@
 
 <template>
     <div class="model">
-        <label>Name <input v-model="mod.name" /></label>
-        <label>Email <input v-model="mod.email" /></label>
+        <label>{{ $t('name') }} <input v-model="mod.name" /></label>
+        <label>{{ $t('email') }} <input v-model="mod.email" /></label>
         <fieldset>
-            <legend>Permissions</legend>
+            <legend>{{ $t('permissions') }}</legend>
             <div v-for="role in mod.roles">
                 <span v-if="role.organization">{{ role.organization }}</span>
-                <span v-else>Site-wide</span>
+                <span v-else>{{ $t('side_wide_roles') }}</span>
                 <select v-model="role.type">
-                    <option v-for="role_type in role_types" >{{ role_type }}</option>
+                    <option v-for="role_type in role_types" >{{ $t(role_type) }}</option>
                 </select>
                 <button v-if="role.organization" class="icofont-close"></button>
             </div>
-            <button><span class="icofont-plus"></span> Add Organization</button>
+            <button><span class="icofont-plus"></span> {{ $t('add_organization') }}</button>
         </fieldset>
     </div>
 </template>
@@ -34,14 +34,21 @@ module.exports = {
             role_types: [ 'Contributor','Editor','Administrator']
         };
     },
-    watch: {
-        mod: {
-            handler: function(newVal,oldVal) {
-                this.$emit('update',this.mod);
+    i18n: {
+        messages: {
+            en: {
+                name:             'Name',
+                email:            'Email',
+                permissions:      'Permissions',
+                site_wide_roles:  'Site-wide',
+                add_organization: 'Add Organization',
+                Contributor:      'Contributor',
+                Editor:           'Editor',
+                Administrator:    'Administrator'
             },
-            deep: true
+            es: {},
+            fr: {}
         }
     }
-
 }
 </script>

@@ -27,11 +27,21 @@
 module.exports = {
     props: ['model'],
     i18n: {
-        messages: {            
+        messages: {
             en: {
                 close:  'Cancel',
                 create: 'Create',
                 save:   'Save'
+            },
+            es: {
+                close:  'Cancelar',
+                create: 'Crear',
+                save:   'Guardar'
+            },
+            fr: {
+                close:  'Annuler',
+                create: 'Créer',
+                save:   'Enregistrer'
             }
         }
     },

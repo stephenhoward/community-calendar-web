@@ -63,7 +63,7 @@ div.events {
         <h2 ref="heading" tabindex="-1" v-if="title      == 'today_title'">{{ $t('today_title') }}</h2>
         <h2 ref="heading" tabindex="-1" v-else-if="title == 'week_title'">{{  $t('week_title')  }}</h2>
         <h2 ref="heading" tabindex="-1" v-else>{{ $t('search_title') }}</h2>
-        <a href="#filters" @click.prevent="skipTo('filters')" class="sr-only">Skip to Search Filters</a>
+        <a href="#filters" @click.prevent="skipTo('filters')" class="sr-only">{{ $t('aria_skip_to_filters') }}</a>
         <div class="days">
             <section v-for="day in days" class="events">
                 <h3 v-if="day.date">{{ $d( day.date.toDate(), 'short' ) }}</h3>
@@ -93,7 +93,8 @@ div.events {
                 en: {
                     today_title:  'Today',
                     week_title:   'This Week',
-                    search_title: 'Search'
+                    search_title: 'Search',
+                    aria_skip_to_filters: 'Skip to Search Filters'
                 },
                 es: {
                     today_title:  'Hoy',

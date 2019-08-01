@@ -6,7 +6,7 @@ module.exports = class Series extends Translatable {
 
     static baseUrl() { return this.apiVersion() + '/series' }
 
-    modelUrl() { return this.id ? Event.baseUrl() + '/' + this.id : Event.baseUrl() }
+    modelUrl() { return this.id ? Series.baseUrl() + '/' + this.id : Event.baseUrl() }
 
     static newFromJson(json) {
 

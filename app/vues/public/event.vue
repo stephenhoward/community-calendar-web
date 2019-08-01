@@ -86,7 +86,7 @@ div.event {
         </ul>
     </div>
     <div v-else>
-        No event found.
+        {{ $t('not_found') }}
     </div>
 </template>
 
@@ -100,7 +100,8 @@ module.exports = {
     i18n: {
         messages: {            
             en: {
-                accessibility_information: 'Accessibility Information'
+                accessibility_information: 'Accessibility Information',
+                not_found: 'No event found'
             }
         }
     },
@@ -113,7 +114,7 @@ module.exports = {
                     en: {
                         title: 'Explore the Science of Space at Your Library!',                                        
                         description: "This event has been engineered to review the principles of space travel, with an emphasis on the 50th anniversary of the landing of the first human on the Moon during NASA's Apollo 11 mission. It also highlights the Apollo mission spinoffs that Earthlings have gained from research into space exploration.",
-                        accessibility_information: 'Ramp available at the northwest corner of the building'
+                        accessibility_information: 'Ramp available at the northwest corner of the building',
                     },
                     es: {
                         title: '¡Explora la ciencia del espacio en tu biblioteca!',                                        

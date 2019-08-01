@@ -63,6 +63,13 @@ const compose  = require('../../../lib/compose');
 
 module.exports = {
     extends: translatableForm,
+    i18n: {
+        messages: {
+            en: {},
+            es: {},
+            fr: {}
+        }
+    },
     components: {
         'translation-control': compose.translationVue( require('./translate/category.vue') )
     }

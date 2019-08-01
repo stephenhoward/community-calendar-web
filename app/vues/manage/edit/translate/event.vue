@@ -1,8 +1,8 @@
 <template>
     <div class="info">
-        <label>Title <input v-model="i18n.title" name="title" placeholder="title"></label>
-        <label>Event Description <textarea v-model="i18n.description"></textarea></label>
-        <label>Accessibility Information <textarea v-model="i18n.accessibility_information"></textarea></label>
+        <label>{{ $t('title') }} <input v-model="i18n.title" :placeholder="$t('title')"></label>
+        <label>{{ $t('description') }} <textarea v-model="i18n.description"></textarea></label>
+        <label>{{ $t('accessibility_information') }} <textarea v-model="i18n.accessibility_information"></textarea></label>
     </div>
 </template>
 
@@ -12,8 +12,10 @@ const translateForm = require('./model.vue');
 module.exports = {
     extends: translateForm,
     i18n: {
-        messages: {            
+        messages: {
             en: {
+                title: 'Title',
+                description: 'Description',
                 accessibility_information: 'Accessibility Information'
             }
         }

@@ -92,7 +92,7 @@ div.calendar {
             <button :aria-label="$t('previous_month')" tabindex="1" type="button" class="nav prev icofont-arrow-left" @click="previousMonth"></button>
             <button :aria-label="$t('next_month')"     tabindex="2" type="button" class="nav next icofont-arrow-right" @click="nextMonth"></button>
         </div>
-        <span class="sr-only" id="calendarInstructions">Use arrow keys to navigate, press enter to select date</span>
+        <span class="sr-only" id="calendarInstructions">{{ $t('calendar_instructions') }}</span>
         <div role="button"
             class="day"
             tabindex="-1"
@@ -143,7 +143,8 @@ div.calendar {
                 en: {
                     next_month:     'next month (page down)',
                     previous_month: 'previous month (page up)',
-                    close_calendar: 'close calendar (escape)'
+                    close_calendar: 'close calendar (escape)',
+                    calendar_instructions: 'Use arrow keys to navigate, press enter to select date'
                 },
                 es: {
                     next_month:     'próximo mes (página abajo)',

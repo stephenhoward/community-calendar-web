@@ -23,7 +23,7 @@
             <model-edit v-bind:model="current_model" @close="closeEditor"></model-edit>
         </div>
         <div v-else class="missing-model">
-            <div class="message">{{ model_type }} Not Found</div>
+            <div class="message">{{ $t('model_not_found', { model: model_type } ) }}</div>
         </div>
     </div>
 </template>
@@ -36,6 +36,15 @@
                 model:      null,
                 model_type: this.type.name
             };
+        },
+        i18n: {
+            messages: {
+                en: {
+                    model_not_found: '{model} Not Found'
+                },
+                es: {},
+                fr: {}
+            }
         },
         created: function() {
             this.type.fetch(this.id).then( (model) => { this.model = model } );

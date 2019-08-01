@@ -22,27 +22,27 @@
 <div :class="{ root: true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
     <h1>{{ $t( pageTitle ) }}</h1>
-    <a href="#main" @click.prevent="skipTo('main')" class="sr-only">Skip Navigation</a>
+    <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ $t('aria_skip_navigation') }}</a>
     <div class="menu">
         <nav>
             <ul>
                 <li><router-link to="/">{{ $t('home') }}</router-link></li>
             </ul>
             <ul v-if="user.hasRole('administrator','group_administrator')">
-                <li v-if="user.hasRole('administrator', 'group_administrator')" ><router-link @click.native="toggleMenu" to="/manage/users">People</router-link></li>
-                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/groups">Organizations</router-link></li>
+                <li v-if="user.hasRole('administrator', 'group_administrator')" ><router-link @click.native="toggleMenu" to="/manage/users">{{ $t('people_nav') }}</router-link></li>
+                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/groups">{{ $t('organizations_nav')}}</router-link></li>
             </ul>
             <ul>
-                <li><router-link @click.native="toggleMenu" to="/manage/events">Events</router-link></li>
-                <li><router-link @click.native="toggleMenu" to="/manage/series">Series</router-link></li>
-                <li><router-link @click.native="toggleMenu" to="/manage/locations">Locations</router-link></li>
-                <li v-if="user.hasRole('editor')"><router-link @click.native="toggleMenu" to="/manage/categories">Categories</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/events">{{ $t('events_nav') }}</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/series">{{ $t('series_nav') }}</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/locations">{{ $t('locations_nav') }}</router-link></li>
+                <li v-if="user.hasRole('editor')"><router-link @click.native="toggleMenu" to="/manage/categories">{{ $t('categories_nav') }}</router-link></li>
             </ul>
             <ul>
-                <li><router-link @click.native="toggleMenu" to="/manage/profile">My Profile</router-link></li>
-                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/settings">Site Settings</router-link></li>
-                <li v-else-if="user.hasRole('group_administrator')"><router-link @click.native="toggleMenu" to="/manage/settings">Organization Settings</router-link></li>
-                <li><router-link to="/logout">Logout</router-link></li>
+                <li><router-link @click.native="toggleMenu" to="/manage/profile">{{ $t('profile_nav') }}</router-link></li>
+                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/settings">{{ $t('site_settings_nav') }}</router-link></li>
+                <li v-else-if="user.hasRole('group_administrator')"><router-link @click.native="toggleMenu" to="/manage/settings">{{ $t('organization_settings_nav') }}</router-link></li>
+                <li><router-link to="/logout">{{ $t('logout') }}</router-link></li>
             </ul>
         </nav>
     </div>
@@ -93,11 +93,23 @@ module.exports = {
         messages: {
             "en": {
                 "home": "Home",
+                "people_nav": "People",
+                "organizations_nav": "Organizations",
+                "events_nav": "Events",
+                "series_nav": "Series",
+                "categories_nav": "Categories",
+                "locations_nav": "Locations",
+                "profile_nav": "My Profile",
+                "site_settings_nav": "Site Settings",
+                "organization_settings_nav": "Organization Settings",
+                "logout": "Logout",
+
                 "users_title": "People",
                 "events_title": "Events",
                 "categories_title": "Categories",
                 "series_title": "Event Series",
-                "locations_title": "Locations"
+                "locations_title": "Locations",
+                "aria_skip_navigation": "Skip Navigation",
             },
             "es": {
                 "home": "Página Principal",
