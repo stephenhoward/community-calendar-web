@@ -76,9 +76,6 @@ body {
                 grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
             }
         }
-        header > h1 {
-            display: none;
-        }
 
         &.hide-menu {
             grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
@@ -86,9 +83,6 @@ body {
             main {
                 padding: 0 10px 40px 10px;
 
-            }
-            header > h1 {
-                display: inline-block;
             }
         }
 

@@ -6,6 +6,7 @@ header {
     background-image: url(/images/anthony-delanoix-hzgs56Ze49s-unsplash.jpg);
     background-size: cover;
     background-position: center;
+    white-space: nowrap;
 
     & > h1 {
         @include page-title-positioning;
