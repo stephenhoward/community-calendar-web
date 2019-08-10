@@ -68,7 +68,7 @@ body {
         height:                100%;
         min-height:            100%;
         grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
-        grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
+        grid-template-rows:    [ top ]       120px  [ main ] auto [ end ];
         @include medium-size-device {
             grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
             grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
@@ -76,6 +76,10 @@ body {
                 grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
             }
         }
+        header > h1 {
+            display: none;
+        }
+
         &.hide-menu {
             grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
 
@@ -83,10 +87,9 @@ body {
                 padding: 0 10px 40px 10px;
 
             }
-        }
-
-        & > h1 {
-            @include page-title-positioning;
+            header > h1 {
+                display: inline-block;
+            }
         }
 
         & > div.menu {
@@ -137,10 +140,13 @@ button {
 }
 
 #menu-toggle {
+    display: inline-block;
     grid-row-start:    top;
     grid-column-start: main;
     justify-self:      start;
     margin:            20px 0 0 10px;
+    color: #fff;
+    text-shadow: 0 0 6px rgba(0,0,0,.3);
 }
 
 </style>

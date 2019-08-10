@@ -49,6 +49,7 @@ $main-area-menu-gutter: 40px;
     grid-row-start:    top;
     grid-column-start: main;
     justify-self:      start;
-    margin:            10px 0 0 $main-area-menu-gutter;
-
+    margin:            10px 0 0 10px;
+    display: inline-block;
+    vertical-align: top;
 }

@@ -1,7 +1,39 @@
+<style lang="sass">
+
+@import 'app/scss/_mixins.scss';
+
+header {
+    background-image: url(/images/anthony-delanoix-hzgs56Ze49s-unsplash.jpg);
+    background-size: cover;
+    background-position: center;
+
+    & > h1 {
+        @include page-title-positioning;
+        color: #fff;
+        text-shadow: 0 0 10px rgba(0,0,0,.6);
+    }
+
+    @include large-size-device {
+        min-height: 300px;
+    }
+
+}
+
+main {
+    border-top-left-radius: 10px;
+    border-top-right-radius: 10px;
+    margin-top: -10px;
+    background: #fff;
+    box-shadow: 0 -5px 5px rgba(0,0,0,.3);
+}
+</style>
+
 <template>
     <div :class="{ root: true, 'hide-menu': ! menuVisible }">
+        <header>
         <span aria-hidden="true" id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
         <h1>{{ $t('site_title') }}</h1>
+        </header>
         <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ $t('aria_skip_navigation') }}</a>
         <div class="menu" role="menu">
             <nav>
