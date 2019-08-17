@@ -13,7 +13,7 @@
   "scripts": {
     "dev": "brunch watch --server",
     "build": "brunch build -p",
-    "test": "nyc ava test/**/*.spec.js",
+    "test": "nyc ava test/*.spec.js",
     "cover": "nyc ava"
   },
   "ava": {
@@ -29,9 +29,7 @@
     "vue": "^2.6.10",
     "vue-i18n": "8.11.2",
     "vue-router": "3.0.6",
-    "moment": "2.24.0"
-  },
-  "devDependencies": {
+    "moment": "2.24.0",
     "sass": "^1.21.0",
     "brunch": "^2.10.17",
     "babel-brunch": "7.0.1",

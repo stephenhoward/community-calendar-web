@@ -12,3 +12,4 @@ COPY brunch-config.js  ${HOME}/brunch-config.js
 
 RUN apk update && apk add nodejs npm
 RUN npm install --save-dev
+RUN brunch build
