@@ -13,7 +13,7 @@
     color:            $light-mode-text;  
 }
 
-@media (prefers-color-scheme: dark) {
+@include dark-mode {
     :root {    
         background-color: $dark-mode-background;
         color:            $dark-mode-text;
@@ -67,14 +67,19 @@ body {
         display:               grid;
         height:                100%;
         min-height:            100%;
+
         grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
         grid-template-rows:    [ top ]       120px  [ main ] auto [ end ];
+
         @include medium-size-device {
             grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
             grid-template-rows:    [ top ]       80px  [ main ] auto [ end ];
             &.hide-menu {
                 grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
             }
+        }
+        @include large-size-device {
+            grid-template-rows: [ top ] 280px  [ main ] auto [ end ];
         }
 
         &.hide-menu {
@@ -86,10 +91,10 @@ body {
             }
         }
 
-        & > div.menu {
+        div.main-menu {
 
             grid-area:        top / left-rail / bottom / main;
-            background-color: rgba(0,0,0,.8);
+            background-color: $light-mode-sidebar-background;
             overflow-x:       hidden;
             overflow-y:       visible;
             nav {
@@ -105,8 +110,13 @@ body {
 
                     a {
                         text-decoration: none;
+                        color: #fff;
                     }
                 }
+            }
+
+            @include dark-mode {
+                background-color: $dark-mode-sidebar-background;
             }
         }
         & > main {
@@ -118,6 +128,15 @@ body {
             & > * {
                 overflow-x: hidden;
                 overflow-y: visible;
+            }
+            border-top-left-radius: 10px;
+            border-top-right-radius: 10px;
+            margin-top: -10px;
+            background: $light-mode-background;
+            box-shadow: 0 -5px 5px rgba(0,0,0,.3);
+
+            @include dark-mode {
+                background: $dark-mode-background;
             }
         }
 

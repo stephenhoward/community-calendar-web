@@ -20,13 +20,6 @@ header {
 
 }
 
-main {
-    border-top-left-radius: 10px;
-    border-top-right-radius: 10px;
-    margin-top: -10px;
-    background: #fff;
-    box-shadow: 0 -5px 5px rgba(0,0,0,.3);
-}
 </style>
 
 <template>
@@ -36,7 +29,7 @@ main {
         <h1>{{ $t('site_title') }}</h1>
         </header>
         <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ $t('aria_skip_navigation') }}</a>
-        <div class="menu" role="menu">
+        <div class="main-menu" role="menu">
             <nav>
                 <li><router-link @click.native="navigate" to="/">{{ $t('happening_today') }}</router-link></li>
                 <li><router-link @click.native="navigate" to="/this-week">{{ $t('this_week') }}</router-link></li>

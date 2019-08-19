@@ -1,29 +1,38 @@
 <style lang="sass">
-    div.root {
-        & > div.menu {
-            background-color: rgba(0,0,0,.8);
-            nav {
-                ul {
-                    border-bottom: 1px solid rgba(0,0,0,.5);
-                }
-                li {
-                    border-top: 1px solid rgba(0,0,0,.5);
 
-                    a {
-                        color: #fff;
-                    }
-                }
+    @import 'app/scss/_mixins.scss';
+
+    div.root.manage {
+
+        grid-template-columns: [ left-rail ] auto [ main ] 0px [ end ];
+        &.hide-menu {
+            grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
+        }
+
+        & > h1 {
+            @include page-title-positioning;
+            margin-left: 40px;
+        }
+        #menu-toggle {
+            color: $light-mode-text;
+            text-shadow: none;
+            @include dark-mode {
+                color: $dark-mode-text;
             }
+        }
+        main {
+            box-shadow: none;
+            background-color: none;
         }
     }
 </style>
 
 <template>
-<div :class="{ root: true, 'hide-menu': ! menuVisible }">
+<div :class="{ root: true, manage: true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
     <h1>{{ $t( pageTitle ) }}</h1>
     <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ $t('aria_skip_navigation') }}</a>
-    <div class="menu">
+    <div class="main-menu">
         <nav>
             <ul>
                 <li><router-link to="/">{{ $t('home') }}</router-link></li>

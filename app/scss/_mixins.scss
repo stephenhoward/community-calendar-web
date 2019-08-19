@@ -1,11 +1,18 @@
 
 $light-mode-background: #fff;
-$dark-mode-background: #000;
-$light-mode-text: #000;
-$light-mode-border: rgba(0,0,0,.5);
+$dark-mode-background: #3a3a3a;
 
+$light-mode-sidebar-background: #3a3a3a;
+$dark-mode-sidebar-background: #222;
+
+$light-mode-text: #000;
 $dark-mode-text: #eee;
-$dark-mode-border: rgba(238,238,238,.5);
+
+$light-mode-border: rgba(0,0,0,.3);
+$dark-mode-border: rgba(238,238,238,.3);
+
+$light-mode-panel-background: #fff;
+$dark-mode-panel-background: rgba(0,0,0,.2);
 
 $main-area-menu-gutter: 40px;
 

@@ -20,11 +20,12 @@ div.events {
         padding:       15px;
         margin-bottom: 25px;
         border-radius: 4px;
-        border:        1px solid #ccc;
+        border:        1px solid $light-mode-border;
+        box-shadow:    2px 2px 5px rgba(100,100,100,.3);
 
         @include dark-mode {
-            background-color: #111;
-            border-color:     #222;
+            background-color: $dark-mode-panel-background;
+            border-color:     $dark-mode-border;
         }
     }
 

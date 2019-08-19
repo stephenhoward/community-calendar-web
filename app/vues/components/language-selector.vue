@@ -14,6 +14,7 @@
         overflow-x:        hidden;
         overflow-y:        visible;
         z-index:           10;
+        cursor:            pointer;
 
         div.current-language {
             margin: 8px;
