@@ -169,6 +169,8 @@ button {
 </template>
 
 <script>
+const axios  = require('axios');
+
 module.exports = {
     name: 'app',
     data: () => {

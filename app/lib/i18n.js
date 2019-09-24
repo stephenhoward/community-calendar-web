@@ -1,10 +1,11 @@
-let Vue     = require('vue');
-let VueI18n = require('vue-i18n');
+const Vue     = require('vue');
+const VueI18n = require('vue-i18n');
+const config  = require('./config');
 
 Vue.use(VueI18n);
 
 window.i18n = new VueI18n({
-    locale   : navigator.language.substring(0,2) || 'en',
+    locale   : navigator.language.substring(0,2) || config.settings().default_language,
     silentTranslationWarn: true,
     silentFallbackWarn: true,
     dateTimeFormats: {

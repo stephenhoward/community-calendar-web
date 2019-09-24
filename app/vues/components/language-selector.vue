@@ -62,7 +62,7 @@
 </style>
 
 <template>
-    <div id="language-selector" >
+    <div v-if="Object.keys(langs).length > 1" id="language-selector" >
         <div class="current-language" @click="revealLanguages = true">
             <span>{{ langs[$root.$i18n.locale] }}</span><span class="icon icofont-exchange"></span>
         </div>
@@ -80,15 +80,13 @@
 </template>
 
 <script>
+    let config = require('../../lib/config');
+
     module.exports = {
         data: () => {
             return {
                 revealLanguages: false,
-                langs: {
-                    'en': 'English',
-                    'es': 'Español',
-                    'fr': 'Français' 
-                }
+                langs: {}
             };
         },
         i18n: {
@@ -103,6 +101,12 @@
                     select_language: 'Sélectionnez une Langue'
                 }
             }
+        },
+        created: function() {
+            let all_languages    = config.languages();
+            let active_languages = config.settings().languages;
+
+            active_languages.forEach( lang => this.langs[lang] = all_languages[lang].name );
         },
         methods: {
             hideLanguages: function() {
