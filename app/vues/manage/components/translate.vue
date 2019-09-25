@@ -104,6 +104,7 @@ div.translate {
 </template>
 
 <script>
+let config = require('../../../lib/config');
 
 module.exports = {
     props: ['model'],
@@ -119,12 +120,8 @@ module.exports = {
     },
     data: function() {
         return {
-            all_languages: {
-                'en': 'English',
-                'es': 'Español',
-                'fr': 'Français'
-            },
-            default_language: 'en',
+            all_languages: {},
+            default_language: '',
             active_languages: [],
             current_language: null,
             info: this.model.info || {},
@@ -138,6 +135,12 @@ module.exports = {
         }
     },
     created: function() {
+        let all_languages    = config.languages();
+        let active_languages = config.settings().languages;
+
+        this.default_language = config.settings().default_language;
+
+        active_languages.forEach( lang => this.all_languages[lang] = all_languages[lang].name );
         this.addLanguage( this.default_language );
         for( code in this.info ) {
             if ( code != this.default_language ) {

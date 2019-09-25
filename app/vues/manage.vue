@@ -118,6 +118,7 @@ module.exports = {
                 "categories_title": "Categories",
                 "series_title": "Event Series",
                 "locations_title": "Locations",
+                "site_settings_title": "Site Settings",
                 "aria_skip_navigation": "Skip Navigation",
             },
             "es": {

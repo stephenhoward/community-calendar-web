@@ -3,9 +3,14 @@
     @import 'app/scss/_mixins.scss';
 
     div.editor {
-        background-color: #fff;
+        background-color: $light-mode-panel-background;
         padding: 15px;
         border-radius: 6px;
+
+        @include dark-mode {
+            background-color: $dark-mode-panel-background;
+        }
+
         & > button {
 
         }
@@ -55,6 +60,7 @@ module.exports = {
     },
     methods: {
         createModel: function() {
+            this.m.save();
             this.$emit('close',this.m);
         },
         updateModel: function(model) {
