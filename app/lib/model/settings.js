@@ -9,8 +9,6 @@ module.exports = class Settings extends Translatable {
     modelUrl() { return Settings.baseUrl() }
 
     initEmpty() {
-
-        this.site_title       = null;
         this.image            = null;
         this.default_language = null;
         this.languages        = [];

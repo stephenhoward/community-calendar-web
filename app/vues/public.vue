@@ -26,7 +26,7 @@ header {
     <div :class="{ root: true, 'hide-menu': ! menuVisible }">
         <header>
         <span aria-hidden="true" id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
-        <h1>{{ $t('site_title') }}</h1>
+        <h1>{{ settings.get('site_title') }}</h1>
         </header>
         <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ $t('aria_skip_navigation') }}</a>
         <div class="main-menu" role="menu">
@@ -45,13 +45,16 @@ header {
 </template>
 
 <script>
+const config = require('../lib/config');
+
 module.exports = {
     components: {
         'language-selector': require('./components/language-selector.vue')
     },
     data: () => {
         return {
-            menuVisible: false
+            menuVisible: false,
+            settings: config.settings()
         };
     },
     i18n: {
