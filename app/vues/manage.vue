@@ -66,6 +66,7 @@
 const User  = require('lib/model/user');
 const Event  = require('lib/model/event');
 const Series  = require('lib/model/series');
+const authorize = require('../lib/authorize.js');
 
 module.exports = {
     components: {
@@ -89,6 +90,12 @@ module.exports = {
                 }
             })
         };
+    },
+    beforeRouteEnter: (from,to,next) => {
+        console.log('check auth');
+        if ( ! authorize.has_token() ) {
+            next({ name: 'login' });
+        }
     },
     watch: {
         '$route': function(to, from) {
