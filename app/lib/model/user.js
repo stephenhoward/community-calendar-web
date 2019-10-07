@@ -16,7 +16,13 @@ module.exports = class User extends Model {
     }
 
     initEmpty() {
-        this.roles = [];
+        this.email    = '';
+        this.language = '';
+    }
+
+    setPassword(password) {
+        this.password = password;
+        return this.save()
     }
 
 }

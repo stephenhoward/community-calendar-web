@@ -52,5 +52,6 @@ module.exports = {
             ]
         },
         { path: '/login', component: require('../vues/auth/login.vue'), name: 'login', props: true },
+        { path: '/setup', component: require('../vues/auth/setup.vue'), name: 'setup', props: true },
     ]
   };

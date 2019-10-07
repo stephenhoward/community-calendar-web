@@ -92,10 +92,10 @@ module.exports = {
         };
     },
     beforeRouteEnter: (from,to,next) => {
-        console.log('check auth');
         if ( ! authorize.has_token() ) {
             next({ name: 'login' });
         }
+        next();
     },
     watch: {
         '$route': function(to, from) {

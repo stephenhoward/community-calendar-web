@@ -4,10 +4,15 @@ class Model {
     constructor(attrs) {
 
         this.initEmpty();
-        this.attrs = attrs;
 
         for ( var attr in attrs) {
             this[attr] = attrs[attr];
+        }
+    }
+
+    updateFromJson(json) {
+        for ( var attr in json) {
+            this[attr] = json[attr];
         }
     }
 
@@ -64,9 +69,15 @@ class Model {
 
         return new Promise( ( resolve, reject ) => {
 
-            axios.post( self.modelUrl(), { model: self.dump() } )
-                .then(  response => resolve( json => self.updateFromJson(json) ) )
-                .catch( error    => reject(  error ) );
+            axios.post( self.modelUrl(), self.dump() )
+                .then(  (response) => {
+                    self.updateFromJson(response.data);
+                    resolve( self );
+                } )
+                .catch( (error) => {
+                    console.log(error);
+                    reject(error);
+                } );
         });
     }
 

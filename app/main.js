@@ -14,4 +14,9 @@ config.init().then( () => {
     });
 
     app.$mount('#app');
+
+    if ( config.settings().needs_setup ) {
+        app.$router.push({ name: 'setup' });
+    }
+
 });
