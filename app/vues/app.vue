@@ -150,6 +150,10 @@ button {
     background:    white;
     border:        1px solid #aaa;
     border-radius: 6px;
+    @include dark-mode {
+        background: $dark-mode-background;
+        color: $dark-mode-text;
+    }
 }
 
 #menu-toggle {
