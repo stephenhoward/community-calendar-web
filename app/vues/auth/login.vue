@@ -61,7 +61,7 @@ module.exports ={
             authorize.login(this.email,this.password)
                 .then(() => {
                     this.err = '';
-                    window.app.$router.push('/');
+                    window.app.$router.push('/manage');
                 })
                 .catch((error) => {
                     this.err = this.$i18n.te('login.error_' + error )

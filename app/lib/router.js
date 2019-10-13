@@ -51,7 +51,8 @@ module.exports = {
                 // { path: 'categories/:id/:slug', component: require('../vues/category.vue')  }
             ]
         },
-        { path: '/login', component: require('../vues/auth/login.vue'), name: 'login', props: true },
-        { path: '/setup', component: require('../vues/auth/setup.vue'), name: 'setup', props: true },
+        { path: '/login',  component: require('../vues/auth/login.vue'), name: 'login', props: true },
+        { path: '/logout', component: require('../vues/auth/logout.vue'), name: 'logout' },
+        { path: '/setup',  component: require('../vues/auth/setup.vue'), name: 'setup', props: true },
     ]
   };
