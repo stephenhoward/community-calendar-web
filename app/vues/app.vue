@@ -64,9 +64,10 @@ body {
 
     div.root {
 
-        display:               grid;
-        height:                100%;
-        min-height:            100%;
+        display:    grid;
+        height:     100%;
+        min-height: 100%;
+        width:      100%;
 
         grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
         grid-template-rows:    [ top ]       120px  [ main ] auto [ end ];

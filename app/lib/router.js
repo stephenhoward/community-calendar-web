@@ -31,7 +31,7 @@ module.exports = {
 
     routes : [
         {
-            path: '/manage', component: require('../vues/manage.vue'),
+            path: '/manage', component: require('../vues/manage.vue'), name: 'manage',
             children: [
                 { path: 'settings', component: require('../vues/manage/settings.vue'), name: 'site_settings' },
                 ...routesForModel( Category, 'categories'),

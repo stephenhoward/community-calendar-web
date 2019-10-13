@@ -4,9 +4,13 @@
 
     div.root.manage {
 
-        grid-template-columns: [ left-rail ] auto [ main ] 0px [ end ];
+        grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
         &.hide-menu {
             grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
+        }
+
+        &.start {
+            grid-template-columns: [ left-rail ] auto [ main ] 0px [ end ];
         }
 
         & > h1 {
@@ -28,7 +32,7 @@
 </style>
 
 <template>
-<div :class="{ root: true, manage: true, 'hide-menu': ! menuVisible }">
+<div :class="{ root: true, manage: true, start: pageTitle.length ? false : true, 'hide-menu': ! menuVisible }">
     <span id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
     <h1>{{ $t( pageTitle ) }}</h1>
     <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ $t('aria_skip_navigation') }}</a>
@@ -138,7 +142,12 @@ module.exports = {
             this.menuVisible = ! this.menuVisible;
         },
         setTitle: function(name) {
-            this.pageTitle = name;
+            if ( this.$route.name != 'manage' ) {
+                this.pageTitle = name;
+            }
+            else {
+                this.pageTitle = '';
+            }
         },
         skipTo: function(id) {
             document.getElementById(id).focus();
