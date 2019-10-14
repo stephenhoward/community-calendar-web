@@ -17,9 +17,8 @@ module.exports = {
                 resolve(response.data);
 
             }).catch( (error) => {
-                console.log(error);
                 unset_token();
-                reject( error.response.status );
+                reject( error.response );
             });
         });
     },

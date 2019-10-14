@@ -23,6 +23,9 @@ body {
         font-size: 100%;
         margin: 4px 0;
     }
+    div.error {
+        color: #f00;
+    }
 }
 </style>
 
@@ -48,7 +51,9 @@ module.exports ={
                 'login_button': 'Login',
                 email: 'email',
                 password: 'password',
-                forgot_password: 'Forgot Password?'
+                forgot_password: 'Forgot Password?',
+                UnknownLogin: 'unknown email or password',
+                '400': 'bad login'
             }
         }
     },
@@ -63,10 +68,12 @@ module.exports ={
                     this.err = '';
                     window.app.$router.push('/manage');
                 })
-                .catch((error) => {
-                    this.err = this.$i18n.te('login.error_' + error )
-                        ? this.$i18n.t( 'login.error_' + error )
-                        : error;
+                .catch((response) => {
+                    this.err = this.$i18n.te( response.data )
+                        ? this.$i18n.t( response.data )
+                        : this.$i18n.te( response.status )
+                            ? this.$i18n.t( response.status )
+                            : response.status;
                 });
         },
         doLogout: function() {
