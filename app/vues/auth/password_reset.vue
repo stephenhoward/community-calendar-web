@@ -1,5 +1,5 @@
 <template>
-    <div class="password_reset_sent">
+    <div class="password_reset">
         <ol>
             <li v-if="! codeValidated">
                 <h3>{{ $t('check_email_title') }}</h3>
@@ -16,9 +16,39 @@
                 <button type="button" @click="setPassword" class="icofont-arrow-right"><span class="sr-only">Next</span></button>
             </li>
         </ol>
-        <span class="error">{{ $t(form_error) }}</span>
+        <div class="error">{{ $t(form_error) }}</div>
     </div>
 </template>
+
+<style lang="sass">
+@import 'app/scss/_mixins.scss';
+
+body {
+    display:               grid;
+
+    grid-template-columns: [ begin ] auto [ end ];
+    grid-template-rows:    [ top ] auto [ bottom ];
+    justify-items: center;
+    align-items: center;
+    div.password_reset {
+        @include auth-form;
+
+        ol {
+            list-style-type: none;
+            margin: 0;
+            padding: 0;
+            li {
+                margin: 0;
+                padding: 0;
+
+                & > * {
+                    display: block;
+                }
+            }
+        }
+    }
+}
+</style>
 
 <script>
 const authorize = require('../../lib/authorize.js');
@@ -41,7 +71,7 @@ module.exports = {
                 check_email: 'We have sent a code to reset your password to',
                 code_validated_title: 'Valid Code',
                 code_validated: 'Please set a new password',
-                login_link: 'back to login',
+                login_link: 'back to sign in',
                 reset_code: 'reset code',
                 reset_button: 'submit code',
                 password_placeholder: 'password',

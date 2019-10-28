@@ -64,7 +64,7 @@ module.exports = {
                 "happening_today": "Happening Today",
                 "this_week": "Events This Week",
                 "add_event": "Submit an Event",
-                "login": "Log In",
+                "login": "Sign In",
                 "aria_skip_navigation": "Skip Navigation",
             },
             "es": {

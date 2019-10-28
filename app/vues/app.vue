@@ -152,7 +152,8 @@ button {
     border:        1px solid #aaa;
     border-radius: 6px;
     @include dark-mode {
-        background: $dark-mode-background;
+        background: $dark-mode-button-background;
+        border-color: $dark-mode-button-background;
         color: $dark-mode-text;
     }
 }

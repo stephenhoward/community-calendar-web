@@ -3,14 +3,16 @@
         <h1>{{ settings.get('site_title') }}</h1>
         <h3>{{ $t('title') }}</h3>
         <div class="error" v-if="err">{{ err }}</div>
-        <div><input type="email"    v-bind:placeholder="$t('email')"    v-model="email"></div>
-        <div><input type="password" v-bind:placeholder="$t('password')" v-model="password"></div>
-        <button @click="doLogin" type="button">{{ $t("login_button") }}</button>
+        <input type="email"    v-bind:placeholder="$t('email')"    v-model="email">
+        <input type="password" v-bind:placeholder="$t('password')" v-model="password">
         <router-link :to="{ name: 'forgot_password', params: { em: this.email }}" >{{ $t("forgot_password") }}</router-link>
+        <button @click="doLogin" type="button">{{ $t("login_button") }}</button>
     </div>
 </template>
 
 <style lang="sass">
+@import 'app/scss/_mixins.scss';
+
 body {
     display:               grid;
 
@@ -18,13 +20,8 @@ body {
     grid-template-rows:    [ top ] auto [ bottom ];
     justify-items: center;
     align-items: center;
-    input {
-        display: block;
-        font-size: 100%;
-        margin: 4px 0;
-    }
-    div.error {
-        color: #f00;
+    div.login {
+        @include auth-form;
     }
 }
 </style>
@@ -47,13 +44,13 @@ module.exports ={
     i18n: {
         messages: {
             en: {
-                'title': 'Login',
-                'login_button': 'Login',
+                'title': 'Sign in to your account',
+                'login_button': 'Sign in',
                 email: 'email',
                 password: 'password',
                 forgot_password: 'Forgot Password?',
                 UnknownLogin: 'unknown email or password',
-                '400': 'bad login'
+                '400': 'bad sign in'
             }
         }
     },

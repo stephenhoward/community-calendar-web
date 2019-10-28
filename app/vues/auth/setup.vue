@@ -1,4 +1,5 @@
 <style lang="sass">
+@import 'app/scss/_mixins.scss';
 body {
     display:               grid;
 
@@ -7,11 +8,13 @@ body {
     justify-items: center;
     align-items: center;
     div.setup {
+            @include auth-form;
         display: inline-block;
 
         select {
             border: 1px solid #000;
             padding: 3px;
+            width: 100%;
         }
         select,input {
             display: inline-block;

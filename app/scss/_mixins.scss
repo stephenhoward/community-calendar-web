@@ -14,6 +14,9 @@ $dark-mode-border: rgba(238,238,238,.3);
 $light-mode-panel-background: #fff;
 $dark-mode-panel-background: rgba(0,0,0,.2);
 
+$light-mode-button-background: rgba(100,100,200,.5);
+$dark-mode-button-background: rgba(0,0,150,.5);
+
 $main-area-menu-gutter: 40px;
 
 @mixin flexible-container {
@@ -59,4 +62,38 @@ $main-area-menu-gutter: 40px;
     margin:            10px 0 0 10px;
     display: inline-block;
     vertical-align: top;
+}
+
+@mixin auth-form {
+        margin: 20px;
+        & > * {
+            display: block;
+        }
+        input {
+            font-size: 100%;
+            margin: 8px 0;
+            width: 100%;
+            border-radius: 4px;
+            padding: 4px;
+        }
+        button {
+            font-size: 100%;
+            padding: 4px;
+            margin-top: 15px;
+            width: 100%;
+        }
+        a {
+            margin: 10px 0 20px 0;
+            text-align: right;
+            font-size: 85%;
+
+            @include dark-mode {
+                color: $dark-mode-text;
+            }
+        }
+
+        div.error {
+            color: #f00;
+            margin: 10px 0;
+        }
 }

@@ -122,7 +122,7 @@ module.exports = {
                 "profile_nav": "My Profile",
                 "site_settings_nav": "Site Settings",
                 "organization_settings_nav": "Organization Settings",
-                "logout": "Logout",
+                "logout": "Sign Out",
 
                 "users_title": "People",
                 "events_title": "Events",

@@ -10,6 +10,22 @@
     </div>
 </template>
 
+<style lang="sass">
+@import 'app/scss/_mixins.scss';
+
+body {
+    display:               grid;
+
+    grid-template-columns: [ begin ] auto [ end ];
+    grid-template-rows:    [ top ] auto [ bottom ];
+    justify-items: center;
+    align-items: center;
+    div.forgot_password {
+        @include auth-form;
+    }
+}
+</style>
+
 <script>
 const config    = require('../../lib/config');
 const authorize = require('../../lib/authorize.js');
@@ -34,7 +50,7 @@ module.exports = {
                 instructions: 'No problem. Enter your email address and we will email you a password reset link.',
                 email: 'your email address',
                 go_button: 'send password reset',
-                login_link: 'back to login',
+                login_link: 'back to sign in',
                 error_400: 'There is a problem with the email you submitted',
                 error_404: 'We could not find an account with that email address',
                 error_500: 'Oops. The server ran into an error. Please contact support'
