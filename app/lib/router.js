@@ -53,6 +53,8 @@ module.exports = {
         },
         { path: '/login',  component: require('../vues/auth/login.vue'), name: 'login', props: true },
         { path: '/logout', component: require('../vues/auth/logout.vue'), name: 'logout' },
+        { path: '/password/forgot', component: require('../vues/auth/password_forgot.vue'), name: 'forgot_password', props: true },
+        { path: '/password/reset',  component: require('../vues/auth/password_reset.vue'), name: 'reset_password',     props: true },
         { path: '/setup',  component: require('../vues/auth/setup.vue'), name: 'setup', props: true },
     ]
   };

@@ -37,6 +37,56 @@ module.exports = {
             }
         }
         return false;
+    },
+
+    reset_password: ( email ) => {
+
+        return new Promise( ( resolve, reject ) => {
+
+            axios.post( '/v1/auth/reset', {
+                email: email
+            })
+                .then( (response) => {
+                    resolve(response.data);
+                })
+                .catch( (error) => {
+                    console.log(error);
+                    reject( error.response.status );
+                });
+
+        });
+    },
+
+    check_password_token: ( token ) => {
+
+        return new Promise( ( resolve, reject ) => {
+
+            axios.get( 'v1/auth/reset/' + token )
+                .then( ( response ) => {
+                    resolve(response.data)
+                })
+                .catch( ( error ) => {
+                    console.log(error);
+                    reject(error.response.status);
+                });
+        });
+    },
+
+    use_password_token: ( token, password ) => {
+
+        return new Promise( ( resolve, reject ) => {
+
+            axios.post( 'v1/auth/reset/' + token, {
+                password: password
+            })
+                .then( ( response ) => {
+                    resolve(response.data)
+                })
+                .catch( ( error ) => {
+                    console.log(error);
+                    reject(error.response.status);
+                });
+        });
     }
 };
 
