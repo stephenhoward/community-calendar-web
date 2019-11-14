@@ -4,7 +4,7 @@
         <h3>{{ $t('title') }}</h3>
         <div class="error" v-if="err">{{ err }}</div>
         <input type="email"    v-bind:placeholder="$t('email')"    v-model="email">
-        <input type="password" v-bind:placeholder="$t('password')" v-model="password">
+        <input type="password" v-bind:placeholder="$t('password')" v-model="password" @keyup.enter="doLogin">
         <router-link :to="{ name: 'forgot_password', params: { em: this.email }}" >{{ $t("forgot_password") }}</router-link>
         <button @click="doLogin" type="button">{{ $t("login_button") }}</button>
     </div>
