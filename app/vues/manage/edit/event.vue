@@ -50,6 +50,16 @@
             }
         }
 
+        div.info {
+            input[type=text] {
+                width: 100%;
+                font-size: 100%;
+            }
+            textarea {
+                width: 100%;
+                min-height: 200px;
+            }
+        }
         input[type=time] {
             font-size: 100%;
             border-radius: 4px;

@@ -82,7 +82,7 @@ div.translate {
 
 <template>
     <div class="translate">
-        <ul class="tabs" role="tablist">
+        <ul class="tabs" role="tablist" v-if="Object.keys(all_languages).length > 1">
             <li
                 v-for="lang in active_languages"
                 :class="'language' + ( lang == current_language ? ' selected' : '')"
