@@ -243,7 +243,7 @@
 
             },
             toLabel: function() {
-                return this.$t('aria_date_start') + ' ' + this.$d( this.to, 'long');
+                return this.$t('aria_date_end') + ' ' + this.$d( this.to, 'long');
             }
         },
         methods: {

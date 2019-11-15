@@ -61,6 +61,10 @@ class Model {
             }
         }
 
+        if ( json.id == null ) {
+            delete json.id;
+        }
+
         return json;
     }
 

@@ -1,8 +1,8 @@
 <template>
     <div class="info">
-        <label>{{ $t('title') }} <input v-model="i18n.title" :placeholder="$t('title')"></label>
-        <label>{{ $t('description') }} <textarea v-model="i18n.description"></textarea></label>
-        <label>{{ $t('accessibility_information') }} <textarea v-model="i18n.accessibility_information"></textarea></label>
+        <label>{{ $t('title') }} <input v-model="i18n.title" :placeholder="$t('title')"></label><br>
+        <label>{{ $t('description') }}<br> <textarea v-model="i18n.description"></textarea></label><br>
+        <label>{{ $t('accessibility_information') }}<br> <textarea v-model="i18n.accessibility_information"></textarea></label>
     </div>
 </template>
 
