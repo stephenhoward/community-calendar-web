@@ -8,7 +8,7 @@
         border-radius: 6px;
 
         @include dark-mode {
-            background-color: $dark-mode-panel-background;
+            background-color: $dark-mode-background;
         }
 
         & > button {

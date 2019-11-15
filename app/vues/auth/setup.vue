@@ -43,7 +43,7 @@ body {
         }
         span.error {
             display: inline-block;
-            color: #f00;
+            color: #f50;
             font-size: 90%;
             margin-top: 20px;
         }

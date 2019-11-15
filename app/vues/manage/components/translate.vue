@@ -4,8 +4,12 @@
 
 div.translate {
     div.info {
-        background-color: #ddd;
+        background-color: $light-mode-panel-background;
         padding: 10px;
+        margin: 0 -10px;
+        @include dark-mode {
+            background-color: $dark-mode-panel-background;
+        }
     }
     ul.tabs {
         width: 100%;
@@ -13,7 +17,7 @@ div.translate {
         justify-content: flex-start;
         align-items: stretch;
         list-style-type: none;
-        margin: 0;
+        margin: 0 -10px;
         padding: 0;
         li {
             padding: 4px 8px;
@@ -49,8 +53,12 @@ div.translate {
                     color: #000;
                 }
                 &.selected {
-                    color: #000;
-                    background-color: #ddd;
+                    color: $light-mode-text;
+                    background-color: $light-mode-panel-background;
+                    @include dark-mode {
+                        color: $dark-mode-text;
+                        background-color: $dark-mode-panel-background;
+                    }
                     &:hover {
                         background-color: #ddd;
                     }

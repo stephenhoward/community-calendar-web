@@ -1,6 +1,7 @@
 
 $light-mode-background: #fff;
 $dark-mode-background: #3a3a3a;
+$dark-mode-background-gradient: linear-gradient(0deg, #111 0%, #3a3a3a 50%);
 
 $light-mode-sidebar-background: #3a3a3a;
 $dark-mode-sidebar-background: #222;
@@ -14,8 +15,9 @@ $dark-mode-border: rgba(238,238,238,.3);
 $light-mode-panel-background: #fff;
 $dark-mode-panel-background: rgba(0,0,0,.2);
 
-$light-mode-button-background: rgba(100,100,200,.5);
-$dark-mode-button-background: rgba(0,0,150,.5);
+$light-mode-button-background: rgba(100,200,100,.5);
+$dark-mode-button-background: rgba(0,150,0,.5);
+$dark-mode-button-gradient: linear-gradient(0deg, rgba(0,100,0,.7) 0%, rgba(0,150,0,.5) 100%);
 
 $main-area-menu-gutter: 40px;
 
@@ -93,7 +95,7 @@ $main-area-menu-gutter: 40px;
         }
 
         div.error {
-            color: #f00;
+            color: #f50;
             margin: 10px 0;
         }
 }

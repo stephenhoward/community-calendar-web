@@ -5,6 +5,9 @@
 * {
     font-family: 'Helvetica Neue';
     box-sizing:  border-box;
+    &:focus {
+        outline: none;
+    }
 }
 
 :root {
@@ -16,6 +19,7 @@
 @include dark-mode {
     :root {    
         background-color: $dark-mode-background;
+        background: $dark-mode-background-gradient;
         color:            $dark-mode-text;
     }
 }
@@ -135,6 +139,7 @@ body {
             margin-top: -10px;
             background: $light-mode-background;
             box-shadow: 0 -5px 5px rgba(0,0,0,.3);
+            border-top: 1px solid #777;
 
             @include dark-mode {
                 background: $dark-mode-background;
@@ -153,7 +158,8 @@ button {
     border-radius: 6px;
     @include dark-mode {
         background: $dark-mode-button-background;
-        border-color: $dark-mode-button-background;
+        background: $dark-mode-button-gradient;
+        border: none;
         color: $dark-mode-text;
     }
 }
