@@ -21,7 +21,7 @@
     <div class="model-list">
         <div v-if="models.length > 0">
         <button type="button" @click="newModel">{{ $t('New_' + model_type) }}  <span class="icofont-plus"></span></button>
-        <model-summary v-for="model in models" v-bind:model="model" ></model-summary>
+        <model-summary v-for="model in models" v-bind:model="model" v-bind:key="model.id"></model-summary>
         </div>
         <div v-else class="empty-list">
             <div>
