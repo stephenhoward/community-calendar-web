@@ -21,7 +21,7 @@
     <div class="model-list">
         <div v-if="models.length > 0">
         <button type="button" @click="newModel">{{ $t('New_' + model_type) }}  <span class="icofont-plus"></span></button>
-        <model-summary v-for="model in models" v-bind:model="model" v-bind:key="model.id"></model-summary>
+        <model-summary @open="openModel(model)" v-for="model in models" v-bind:model="model" v-bind:key="model.id"></model-summary>
         </div>
         <div v-else class="empty-list">
             <div>
@@ -76,6 +76,9 @@
                 }
                 this.current_model = null;
                 this.showNew       = false;
+            },
+            openModel: function(model) {
+                this.$router.push({ name: 'edit_' + this.type.name.toLowerCase(), params: { id: model.id } });
             }
         }
     };

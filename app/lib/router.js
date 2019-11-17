@@ -12,7 +12,7 @@ const routesForModel = function(type, path) {
     return [
         {
             path:      path,
-            name:      path,
+            name:      'list_' + type_component,
             component: compose.listPage( {
                 'model-summary': require('../vues/manage/list/' + type_component + '.vue'),
                 'model-form':    require('../vues/manage/edit/' + type_component + '.vue')
@@ -21,6 +21,7 @@ const routesForModel = function(type, path) {
         },
         {
             path:      path + '/:id',
+            name:      'edit_' + type_component,
             component: compose.editPage( require('../vues/manage/edit/' + type_component + '.vue') ),
             props:     (route) => ( { id: route.params.id, type: type } )
         }

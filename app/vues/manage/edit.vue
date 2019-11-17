@@ -20,7 +20,7 @@
 <template>
     <div class="model-editor">
         <div v-if="model">
-            <model-edit v-bind:model="current_model" @close="closeEditor"></model-edit>
+            <model-edit v-bind:model="model" @close="closeEditor"></model-edit>
         </div>
         <div v-else class="missing-model">
             <div class="message">{{ $t('model_not_found', { model: model_type } ) }}</div>
@@ -51,10 +51,7 @@
         },
         methods: {
             closeEditor: function(model) {
-                if ( model ) {
-                    this.model = model;
-                    this.model.save();
-                }
+                this.$router.push({ name: 'list_' + this.model_type.toLowerCase() })
             }
         }
     };
