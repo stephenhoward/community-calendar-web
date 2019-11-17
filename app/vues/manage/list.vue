@@ -61,7 +61,8 @@
             };
         },
         created: function() {
-            this.type.list().then( (models) => { this.models = models } );
+            let self = this;
+            this.type.list().then( (models) => { self.models = models } );
         },
         methods: {
             newModel: function() {
@@ -71,7 +72,6 @@
             },
             closeNew: function(model) {
                 if ( model ) {
-                    model.save();
                     this.models.unshift(model);
                 }
                 this.current_model = null;

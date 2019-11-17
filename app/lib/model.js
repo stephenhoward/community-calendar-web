@@ -4,10 +4,7 @@ class Model {
     constructor(attrs) {
 
         this.initEmpty();
-
-        for ( var attr in attrs) {
-            this[attr] = attrs[attr];
-        }
+        this.updateFromJson(attrs);
     }
 
     updateFromJson(json) {
@@ -104,6 +101,22 @@ class Model {
 
 class Translatable extends Model {
 
+    updateFromJson(attrs) {
+        super.updateFromJson(attrs);
+
+        if ( 'info' in attrs ) {
+            let info = {};
+
+            for( var i=0; i < attrs.info.length; i++ ) {
+                let lang   = attrs.info[i].language;
+                delete attrs.info[i].language;
+                info[lang] = attrs.info[i];
+            }
+
+            this.info = info;
+        }
+    }
+
     get(key) {
         if ( key in this ) {
             return this[key];
@@ -117,6 +130,25 @@ class Translatable extends Model {
             }
         }
         return '';
+    }
+
+    dump() {
+        let json = super.dump();
+
+        if( 'info' in json ) {
+            let info = [];
+            for( var lang in json.info ) {
+                let i = json.info[lang];
+
+                i.language = lang;
+
+                info.push(i);
+            }
+
+            json.info = info;
+        }
+
+        return json;
     }
 }
 

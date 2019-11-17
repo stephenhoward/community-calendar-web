@@ -60,8 +60,9 @@ module.exports = {
     },
     methods: {
         createModel: function() {
-            this.m.save();
-            this.$emit('close',this.m);
+            let self = this;
+
+            this.m.save().then( model => self.$emit('close',model) );
         },
         updateModel: function(model) {
             this.m = model;
