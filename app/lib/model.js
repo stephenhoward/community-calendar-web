@@ -53,7 +53,7 @@ class Model {
             else if ( typeof this[attr] instanceof Model ) {
                 json[attr] = this[attr].dump()
             }
-            else {
+            else if ( this[attr] !== null ) {
                 json[attr] = this[attr];
             }
         }
