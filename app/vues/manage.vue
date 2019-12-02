@@ -131,6 +131,7 @@ module.exports = {
                 "list_location_title": "Locations",
                 "site_settings_title": "Site Settings",
                 "aria_skip_navigation": "Skip Navigation",
+                "edit_series_title": "Edit Event Series"
             },
             "es": {
                 "home": "Página Principal",

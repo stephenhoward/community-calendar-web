@@ -27,7 +27,7 @@ module.exports = class Series extends Translatable {
     initEmpty() {
 
         this.id    = null;
-        this.info  = { en: { title: '', description: '' } };
+        this.info  = { en: { title: '', description: '', accessibility: '' } };
         this.start = null;
         this.end   = null;
     }

@@ -1,6 +1,6 @@
 <template>
     <div class="event">
-        <h3>{{ series.get('title') }}</h3>
+        <h3 @click="$emit('open',series)">{{ series.get('title') }}</h3>
     </div>
 </template>
 

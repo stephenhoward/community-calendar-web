@@ -142,6 +142,12 @@ class Translatable extends Model {
 
                 i.language = lang;
 
+                for ( var key in i ) {
+                    if ( i[key] == null ) {
+                        delete i[key];
+                    }
+                }
+
                 info.push(i);
             }
 
