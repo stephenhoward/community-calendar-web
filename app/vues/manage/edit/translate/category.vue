@@ -1,6 +1,6 @@
 <template>
     <div class="info">
-        <label>{{ $t('title') }} <input v-model="i18n.title" :placeholder="$t('title')"></label>
+        <label>{{ $t('name') }} <input v-model="i18n.name" :placeholder="$t('name')"></label>
         <label>{{ $t('description') }} <textarea v-model="i18n.description"></textarea></label>
     </div>
 </template>
@@ -13,7 +13,7 @@ module.exports = {
     i18n: {
         messages: {
             en: {
-                title: 'Title',
+                name: 'Title',
                 description: 'Description'
             }
         }

@@ -1,6 +1,6 @@
 <template>
     <div class="category">
-        <h3>{{ category.get('title') }}</h3>
+        <h3 @click="$emit('open',category)">{{ category.get('name') }}</h3>
     </div>
 </template>
 

@@ -126,7 +126,7 @@ module.exports = {
 
                 "list_user_title": "People",
                 "list_event_title": "Events",
-                "categories_title": "Categories",
+                "list_category_title": "Categories",
                 "list_series_title": "Event Series",
                 "list_location_title": "Locations",
                 "site_settings_title": "Site Settings",
