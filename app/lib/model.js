@@ -43,12 +43,11 @@ class Model {
 
     dump() {
         let json = {};
+        console.log('dumping ' + this.constructor.name );
 
         for ( var attr in this ) {
-            if ( typeof this[attr] == 'array' ) {
-                json[attr] = [
-                    this[attr].map( i => i instanceof Model ? i.dump() : i )
-                ];
+            if ( Array.isArray(this[attr]) ) {
+                json[attr] = this[attr].map( i => i instanceof Model ? i.dump() : i );
             }
             else if ( typeof this[attr] instanceof Model ) {
                 json[attr] = this[attr].dump()

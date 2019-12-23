@@ -116,6 +116,7 @@
                 <div class="error" v-if="showDateRangeError">{{ $t('date_range_error') }}</div>
         </section>
         <section class="options">
+        <category-picker @change="updateCategories"></category-picker>
         </section>
         <calendar v-if="showCalendar" :selected_date="calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
     </div>
@@ -125,6 +126,7 @@
 const translatableForm = require('./translatable.vue');
 const compose  = require('../../../lib/compose');
 const calendarVue = require('../../components/calendar.vue');
+const categoryPicker = require('../components/category_picker.vue');
 const timeVue = require('../../components/time-input.vue');
 const moment = require('moment');
 
@@ -172,7 +174,8 @@ module.exports = {
     components: {
         'translation-control': compose.translationVue( require('./translate/event.vue') ),
         'calendar': calendarVue,
-        'time-input': timeVue
+        'time-input': timeVue,
+        'category-picker': categoryPicker
     },
     computed: {
         dateLabel: function() {
@@ -212,6 +215,10 @@ module.exports = {
                 this.end.date = moment(this.start.date);
                 this.setEventTime('end');
             }
+        },
+        updateCategories(categories) {
+            this.mod.categories = categories;
+            console.log(this.mod.categories);
         }
 
     }
