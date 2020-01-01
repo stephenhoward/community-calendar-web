@@ -156,6 +156,9 @@ button {
     background:    white;
     border:        1px solid #aaa;
     border-radius: 6px;
+    color: #fff;
+    background: $light-mode-button-background;
+    background: $light-mode-button-gradient;
     @include dark-mode {
         background: $dark-mode-button-background;
         background: $dark-mode-button-gradient;

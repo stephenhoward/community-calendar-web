@@ -29,6 +29,13 @@
             background-color: none;
         }
     }
+
+    input[type="text"], input[type="time"], textarea {
+        @include dark-mode {
+            background-color: $dark-mode-background;
+            color: $dark-mode-text;
+        }
+    }
 </style>
 
 <template>
@@ -131,6 +138,7 @@ module.exports = {
                 "list_location_title": "Locations",
                 "site_settings_title": "Site Settings",
                 "aria_skip_navigation": "Skip Navigation",
+                "edit_event_title": "Edit Event",
                 "edit_series_title": "Edit Event Series"
             },
             "es": {

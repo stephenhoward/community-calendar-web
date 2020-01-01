@@ -87,7 +87,7 @@
     <div class="event">
         <translation-control v-bind:model="mod" @update="updateInfo"></translation-control>
         <section class="datetimes">
-            <h4>Event Date and Time</h4>
+            <h4>{{ $t('event_dates') }}</h4>
                     <button
                         ref="start"
                         :aria-label="dateLabel"
@@ -163,6 +163,7 @@ module.exports = {
                 aria_date_start: 'starting',
                 aria_date_end: 'ending',
                 date_range_error: 'start time must be before end time',
+                event_dates: 'Event Date and Time'
             },
             es: {
                 from:       'de',

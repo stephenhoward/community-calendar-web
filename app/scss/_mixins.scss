@@ -15,11 +15,16 @@ $dark-mode-border: rgba(238,238,238,.3);
 $light-mode-panel-background: #fff;
 $dark-mode-panel-background: rgba(0,0,0,.2);
 
-$light-mode-button-background: rgba(100,200,100,.5);
-$dark-mode-button-background: rgba(0,150,0,.5);
-$dark-mode-button-gradient: linear-gradient(0deg, rgba(0,100,0,.7) 0%, rgba(0,150,0,.5) 100%);
+$light-mode-button-background: #359F37;
+$light-mode-button-gradient: linear-gradient(0deg, #18671A 0%, #359F37 100%);
+
+$dark-mode-button-background: #C86002;
+$dark-mode-button-gradient: linear-gradient(0deg, #9C4B02 0%, #C86002 100%);
 
 $main-area-menu-gutter: 40px;
+
+$capsule-background: #CCC;
+$dark-mode-capsule-background: #555;
 
 @mixin flexible-container {
     display: flex;

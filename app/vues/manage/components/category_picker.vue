@@ -3,12 +3,21 @@
 @import 'app/scss/_mixins.scss';
 
 div.category-picker {
-    div.info {
-        background-color: $light-mode-panel-background;
+    div.category-selector {
+        background-color: $light-mode-background;
         padding: 10px;
-        margin: 0 -10px;
+        border-radius: 6px;
         @include dark-mode {
-            background-color: $dark-mode-panel-background;
+            background-color: $dark-mode-background;
+        }
+        ul {
+            list-style-type: none;
+            margin: 10px 0 20px 0;
+            padding: 0;
+            li {
+                margin: 4px 0 0 0;
+                padding: 0;
+            }
         }
     }
     ul.categories {
@@ -33,15 +42,19 @@ div.category-picker {
                 }
             }
             &.category {
-                color: #fff;
-                background-color: #03a;
+                background-color: $capsule-background;
                 @include flexible;
                 @include hstack;
                 justify-content: space-between; 
                 max-width: 200px;
                 cursor: pointer;
                 border-radius: 4px;
+                @include dark-mode {
+                    color: #dark-mode-text;
+                    background-color: $dark-mode-capsule-background;
+                }
                 button {
+                    background: none;
                     cursor: pointer;
                     display: inline-block;
                     border: none;
@@ -60,6 +73,7 @@ div.category-picker {
 
 <template>
     <div class="category-picker">
+        <label>{{ $t('categories_header') }}</label>
         <ul class="categories" >
             <li class="category" v-for="category in active_categories" >
                 <span>{{ category.get('name') }}</span>
@@ -68,13 +82,17 @@ div.category-picker {
             <li class="add" v-if="active_categories.length < all_categories.length"><button class="icofont-plus" aria-label="add a category" type="button" @click="showCategories"></button></li>
         </ul>
         <div v-if="revealCategories" class="popup-wrapper" @click="hideCategories">
-            <div tabindex="-1" ref="categorySelector" class="category-selector">
-                <h3>{{ $t('add_category') }}</h3>
+            <div tabindex="-1" ref="categorySelector" class="category-selector" @click.stop>
+                <h3>{{ $t('select_categories') }}</h3>
                 <ul>
-                    <li v-for="category in inactive_categories" @click="addCategory(category)">
-                        {{ category.get('name') }}
+                    <li v-for="category in all_categories">
+                        <label>
+                            <input type="checkbox" v-model="active_categories" :value="category">
+                            {{ category.get('name') }}
+                        </label>
                     </li>
                 </ul>
+                <button type="button" @click="hideCategories">{{ $t('done') }}</button>
             </div>
         </div>
     </div>
@@ -88,10 +106,9 @@ module.exports = {
     i18n: {
         messages: {            
             en: {
-                add_category: 'Add a Category',
-                close:  'Cancel',
-                create: 'Create',
-                save:   'Save'
+                categories_header: 'Categories',
+                select_categories: 'Select Categories',
+                done:   'Done'
             }
         }
     },
@@ -105,16 +122,16 @@ module.exports = {
             revealCategories: false
         };
     },
-    computed: {
-        inactive_categories: function() {
-            return this.all_categories.filter( c => this.active_categories.indexOf(c) < 0 );
+    watch: {
+        active_categories: function() {
+            this.$emit('change',this.active_categories);
         }
     },
     created: function() {
         let self = this;
         Category.list().then( (models) => {
 
-            self.all_categories    = models;
+            self.all_categories = models;
             if ( self.model ) {
                 self.active_categories = self.model.categories || [];
             }
@@ -122,10 +139,6 @@ module.exports = {
         } );
     },
     methods: {
-        addCategory: function(category) {
-            this.active_categories.push(category);
-            this.$emit('change',this.active_categories);
-        },
         showCategories: function() {
             this.revealCategories = true;
             this.$refs.categorySelector.focus()

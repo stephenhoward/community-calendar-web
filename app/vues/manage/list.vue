@@ -78,7 +78,7 @@
                 this.showNew       = false;
             },
             openModel: function(model) {
-                this.$router.push({ name: 'edit_' + this.type.name.toLowerCase(), params: { id: model.id } });
+                this.$router.push({ name: 'edit_' + this.model_type.toLowerCase(), params: { id: model.id } });
             }
         }
     };
