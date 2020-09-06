@@ -91,7 +91,7 @@ module.exports ={
 
         return {
             settings: config.settings(),
-            user: new User({ language: config.settings().default_language }),
+            user: new User({ language: config.settings().default_language, roles: [{ role:'Administrator'}] }),
 
             languages:   config.languages(),
             languageSet: false,
@@ -156,14 +156,15 @@ module.exports ={
             }
             else {
                 this.form_error = '';
+                this.user.password = this.password;
                 this.saveSetup();
             }
         },
         saveSetup: function() {
             let self = this;
-            auth.login(this.user.email,this.password).then( () => {
-                self.user.save().then((json) => {
-                    self.user.setPassword(self.password).then(() => {
+            self.user.save().then((json) => {
+                config.init().then( () => {
+                    auth.login(this.user.email,this.password).then( () => {
                         self.$router.push({ name: 'site_settings'});
                     });
                 });

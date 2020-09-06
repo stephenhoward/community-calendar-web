@@ -1,8 +1,13 @@
 let Model = require('lib/model').Model;
+const config = require('lib/config');
 
 module.exports = class User extends Model {
 
-    static baseUrl() { return this.apiVersion() + '/users' };
+    static baseUrl() {
+        return config.settings().needs_setup
+            ? this.apiVersion() + '/site/initialize'
+            : this.apiVersion() + '/site/users'
+    };
 
     modelUrl() { return this.id ? User.baseUrl() + '/' + this.id : User.baseUrl() }
 
@@ -18,6 +23,7 @@ module.exports = class User extends Model {
     initEmpty() {
         this.email    = '';
         this.language = '';
+        this.roles    = [];
     }
 
     setPassword(password) {

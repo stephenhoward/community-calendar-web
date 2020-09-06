@@ -47,7 +47,19 @@ class Model {
 
         for ( var attr in this ) {
             if ( Array.isArray(this[attr]) ) {
-                json[attr] = this[attr].map( i => i instanceof Model ? i.dump() : i );
+                json[attr] = this[attr].map( (i) => {
+                    if ( i instanceof Model ) {
+                        if ( i.id ) {
+                            return i.id
+                        }
+                        else {
+                            return i.dump()
+                        }
+                    }
+                    else {
+                        return i
+                    }
+                });
             }
             else if ( typeof this[attr] instanceof Model ) {
                 json[attr] = this[attr].dump()
