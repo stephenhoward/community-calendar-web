@@ -48,15 +48,15 @@
             <ul>
                 <li><router-link to="/">{{ $t('home') }}</router-link></li>
             </ul>
-            <ul v-if="user.hasRole('administrator','group_administrator')">
-                <li v-if="user.hasRole('administrator', 'group_administrator')" ><router-link @click.native="toggleMenu" to="/manage/users">{{ $t('people_nav') }}</router-link></li>
-                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/groups">{{ $t('organizations_nav')}}</router-link></li>
-            </ul>
             <ul>
                 <li><router-link @click.native="toggleMenu" to="/manage/events">{{ $t('events_nav') }}</router-link></li>
                 <li><router-link @click.native="toggleMenu" to="/manage/series">{{ $t('series_nav') }}</router-link></li>
                 <li><router-link @click.native="toggleMenu" to="/manage/locations">{{ $t('locations_nav') }}</router-link></li>
                 <li v-if="user.hasRole('editor')"><router-link @click.native="toggleMenu" to="/manage/categories">{{ $t('categories_nav') }}</router-link></li>
+            </ul>
+            <ul v-if="user.hasRole('administrator','group_administrator')">
+                <li v-if="user.hasRole('administrator', 'group_administrator')" ><router-link @click.native="toggleMenu" to="/manage/users">{{ $t('people_nav') }}</router-link></li>
+                <li v-if="user.hasRole('administrator')"><router-link @click.native="toggleMenu" to="/manage/groups">{{ $t('organizations_nav')}}</router-link></li>
             </ul>
             <ul>
                 <li><router-link @click.native="toggleMenu" to="/manage/profile">{{ $t('profile_nav') }}</router-link></li>
