@@ -8,44 +8,36 @@
   },
   "url": "https://github.com/stephenhoward/community-calendar-web",
   "license": "MIT",
+  "type": "module",
   "author": "Stephen Howard <stephen@enterity.com>",
   "private": false,
   "scripts": {
     "dev": "brunch watch --server",
     "build": "brunch build -p",
-    "test": "nyc ava test/*.spec.js",
-    "cover": "nyc ava"
-  },
-  "ava": {
-    "require": [
-      "./test/setup.js"
-    ]
-  },
-  "nyc": {
-    "extension": [ ".js", ".vue" ]
+    "test": "nyc ava test/unit/test_*.js",
+    "cover": "c8 ava",
+    "unit": "c8 ava test/unit/test_*.js"
   },
   "dependencies": {
-    "axios": "^0.19.0",
-    "vue": "^2.6.10",
-    "vue-i18n": "8.11.2",
-    "vue-router": "3.0.6",
-    "moment": "2.24.0",
-    "sass": "^1.21.0",
-    "brunch": "^2.10.17",
+    "axios": "0.26.1",
+    "vue": "^3.2.31",
+    "vue-i18n": "9.1.9",
+    "vue-router": "4.0.14",
+    "moment": "2.29.2",
+    "sass": "1.49.11",
+    "brunch": "4.0.0",
     "babel-brunch": "7.0.1",
-    "sass-brunch": "^2.10.8",
-    "vue-brunch": "^2.0.3",
-    "vue-template-compiler": "^2.6.10",
-    "@kazupon/vue-i18n-loader": "0.2.1",
-    "uglify-js-brunch": "^2.10.0",
-    "ava": "^2.0.0",
-    "jsdom": "15.1.1",
+    "sass-brunch": "3.0.1",
+    "vue-brunch": "2.0.3",
+    "uglify-js-brunch": "2.10.0",
+    "ava": "4.1.0",
+    "jsdom": "19.0.0",
     "jsdom-global": "3.0.2",
     "require-extension-hooks": "0.3.3",
     "require-extension-hooks-babel": "1.0.0",
     "require-extension-hooks-vue": "3.0.0",
-    "@vue/test-utils": "1.0.0-beta.29",
-    "sinon": "^7.3.2",
-    "nyc": "^14.1.1"
+    "@vue/test-utils": "2.0.0-rc.19",
+    "sinon": "13.0.1",
+    "c8": "7.11.0"
   }
 }

@@ -89,7 +89,7 @@ module.exports = {
             let self = this;
 
             this.form_error = '';
-            authorize.check_password_token(this.reset_code)
+            authorize.check_password_reset_token(this.reset_code)
                 .then(  () => { self.codeValidated = true } )
                 .catch( () => { self.form_error = 'bad_token' } )
         },
@@ -105,7 +105,7 @@ module.exports = {
             }
             else {
                 this.form_error = '';
-                authorize.use_password_token(this.reset_code, this.password)
+                authorize.use_password_reset_token(this.reset_code, this.password)
                     .then(  () => window.app.$router.push('/login') )
                     .catch( () => self.form_error = 'reset_error'  )
             }

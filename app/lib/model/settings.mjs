@@ -1,8 +1,6 @@
-const moment = require('moment');
+import { Translatable } from '../model.mjs';
 
-let Translatable = require('lib/model').Translatable;
-
-module.exports = class Settings extends Translatable {
+export default class Settings extends Translatable {
 
     static baseUrl() { return this.apiVersion() + '/site' }
 
@@ -12,6 +10,6 @@ module.exports = class Settings extends Translatable {
         this.image            = null;
         this.default_language = null;
         this.languages        = [];
-        this.info             = {};
+        this.strings          = {};
     }
 }
