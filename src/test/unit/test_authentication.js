@@ -1,4 +1,4 @@
-import Authentication from '../../app/lib/authentication.mjs';
+import Authentication from '../../lib/authentication.mjs';
 import sinon from 'sinon';
 import test from 'ava';
 import axios from 'axios';

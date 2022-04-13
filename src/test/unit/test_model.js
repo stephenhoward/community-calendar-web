@@ -1,7 +1,7 @@
 import test from 'ava';
 import sinon from 'sinon';
 import axios from 'axios';
-import { Model, Translatable } from '../../app/lib/model.mjs';
+import { Model, Translatable } from '../../lib/model.mjs';
 
 let axios_get = sinon.stub(axios,"get");
 let axios_post = sinon.stub(axios,"post");

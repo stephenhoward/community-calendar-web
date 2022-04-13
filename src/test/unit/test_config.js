@@ -1,7 +1,7 @@
 import test from 'ava';
 import sinon from 'sinon';
 import axios from 'axios';
-import { default as Config } from '../../app/lib/config.mjs';
+import Config from '../../lib/config.mjs';
 
 var getStub = sinon.stub(axios,"get").callsFake((arg) => {
     return new Promise( (resolve, reject) => {
