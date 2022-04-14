@@ -2,10 +2,10 @@ import path from 'path';
 import { VueLoaderPlugin } from 'vue-loader';
 
 export default {
-    entry: './src/main.js',
+    entry: './src/main.mjs',
     output: {
         filename: 'app.js',
-        path: '/opt/calendar/public'
+        path: '/var/www/html'
     },
     module: {
         rules: [

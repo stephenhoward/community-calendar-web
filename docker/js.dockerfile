@@ -1,12 +1,12 @@
 From alpine:latest
 
-ENV HOME /opt/calendar
-ENV PATH "${HOME}/node_modules/.bin:${PATH}"
+ENV HOME /home/calendar
+ENV PATH=$PATH:/node_modules/.bin
 
-WORKDIR ${HOME}
-
-COPY ./package.json ${HOME}/package.json
+COPY ./package.json /package.json
 
 RUN apk update && apk add nodejs npm
-RUN npm install --save-dev
-RUN rm ${HOME}/package.json
+RUN npm install
+RUN rm /package.json
+
+WORKDIR ${HOME}

@@ -1,3 +1,3 @@
 #!env bash
 
-docker run -v ~/dev/events/web:/opt/calendar -it events-web-js:dev sh
+docker run -v ~/dev/events/web:/home/calendar -it events-web-js:dev sh
