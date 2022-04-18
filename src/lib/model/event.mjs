@@ -1,8 +1,8 @@
-const moment = require('moment');
+import moment from 'moment';
 
-let Translatable = require('lib/model').Translatable;
+import { Translatable } from '../model.mjs';
 
-module.exports = class Event extends Translatable {
+export default class Event extends Translatable {
 
     static baseUrl() { return this.apiVersion() + '/events' }
 

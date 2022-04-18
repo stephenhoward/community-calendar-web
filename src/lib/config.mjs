@@ -1,28 +1,38 @@
 import axios from 'axios';
 import Settings from './model/settings.mjs';
+import { Model } from './model.mjs';
 
 export default class Config {
 
-    static apiVersion = 'v1';
+    static async init() {
 
-    constructor() {
-        this.apiVersion = Config.apiVersion;
+        if( Config._settings && Config._languages ) {
+            return;
+        }
+
+        await Config._load_settings();
     }
 
-    async init() {
+    static async _load_settings() {
 
-        let settings_response = await axios.get('/'+this.apiVersion + '/site');
-        let languages_response = await axios.get('/'+this.apiVersion + '/site/languages');
-        Config._settings = settings_response.data;
-        Config._languages = languages_response.data;
+        try {
+            let settings_response = await axios.get( Model.apiVersion() + '/site');
+            let languages_response = await axios.get( Model.apiVersion() + '/site/languages');
+            Config._settings = new Settings(settings_response.data);
+            Config._languages = languages_response.data;
+        }
+        catch( error ) {
+            Config._settings = new Settings({});
+            Config._languages = [];
+        }
 
     }
     
-    settings() {
+    static settings() {
         return Config._settings;
     }
 
-    languages() {
+    static languages() {
         return Config._languages;
     }
 }

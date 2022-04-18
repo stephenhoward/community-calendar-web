@@ -1,7 +1,8 @@
 From alpine:latest
 
 ENV HOME /home/calendar
-ENV PATH=$PATH:/node_modules/.bin
+ENV PATH=$PATH:$HOME/node_modules/.bin
+
 
 COPY ./package.json /package.json
 

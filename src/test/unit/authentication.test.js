@@ -1,7 +1,8 @@
-import Authentication from '../../lib/authentication.mjs';
+import { test, expect } from 'vitest';
 import sinon from 'sinon';
-import test from 'ava';
 import axios from 'axios';
+
+import Authentication from '../../lib/authentication.mjs';
 
 class LocalStore {
     constructor() {
@@ -29,45 +30,23 @@ let axios_get = sinon.stub(axios,"get");
 let axios_post = sinon.stub(axios,"post");
 let fake_jwt = '1234.'+btoa('{ "exp": "1000"}');
 
-async function test_basic_axios_roundtrip(t,stubbed_axios_method,auth_method,params) {
+async function test_basic_axios_roundtrip(stubbed_axios_method,auth_method,params) {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
     stubbed_axios_method.returns(Promise.resolve({status: 200, statusText: "Ok"}));
 
-    try {
-        await authentication[auth_method]();
-        t.fail('vaildation passed but should not have');
-    }
-    catch {
-        t.pass('validation failed');
-    }
-
-    try {
-        await authentication[auth_method]('');
-        t.fail('vaildation passed but should not have');
-    }
-    catch {
-        t.pass('validation failed');
-    }
-
-    await authentication[auth_method](...params);
-
-    t.pass('validation passed');
+    await expect( () => authentication[auth_method]() ).rejects.toThrowError();
+    await expect( () => authentication[auth_method]('') ).rejects.toThrowError();
+    return await authentication[auth_method](...params);
 }
 
-test( 'constructor validation', t => {
+test( 'constructor validation', () => {
 
-    try {
-        let authentication = new Authentication();
-    }
-    catch( error ) {
-        t.is( error, "Must provide a localStorage object");                                                                             
-    }
-
+    expect( () => new Authentication() ).toThrow("Must provide a localStorage object");
 });
 
-test( 'login fail', t => {
+test( 'login fail', async () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -75,16 +54,17 @@ test( 'login fail', t => {
     sandbox.stub(authentication,"_set_token");
     axios_post.returns(Promise.resolve({status: 400, data: {}}));
 
-    return authentication.login('user','password')
-        .then( r => { t.fail() })
-        .catch( r => {
-            t.falsy(sandbox.assert.notCalled(authentication._set_token));
-            t.falsy(sandbox.assert.calledOnce(authentication._unset_token));
-        });
+    try {
+        await authentication.login('user','password');
+    }
+    catch {
+        expect(sandbox.assert.notCalled(authentication._set_token)).toBeFalsy();
+        expect(sandbox.assert.calledOnce(authentication._unset_token)).toBeFalsy();
+    };
 
 });
 
-test( 'login succeed', t => {
+test( 'login succeed', async () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -92,19 +72,13 @@ test( 'login succeed', t => {
     sandbox.stub(authentication,"_set_token");
     axios_post.returns(Promise.resolve({status: 200, data: {}}));
 
-    return authentication.login('user','password')
-        .then( r => {
-            t.falsy(sandbox.assert.notCalled(authentication._unset_token));
-            t.falsy(sandbox.assert.calledOnce(authentication._set_token));
-        })
-        .catch( err => {
-            console.log(err);
-            t.fail()
-        });
+    await authentication.login('user','password');
 
+    expect(sandbox.assert.notCalled(authentication._unset_token)).toBeFalsy();
+    expect(sandbox.assert.calledOnce(authentication._set_token)).toBeFalsy();
 });
 
-test( 'logout', t => {
+test( 'logout', () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -112,42 +86,42 @@ test( 'logout', t => {
 
     authentication.logout();
 
-    t.falsy(sandbox.assert.calledOnce(authentication._unset_token));
+    expect(sandbox.assert.calledOnce(authentication._unset_token)).toBeFalsy();
 });
 
-test ('is_logged_in', t => {
+test ('is_logged_in', () => {
     let store = new LocalStore();
     let authentication = new Authentication( store );
 
-    t.false( authentication.is_logged_in() );
+    expect( authentication.is_logged_in() ).toBe(false);
 
     authentication._set_token(fake_jwt);
 
-    t.false( authentication.is_logged_in() );
+    expect( authentication.is_logged_in() ).toBe(false);
 
     let good_jwt = '1234.'+btoa('{ "exp": "'+(Date.now()+500)+'"}');
     authentication._set_token(good_jwt);
 
-    t.true( authentication.is_logged_in() );
+    expect( authentication.is_logged_in() ).toBe(true);
 
 });
 
-test( 'reset_password', async t => {
+test( 'reset_password', async () => {
 
-    await test_basic_axios_roundtrip(t,axios_post,'reset_password',['email']);
+    await test_basic_axios_roundtrip(axios_post,'reset_password',['email']);
 });
 
-test( 'check_password_reset_token', async t => {
+test( 'check_password_reset_token', async () => {
 
-    await test_basic_axios_roundtrip(t,axios_get,'check_password_reset_token',['token']);
+    await test_basic_axios_roundtrip(axios_get,'check_password_reset_token',['token']);
 });
 
-test( 'use_password_reset_token', async t => {
+test( 'use_password_reset_token', async () => {
 
-    await test_basic_axios_roundtrip(t,axios_post,'use_password_reset_token',['token','password']);
+    await test_basic_axios_roundtrip(axios_post,'use_password_reset_token',['token','password']);
 });
 
-test( '_set_token', t => {
+test( '_set_token', () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -157,11 +131,11 @@ test( '_set_token', t => {
 
     let stored_jwt = authentication.jwt();
 
-    t.deepEqual( fake_jwt, stored_jwt, "stored the jwt" );
+    expect( fake_jwt ).toEqual( stored_jwt );
     sandbox.assert.calledOnce(authentication._refresh_login);
 });
 
-test( '_unset_token', t => {
+test( '_unset_token', () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -170,19 +144,19 @@ test( '_unset_token', t => {
     authentication._set_token(fake_jwt);
     authentication._refresh_timer = setTimeout( () => {}, 1000 );
 
-    t.truthy( authentication.localStore.getItem('jwt') );
-    t.truthy( authentication.localStore.getItem('jw_token') );
-    t.truthy( authentication._refresh_timer );
+    expect( authentication.localStore.getItem('jwt') ).toBeTruthy();
+    expect( authentication.localStore.getItem('jw_token') ).toBeTruthy();
+    expect( authentication._refresh_timer ).toBeTruthy();
 
     authentication._unset_token();
 
-    t.falsy( authentication.localStore.getItem('jwt') );
-    t.falsy( authentication.localStore.getItem('jw_token') );
-    t.falsy( authentication._refresh_timer );
+    expect( authentication.localStore.getItem('jwt') ).toBeFalsy();
+    expect( authentication.localStore.getItem('jw_token') ).toBeFalsy();
+    expect( authentication._refresh_timer ).toBeFalsy();
 
 });
 
-test ( '_refresh_login 0 timer', t => {
+test ( '_refresh_login 0 timer', () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -191,10 +165,10 @@ test ( '_refresh_login 0 timer', t => {
 
     authentication._refresh_login(0);
 
-    t.falsy( sandbox.assert.calledOnce(authentication._unset_token) );
+    expect( sandbox.assert.calledOnce(authentication._unset_token) ).toBeFalsy();
 });
 
-test ( '_refresh_login valid', async t => {
+test ( '_refresh_login valid', async () => {
 
     let authentication = new Authentication( new LocalStore() );
     let sandbox = sinon.createSandbox();
@@ -206,11 +180,8 @@ test ( '_refresh_login valid', async t => {
 
     let promise = authentication._refresh_login( Date.now() + 500)
     .then( r => {
-        t.falsy( sandbox.assert.notCalled(authentication._unset_token) );
-        t.falsy( sandbox.assert.calledOnce(authentication._set_token) );
-    })
-    .catch( err => {
-        t.fail();
+        expect( sandbox.assert.notCalled(authentication._unset_token) ).toBeFalsy();
+        expect( sandbox.assert.calledOnce(authentication._set_token) ).toBeFalsy();
     });
     sandbox.clock.runAll();
 

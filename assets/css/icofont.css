@@ -12,8 +12,8 @@
   font-family: "IcoFont";
 font-weight: normal;
 font-style: "Regular";
-src: url("./fonts/icofont.woff2") format("woff2"),
-url("./fonts/icofont.woff") format("woff");
+src: url("../fonts/icofont.woff2") format("woff2"),
+url("../fonts/icofont.woff") format("woff");
 }
 
 [class^="icofont-"], [class*=" icofont-"]
@@ -332,10 +332,10 @@ url("./fonts/icofont.woff") format("woff");
 }
 
 :root .icofont-rotate-90,
-	:root .icofont-rotate-180,
-	:root .icofont-rotate-270,
-	:root .icofont-flip-horizontal,
-	:root .icofont-flip-vertical
+    :root .icofont-rotate-180,
+    :root .icofont-rotate-270,
+    :root .icofont-flip-horizontal,
+    :root .icofont-flip-vertical
 {
   -webkit-filter: none;
   filter: none;
@@ -360,7 +360,7 @@ url("./fonts/icofont.woff") format("woff");
 }
 
 .sr-only-focusable:active,
-	.sr-only-focusable:focus
+    .sr-only-focusable:focus
 {
   clip: auto;
   height: auto;
@@ -369,4 +369,3 @@ url("./fonts/icofont.woff") format("woff");
   position: static;
   width: auto;
 }
-	

@@ -1,21 +1,36 @@
-window.Vue      = require('vue');
-const VueRouter = require('vue-router');
-const App       = require('./vues/app.vue');
-const config    = require('./lib/config');
+import { createApp } from 'vue';
+import { createRouter, createWebHistory } from 'vue-router';
+import { createI18n } from 'vue-i18n'
 
-config.init().then( () => {
+import Config from './lib/config.mjs';
+import App from './components/app.vue';
+import datetimeFormats from './lib/i18n.mjs';
+import routes from './lib/routes.mjs';
 
-    window.app = new Vue({
-        render : h => h(App),
-        i18n   : require('./lib/i18n').i18n,
-        router : new VueRouter({
-            routes   : require('./lib/router.js').routes
-        })
+Config.init().then( () => {
+
+    const router = createRouter({
+        history: createWebHistory(),
+        routes
     });
 
-    app.$mount('#app');
 
-    if ( config.settings().needs_setup ) {
+    const i18n = createI18n({
+        legacy: false,
+        globalInjection: false,
+        locale: navigator.language.substring(0,2) || Config.settings().default_language,
+        fallbackLocale: 'en',
+        datetimeFormats,
+    });
+
+    const app = createApp(App);
+
+    app.use(router);
+    app.use(i18n);
+    app.provide('i18n', i18n);
+    app.mount('#app');
+
+    if ( Config.settings().needs_setup ) {
         app.$router.push({ name: 'setup' });
     }
 

@@ -1,6 +1,6 @@
-<style lang="sass">
+<style lang="scss">
 
-@import 'app/scss/_mixins.scss';
+@import '../../assets/css/mixins.scss';
 
 * {
     font-family: 'Helvetica Neue';
@@ -74,7 +74,7 @@ body {
         width:      100%;
 
         grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
-        grid-template-rows:    [ top ]       120px  [ main ] auto [ end ];
+        grid-template-rows:    [ top ]       120px  [ main ] 1fr [footer] auto [ end ];
 
         @include medium-size-device {
             grid-template-columns: [ left-rail ] 200px [ main ] auto [ end ];
@@ -184,9 +184,7 @@ button {
 </template>
 
 <script>
-const axios  = require('axios');
-
-module.exports = {
+export default {
     name: 'app',
     data: () => {
         return {};

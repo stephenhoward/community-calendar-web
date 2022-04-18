@@ -12,30 +12,24 @@
   "author": "Stephen Howard <stephen@enterity.com>",
   "private": false,
   "scripts": {
-    "build": "webpack --mode development",
-    "test": "c8 --all --src 'src/' --exclude 'src/test/**' ava src/test/unit/test_*.js",
-    "integration": "c8 --all --src 'src/' --exclude 'src/test/**' ava --config src/test/integration/ava.config.mjs src/test/integration/test_*.js"
-  },
-  "dependencies": {
-    "axios": "0.26.1",
-    "moment": "2.29.2",
-    "vue": "^3.2.31",
-    "vue-i18n": "9.1.9",
-    "vue-router": "4.0.14"
+    "watch": "vitest --coverage",
+    "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "ava": "4.1.0",
-    "babel-loader": "8.2.4",
-    "c8": "7.11.0",
-    "css-loader": "6.7.1",
-    "require-extension-hooks": "0.3.3",
-    "require-extension-hooks-vue": "3.0.0",
-    "sinon": "13.0.1",
-    "sass-loader": "^12.6.0",
-    "vue-loader": "17.0.0",
-    "webpack": "5.72.0",
-    "webpack-cli": "4.9.2",
-    "jsdom": "19.0.0",
-    "jsdom-global": "3.0.2"
+    "@intlify/vite-plugin-vue-i18n": "^3.4.0",
+    "@vitejs/plugin-vue": "^2.3.1",
+    "@vue/test-utils": "^2.0.0-rc.20",
+    "c8": "^7.11.0",
+    "jsdom": "^19.0.0",
+    "sass": "^1.50.0",
+    "sinon": "^13.0.2",
+    "vitest": "^0.9.3"
+  },
+  "dependencies": {
+    "axios": "^0.26.1",
+    "moment": "^2.29.2",
+    "vue": "^3.2.33",
+    "vue-i18n": "^9.1.9",
+    "vue-router": "^4.0.14"
   }
 }

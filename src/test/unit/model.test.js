@@ -1,4 +1,4 @@
-import test from 'ava';
+import { test, expect } from 'vitest';
 import sinon from 'sinon';
 import axios from 'axios';
 import { Model, Translatable } from '../../lib/model.mjs';
@@ -12,7 +12,7 @@ class testModel extends Model {
 }
 
 
-test( 'model.dump', t => {
+test( 'model.dump', () => {
 
     const model   = new testModel({
        myattr : "foo",
@@ -22,7 +22,7 @@ test( 'model.dump', t => {
     });
 
 
-        t.deepEqual( model.dump(),
+        expect( model.dump() ).toEqual(
             {
                 myattr: "foo",
                 myarray: ["a","b","c"],
@@ -33,88 +33,78 @@ test( 'model.dump', t => {
 
 });
 
-test( 'model.modelUrl', t => {
+test( 'model.modelUrl', () => {
 
-    t.is( testModel.modelUrl(), '/v1/mock' );
-    t.is( new testModel({ name: "foo" }).modelUrl(), '/v1/mock' );
-    t.is( new testModel({ id: 2, name: "foo" }).modelUrl(), '/v1/mock/2' );
+    expect( testModel.modelUrl() ).toBe( '/v1/mock' );
+    expect( new testModel({ name: "foo" }).modelUrl() ).toBe( '/v1/mock' );
+    expect( new testModel({ id: 2, name: "foo" }).modelUrl() ).toBe( '/v1/mock/2' );
 
 });
 
 
-test( 'fetch', async t => {
+test( 'fetch', async () => {
 
     axios_get.returns(Promise.resolve({status: 404 }));
 
     try {
         let obj = await testModel.fetch(1);
-        t.is(obj, null);
+        expect(obj).toBeNull()
     }
     catch {
-        t.fail();
+        expect(1).toBe(0); // test fails if we got here
     }
 
     axios_get.returns(Promise.resolve({status: 200, data: { myattr: "testing"}}));
 
     try {
         let obj = await testModel.fetch(2);
-        t.true(obj instanceof testModel);
-        t.is(obj.myattr, "testing");
+        expect(obj).toBeInstanceOf(testModel);
+        expect(obj.myattr).toBe("testing");
     }
     catch {
-        t.fail();
+        expect(1).toBe(0); // test fails if we got here
     }
 });
 
-test( 'list', async t => {
+test( 'list', async () => {
 
     axios_get.returns(Promise.resolve({status: 200, data: [] }));
 
-    try {
-        let objs = await testModel.list();
-        t.true(objs instanceof Array);
-        t.is(objs.length,0)
-    }
-    catch {
-        t.fail();
-    }
+    let objs = await testModel.list();
+    expect(objs).toBeInstanceOf(Array);
+    expect(objs.length).toBe(0);
 
     axios_get.returns(Promise.resolve({status: 200, data: [{ myattr:"tested"}] }));
 
-    try {
-        let objs = await testModel.list();
-        t.true(objs instanceof Array);
-        t.is(objs.length,1)
-        t.is(objs[0].myattr, "tested");
-    }
-    catch {
-        t.fail();
-    }
+    objs = await testModel.list();
+    expect(objs).toBeInstanceOf(Array);
+    expect(objs.length).toBe(1);
+    expect(objs[0].myattr).toBe("tested");
 });
 
-test( 'save', async t => {
+test( 'save', async () => {
 
     axios_post.returns(Promise.resolve({status: 200, data: { id: 3, myattr: "done" } }));
 
     let obj = new testModel();
     obj.myattr = "start";
 
-    t.is(obj.id, undefined );
-    t.is(obj.myattr, "start");
+    expect(obj.id).toBeUndefined();
+    expect(obj.myattr).toBe("start");
 
     try {
         let obj_copy = await obj.save();
-        t.deepEqual(obj,obj_copy);
-        t.is(obj.id, 3);
-        t.is(obj.myattr, "done");
+        expect(obj).toEqual(obj_copy);
+        expect(obj.id).toBe(3);
+        expect(obj.myattr).toBe("done");
     }
     catch {
-        t.fail();
+        expect(1).toBe(0); // test fails if we got here
     }
 
 });
 
-test ('translatable.get', t => {
+test ('translatable.get', () => {
     let strings = {
         'en': {
             'name': 'Frank'
@@ -125,8 +115,8 @@ test ('translatable.get', t => {
     };
     let obj = new Translatable({ strings });
 
-    t.is(obj.get(['en-us'], 'name'), '', 'locale key must be exact');
-    t.is(obj.get(['en-us','en'], 'name'), 'Frank', 'fallback logic example');
-    t.is(obj.get(['en'], 'name'), 'Frank');
-    t.is(obj.get(['es'], 'name'), 'Franco');
+    expect(obj.get(['en-us'], 'name')).toBe('');
+    expect(obj.get(['en-us','en'], 'name')).toBe('Frank');
+    expect(obj.get(['en'], 'name')).toBe('Frank');
+    expect(obj.get(['es'], 'name')).toBe('Franco');
 });
