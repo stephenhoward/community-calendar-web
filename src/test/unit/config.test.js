@@ -14,10 +14,10 @@ test( 'load config', async() => {
         return new Promise( (resolve, reject) => { resolve(response) } );
     });
 
-    await Config.init();
+    const config = await Config.init();
 
-    expect(Config.settings().test).toBe("data");
-    expect(Config.languages()).toEqual(["en-us"]);
+    expect(config.settings().test).toBe("data");
+    expect(config.languages()).toEqual(["en-us"]);
 
 
     let sandbox = sinon.createSandbox();

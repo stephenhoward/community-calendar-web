@@ -7,10 +7,11 @@ export default class Config {
     static async init() {
 
         if( Config._settings && Config._languages ) {
-            return;
+            return new Config();
         }
 
         await Config._load_settings();
+        return new Config();
     }
 
     static async _load_settings() {
@@ -28,11 +29,11 @@ export default class Config {
 
     }
     
-    static settings() {
+    settings() {
         return Config._settings;
     }
 
-    static languages() {
+    languages() {
         return Config._languages;
     }
 }

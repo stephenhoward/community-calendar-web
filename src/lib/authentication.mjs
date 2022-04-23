@@ -28,22 +28,18 @@ export default class Authentication {
                 password : password
             });
 
-            if ( response.status >= 400 ) {
-                throw( response.data );
-            }
-
             this._set_token(response.statusText);
             return response.data;
         }
         catch(error) {
-
             this._unset_token();
-            throw( error.response );
+            throw( error );
         }
     }
 
     logout() {
         this._unset_token();
+        console.log("DONE");
     }
 
     is_logged_in() {
@@ -60,8 +56,8 @@ export default class Authentication {
 
     async reset_password( email ) {
 
-        if ( email == null || email == '' ) {
-            throw("Must provide an email address");
+        if ( email == undefined || email == '' ) {
+            throw("no_email_provided");
         }
 
         try {
@@ -75,8 +71,7 @@ export default class Authentication {
         catch (error) {
 
             console.log(error);
-            throw error.response.status;
-
+            throw (error);
         }
     }
 
@@ -99,11 +94,11 @@ export default class Authentication {
     async use_password_reset_token( token, password ) {
 
         if ( token == null || token == '' ) {
-            throw("Must provide a password reset token");
+            throw("no_token_provided");
         }
 
         if ( password == null || password == '' ) {
-            throw("Must provide a password");
+            throw("no_password_provided");
         }
 
         try {

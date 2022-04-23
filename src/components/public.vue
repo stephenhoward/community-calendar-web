@@ -46,7 +46,7 @@ header {
     <div :class="{ root: true, 'hide-menu': ! state.menuVisible }">
         <header>
         <span aria-hidden="true" id="menu-toggle" class="icofont-navigation-menu" @click="toggleMenu"></span>
-        <h1>{{ state.settings.get('site_title') }}</h1>
+        <h1>{{ settings.get('site_title') }}</h1>
         </header>
         <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ t('aria_skip_navigation') }}</a>
         <div class="main-menu" role="menu">
@@ -66,15 +66,15 @@ header {
 
 <script setup>
     import { useI18n } from 'vue-i18n';
-    import { reactive, ref } from 'vue';
-    import Config from '../lib/config.mjs';
+    import { reactive, ref, inject } from 'vue';
     import languageSelector from './languageSelector.vue';
 
+    const config = inject('site_config');
+    const settings = config.settings();
     const { t } = useI18n({});
     const subView = ref(null);
     const state = reactive({
         menuVisible: false,
-        settings: Config.settings()
     });
 
     function toggleMenu() {

@@ -112,10 +112,11 @@
 <script setup>
     import { useI18n } from 'vue-i18n';
     import { reactive, onBeforeMount, inject } from 'vue';
-    import Config from '../lib/config.mjs';
 
     const { t, locale } = useI18n({});
     const i18n = inject('i18n');
+    const config = inject('site_config');
+    const settings = config.settings();
     const state = reactive({
                 revealLanguages: false,
                 langs: {}

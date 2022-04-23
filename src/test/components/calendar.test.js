@@ -2,10 +2,9 @@
  * @vitest-environment jsdom
  */
 
-import { config, mount } from '@vue/test-utils';
+import { mount } from '@vue/test-utils';
 import { test, expect } from 'vitest';
 import { createI18n } from 'vue-i18n'
-import { createApp } from 'vue';
 import moment from 'moment';
 import calendar from '../../components/calendar.vue';
 

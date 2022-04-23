@@ -8,6 +8,10 @@
 import PublicSite from '../components/public.vue';
 import PublicEvents from '../components/public/events.vue';
 import PublicEvent from '../components/public/event.vue';
+import LoginView from '../components/auth/login.vue';
+import LogoutView from '../components/auth/logout.vue';
+import PasswordForgotView from '../components/auth/password_forgot.vue';
+import PasswordResetView from '../components/auth/password_reset.vue';
 
 // const routesForModel = function(type, path) {
 
@@ -54,10 +58,10 @@ const routes = [
             //     // { path: 'categories/:id/:slug', component: require('../vues/category.vue')  }
             ]
         },
-        // { path: '/login',  component: require('../vues/auth/login.vue'), name: 'login', props: true },
-        // { path: '/logout', component: require('../vues/auth/logout.vue'), name: 'logout' },
-        // { path: '/password/forgot', component: require('../vues/auth/password_forgot.vue'), name: 'forgot_password', props: true },
-        // { path: '/password/reset',  component: require('../vues/auth/password_reset.vue'), name: 'reset_password',     props: true },
+        { path: '/login',  component: LoginView, name: 'login', props: true },
+        { path: '/logout', component: LogoutView, name: 'logout' },
+        { path: '/password/forgot', component: PasswordForgotView, name: 'forgot_password', props: true },
+        { path: '/password/reset',  component: PasswordResetView, name: 'reset_password', props: true },
         // { path: '/setup',  component: require('../vues/auth/setup.vue'), name: 'setup', props: true },
 ];
 

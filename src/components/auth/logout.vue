@@ -1,21 +1,16 @@
 <template>
-    <div class="logout">
-    </div>
+    <div class="logout"></div>
 </template>
 
-<script>
-const authorize = require('../../lib/authorize.js');
+<script setup>
+    import { inject, onBeforeMount } from 'vue';
+    import { useRouter } from 'vue-router';
 
-module.exports ={
-    data     : () => {
-        return { };
-    },
-    beforeRouteEnter: function(to,from,next) {
-        authorize.logout();
-        next( vm => {
+    const router = useRouter();
+    const authentication = inject('authentication');
 
-            vm.$router.replace('/');
-        });
-    }
-}
+    onBeforeMount( () => {
+        authentication.logout();
+        router.replace('/');
+    });
 </script>

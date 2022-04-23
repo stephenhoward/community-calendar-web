@@ -52,7 +52,7 @@ test( 'login fail', async () => {
     let sandbox = sinon.createSandbox();
     sandbox.stub(authentication,"_unset_token");
     sandbox.stub(authentication,"_set_token");
-    axios_post.returns(Promise.resolve({status: 400, data: {}}));
+    axios_post.returns(Promise.reject({status: 400, data: {}}));
 
     try {
         await authentication.login('user','password');
@@ -197,7 +197,7 @@ test ( '_refresh_login valid', async () => {
 
 //     sandbox.stub(authentication,"_set_token");
 //     sandbox.stub(authentication,"_unset_token");
-//     axios_get.returns(Promise.resolve({status: 403, statusText: "No", data: []}));
+//     axios_get.returns(Promise.reject({status: 403, statusText: "No", data: []}));
 
 //     let promise = authentication._refresh_login( Date.now() + 600)
 //     .then( r => {
