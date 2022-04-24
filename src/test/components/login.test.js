@@ -6,7 +6,7 @@ import { VueRouterMock, createRouterMock,  injectRouterMock } from 'vue-router-m
 import flushPromises from 'flush-promises';
 import { mount, config } from '@vue/test-utils';
 import { test, expect, vi } from 'vitest';
-import { createI18n } from 'vue-i18n'
+import { createI18n } from 'vue-i18n';
 import sinon from 'sinon';
 
 import Authentication from '../../lib/authentication.mjs';

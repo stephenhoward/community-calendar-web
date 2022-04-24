@@ -1,6 +1,7 @@
 <style lang="scss">
 
 @import '../../assets/css/mixins.scss';
+@import '../../assets/css/icofont.css';
 
 * {
     font-family: 'Helvetica Neue';

@@ -1,7 +1,6 @@
 <style lang="scss">
 
 @import '../../assets/css/mixins.scss';
-@import '../../assets/css/icofont.css';
 
 header {
     background-image: url(../../assets/images/anthony-delanoix-hzgs56Ze49s-unsplash.jpg);

@@ -129,7 +129,7 @@
                 </label>
                 <span aria-hidden="true" class="sr-only" id="dateButtonInstructions">{{ t('aria_click_to_change') }}</span>
             </fieldset>
-            <fieldset><legend>{{ t('categories') }}</legend>
+            <fieldset v-if="!props.base_query || (props.base_query && ! props.base_query.category)"><legend>{{ t('categories') }}</legend>
                 <label v-for="category in state.categories">
                     <input v-model="category.selected" type="checkbox" name="category" /> {{ mt(category,'name') }}
                 </label>
@@ -185,7 +185,7 @@
 
     import Category from '../../lib/model/category.mjs';
 
-    const props = defineProps(['query']);
+    const props = defineProps(['query','base_query']);
 
     const to = ref(null);
     const from = ref(null);
@@ -198,8 +198,8 @@
     const mt = useModelTranslate( locale, fallbackLocale );
     const state = reactive({
         now:   moment(),
-        from: props.query.from,
-        to: props.query.to,
+        from: props.query.from || moment(),
+        to: props.query.to || moment(),
         search_terms: props.query.search_terms,
         filterExpanded: false,
         showCalendar: false,

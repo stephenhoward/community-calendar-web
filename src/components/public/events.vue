@@ -60,22 +60,11 @@ div.events {
 </style>
 
 <template>
-    <div class="events">
+    <div>
         <h2 ref="heading" tabindex="-1" v-if="state.title      == 'today_title'">{{ t('today_title') }}</h2>
         <h2 ref="heading" tabindex="-1" v-else-if="state.title == 'week_title'">{{  t('week_title')  }}</h2>
         <h2 ref="heading" tabindex="-1" v-else>{{ t('search_title') }}</h2>
-        <a href="#filters" @click.prevent="skipTo('filters')" class="sr-only">{{ t('aria_skip_to_filters') }}</a>
-        <div class="days">
-            <section v-for="day in state.days" class="events">
-                <h3 v-if="day.date">{{ d( day.date.toDate(), 'short' ) }}</h3>
-                <eventView
-                    v-for="event in day.events"
-                    v-bind:event="event"
-                    v-bind:now="state.now"
-                />
-            </section>
-        </div>
-        <searchFilter :query="state.search.current_query"/>
+        <eventList :query="state.query"></eventList>
     </div>
 </template>
 
@@ -101,15 +90,13 @@ div.events {
     import { useI18n } from 'vue-i18n';
     import moment from 'moment';
 
-    import eventView from './event_summary.vue';
-    import searchFilter from './filter.vue';
-    import EventSearch from '../../lib/search.mjs';
+    import eventList from './event_list.vue';
 
     const state = reactive({
         title: '',
         now:   moment(),
         days:  [],
-        search: new EventSearch()
+        query: {},
     });
 
     const route = useRoute();
@@ -129,17 +116,17 @@ div.events {
         switch( name ) {
             case 'today':
                 state.title  = 'today_title';
-                fetchData({
+                state.query = {
                     from: moment(),
-                    to:   moment()
-                });
+                    to: moment()
+                };
                 break;
             case 'this-week':
                 state.title  = 'week_title';
-                fetchData({
+                state.query = {
                     from: moment(),
-                    to:   moment().day(7)
-                });
+                    to: moment().day(7)
+                };
                 break;
             default:
                 state.title = 'search_title';
@@ -156,23 +143,9 @@ div.events {
                             : moment().add(30,'days');
                     }
                 }
-
-                fetchData(query);
+                state.query = query;
                 nextTick().then(() => heading.value.focus() );
         }
-    }
-    function fetchData(params) {
-        console.log('searching');
-        state.search.search(params).then( results => state.days = results );
-    }
-    function toggleFilters() {
-        state.filterExpanded = ! state.filterExpanded;
-    }
-    function focusTitle() {
-        heading.value.focus();
-    }
-    function skipTo(id) {
-        document.getElementById(id).focus();
     }
 
 </script>

@@ -27,7 +27,7 @@ export default class Event extends Translatable {
     initEmpty() {
 
         this.id    = null;
-        this.info  = { en: { title: '', description: '', accessibility_information: '' } };
+        this.strings  = { en: { title: '', description: '', accessibility_information: '' } };
         this.start = null;
         this.end   = null;
     }
