@@ -17,13 +17,6 @@ export default class EventSearch {
             this.current_query[key] = params[key];
         }
 
-        console.log(params);
-        for ( let date of [ 'from','to' ] ) {
-            if ( params[date] ) {
-                this.current_query[date] = params[date].format('YYYY-MM-DD');
-            }
-        }
-
         for ( let key in this.base_query ) {
             this.current_query[key] = this.base_query[key];
         }
@@ -55,6 +48,15 @@ export default class EventSearch {
         params ||= {};
 
         this.setParams(params);
+
+        params = { ... this.current_query };
+        for ( let date of [ 'from','to' ] ) {
+            if ( params[date] ) {
+                params[date] = params[date].format('YYYY-MM-DD');
+            }
+        }
+
+
 
         try {
 

@@ -48,9 +48,6 @@ div.events {
             form,h3 {
                 display: block;
             }
-            #filter-toggle {
-                display: none;
-            }
         }
     }
 

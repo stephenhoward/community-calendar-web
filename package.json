@@ -16,14 +16,15 @@
     "test": "vitest run --coverage"
   },
   "devDependencies": {
-    "flush-promises": "1.0.2",
     "@intlify/vite-plugin-vue-i18n": "^3.4.0",
     "@vitejs/plugin-vue": "^2.3.1",
     "@vue/test-utils": "^2.0.0-rc.20",
     "c8": "^7.11.0",
+    "flush-promises": "1.0.2",
     "jsdom": "^19.0.0",
     "sass": "^1.50.0",
     "sinon": "^13.0.2",
+    "vite-plugin-mock-server": "^1.0.4",
     "vitest": "^0.9.3",
     "vue-router-mock": "^0.1.7"
   },

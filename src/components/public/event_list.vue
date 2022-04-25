@@ -48,9 +48,6 @@ div.events {
             form,h3 {
                 display: block;
             }
-            #filter-toggle {
-                display: none;
-            }
         }
     }
 
@@ -81,7 +78,7 @@ div.events {
     import moment from 'moment';
 
     import eventView from './event_summary.vue';
-    import searchFilter from './filter.vue';
+    import searchFilter from './event_filter.vue';
     import EventSearch from '../../lib/event_search.mjs';
 
     const { d,t, locale, fallbackLocale } = useI18n({});

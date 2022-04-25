@@ -21,9 +21,6 @@
                 color: $dark-mode-text;
             }
         }
-        form,h3 {
-            display: none;
-        }
         input.search {
             @include flexible;
             font-size: 12pt;
@@ -87,7 +84,7 @@
 <div class="filter-component">
     <div role="search" v-bind:class="{ expanded: state.filterExpanded }">
         <div class="filter-header">
-            <h3 id="filters" tabindex="-1">{{ t('filter') }}</h3>
+            <h3 id="filters" v-show="state.filterExpanded" tabindex="-1">{{ t('filter') }}</h3>
             <searchBox
                 :query="state.search_terms"
                 @search="doFilter"
@@ -100,7 +97,7 @@
                 @click="toggleFilters"
             ></button>
         </div>
-        <form>
+        <form v-show="state.filterExpanded">
             <fieldset class="dates" aria-labelledby="dates-legend">
                 <legend id="dates-legend">{{ t('date_range') }}:</legend>
                 <label>
@@ -112,30 +109,30 @@
                         @click="loadCalendar('from')"
                         type="button"
                     >
-                        {{ d( state.from.toDate(), 'long' ) }}
+                        {{ state.search_from ? d( state.search_from.toDate(), 'long' ) : 'none' }}
                     </button>
                 </label>
                 <label>
                     <span class="aria-hidden">{{ t('to')   }}</span>
                     <button
                         ref="to"
-                        :aria-label="t('aria_date_end') + d( state.to.toDate(), 'long')"
+                        :aria-label="t('aria_date_end') + d( state.search_to.toDate(), 'long')"
                         aria-describedby="dateButtonInstructions"
                         @click="loadCalendar('to')"
                         type="button"
                     >
-                        {{  d( state.to.toDate(), 'long' ) }}
+                        {{  d( state.search_to.toDate(), 'long' ) }}
                     </button>
                 </label>
                 <span aria-hidden="true" class="sr-only" id="dateButtonInstructions">{{ t('aria_click_to_change') }}</span>
             </fieldset>
-            <fieldset v-if="!props.base_query || (props.base_query && ! props.base_query.category)"><legend>{{ t('categories') }}</legend>
+            <fieldset v-if="! baseQuery.category"><legend>{{ t('categories') }}</legend>
                 <label v-for="category in state.categories">
                     <input v-model="category.selected" type="checkbox" name="category" /> {{ mt(category,'name') }}
                 </label>
             </fieldset>
             <fieldset><legend>{{ t('ages') }}</legend></fieldset>
-            <button type="button" @click="doFilter">{{ t('filter') }}</button>
+            <button id="filter-results" type="button" @click="doFilter">{{ t('filter') }}</button>
         </form>
     </div>
     <calendar v-if="state.showCalendar" :selected-date="state.calendarDate" @close="hideCalendar" ref="datepicker" ></calendar>
@@ -175,7 +172,7 @@
 
 <script setup>
     import { reactive, computed, ref, watch } from 'vue';
-    import { useRouter } from 'vue-router'
+    import { useRouter, useRoute } from 'vue-router'
     import { useI18n } from 'vue-i18n';
     import useModelTranslate from '../../lib/mt.mjs';
     import moment from 'moment';
@@ -186,21 +183,24 @@
     import Category from '../../lib/model/category.mjs';
 
     const props = defineProps(['query','base_query']);
+        const router = useRouter();
+        const route = useRoute();
+
 
     const to = ref(null);
     const from = ref(null);
     const refs = {
         to, from
     };
+    const baseQuery = props.base_query || {};
 
-    const router = useRouter();
     const { t, d, locale, fallbackLocale } = useI18n({});
     const mt = useModelTranslate( locale, fallbackLocale );
     const state = reactive({
-        now:   moment(),
-        from: props.query.from || moment(),
-        to: props.query.to || moment(),
+        search_from: props.query.from || moment(),
+        search_to: props.query.to || moment(),
         search_terms: props.query.search_terms,
+        now:   moment(),
         filterExpanded: false,
         showCalendar: false,
         calendarDate: moment(),
@@ -235,19 +235,20 @@
         ]
     });
 
+    console.log(state.search_from);
+    console.log(state.search_to);
+    // watch(() => props.query.from, (newVal, oldVal) => {
+    //     state.search_from = newVal;
+    // });
+    // watch(() => props.query.to, (newVal, oldVal) => {
+    //     state.search_to = newVal;
+    // });
+    // watch(() => props.query.search, (newVal, oldVal) => {
+    //     state.search_terms = newVal;
+    // });
 
-    watch(() => props.query.from, (newVal, oldVal) => {
-        state.from = newVal;
-    });
-    watch(() => props.query.to, (newVal, oldVal) => {
-        state.to = newVal;
-    });
-    watch(() => props.query.search, (newVal, oldVal) => {
-        state.search_terms = newVal;
-    });
-
-    const fromLabel = computed(() => t('aria_date_start') + ' ' + d( state.from.toDate(), 'long') );
-    const toLabel   = computed(() => t('aria_date_end')   + ' ' + d( state.to.toDate(),   'long') );
+    const fromLabel = computed(() => t('aria_date_start') + ' ' + d( state.search_from.toDate(), 'long') );
+    const toLabel   = computed(() => t('aria_date_end')   + ' ' + d( state.search_to.toDate(),   'long') );
 
     function toggleFilters() {
         state.filterExpanded = ! state.filterExpanded;
@@ -261,7 +262,7 @@
         if ( day ) {
             state[ state.whichCalendarDate ]          = day;
             state[ state.whichCalendarDate + 'Label'] = t('aria_date_start') + ' ' +
-                                                     + d( state[ state.whichCalendarDate ].toDate(), 'long');
+                                                     + d( state[ 'search_' + state.whichCalendarDate ].toDate(), 'long');
             refs[ state.whichCalendarDate ].value.focus();
         }
         state.showCalendar = false;
@@ -276,17 +277,19 @@
 
         let query = {
             search: state.search_terms,
-            from: state.from.format('YYYY-MM-DD'),
-            to: state.to.format('YYYY-MM-DD'),
+            from: state.search_from.format('YYYY-MM-DD'),
+            to: state.search_to.format('YYYY-MM-DD'),
         };
 
-        query.categories = state.categories
-            .filter( c => c.selected ? true : false )
-            .map( c => c.id )
-            .join(',');
+        if ( ! baseQuery.category ) {
+            query.categories = state.categories
+                .filter( c => c.selected ? true : false )
+                .map( c => c.id )
+                .join(',');
+        }
 
         router.push({
-            path: 'events',
+            path: Object.keys(baseQuery).length ? route.path : 'events',
             query: query
         });
     }

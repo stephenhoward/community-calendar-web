@@ -4,9 +4,7 @@ import { Translatable } from '../model.mjs';
 
 export default class Event extends Translatable {
 
-    static baseUrl() { return this.apiVersion() + '/events' }
-
-    modelUrl() { return this.id ? Event.baseUrl() + '/' + this.id : Event.baseUrl() }
+    static baseUrl() { return '/events' }
 
     static newFromJson(json) {
 
