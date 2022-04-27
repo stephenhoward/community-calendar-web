@@ -8,6 +8,7 @@
 import PublicSite from '../components/public.vue';
 import PublicEvents from '../components/public/events.vue';
 import PublicEvent from '../components/public/event.vue';
+import PublicCategoryView from '../components/public/category.vue';
 import LoginView from '../components/auth/login.vue';
 import LogoutView from '../components/auth/logout.vue';
 import PasswordForgotView from '../components/auth/password_forgot.vue';
@@ -55,7 +56,7 @@ const routes = [
                  { path: 'events',               component: PublicEvents, name: 'events',    props: true  },
                  { path: 'events/:id',           component: PublicEvent, name: 'event',     props: true  },
             //     // { path: 'categories',           component: require('../vues/categories.vue')  },
-            //     // { path: 'categories/:id/:slug', component: require('../vues/category.vue')  }
+                  { path: 'categories/:id', component: PublicCategoryView  }
             ]
         },
         { path: '/login',  component: LoginView, name: 'login', props: true },

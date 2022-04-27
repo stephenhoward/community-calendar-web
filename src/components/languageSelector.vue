@@ -123,8 +123,8 @@
     });
 
     onBeforeMount(() => {
-        let all_languages    = { 'en': {name:"English"}, es: {name:'Español'}}; // Config.languages();
-        let active_languages = ['en','es']; //Config.settings().languages;
+        let all_languages    = config.languages();
+        let active_languages = config.settings().languages;
 
         active_languages.forEach( lang => state.langs[lang] = all_languages[lang].name );
     });
