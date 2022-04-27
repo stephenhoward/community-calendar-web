@@ -68,7 +68,7 @@ div.events {
                 />
             </section>
         </div>
-        <searchFilter :query="search.current_query"/>
+        <searchFilter :query="search.current_query" :base-query="props.baseQuery" />
     </div>
 </template>
 
@@ -76,12 +76,13 @@ div.events {
     import { reactive, onBeforeMount, nextTick, watch } from 'vue';
     import { useI18n } from 'vue-i18n';
     import moment from 'moment';
+    import datetimeFormats from '../../lib/i18n.mjs';
 
     import eventView from './event_summary.vue';
     import searchFilter from './event_filter.vue';
     import EventSearch from '../../lib/event_search.mjs';
 
-    const { d,t, locale, fallbackLocale } = useI18n({});
+    const { d,t, locale, fallbackLocale } = useI18n({ datetimeFormats });
     const props = defineProps(['query','baseQuery']);
     const state = reactive({
         now:   moment(),

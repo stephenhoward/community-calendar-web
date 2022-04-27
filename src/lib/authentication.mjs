@@ -39,7 +39,6 @@ export default class Authentication {
 
     logout() {
         this._unset_token();
-        console.log("DONE");
     }
 
     is_logged_in() {

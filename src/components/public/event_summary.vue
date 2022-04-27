@@ -135,9 +135,10 @@ section.events {
 <script setup>
     import { useI18n } from 'vue-i18n';
     import useModelTranslate from '../../lib/mt.mjs';
+    import datetimeFormats from '../../lib/i18n.mjs';
 
     const props = defineProps(['event', 'now']);
-    const { d,t, locale, fallbackLocale } = useI18n({});
+    const { d,t, locale, fallbackLocale } = useI18n({ datetimeFormats });
     const mt = useModelTranslate( locale, fallbackLocale );
 
 </script>

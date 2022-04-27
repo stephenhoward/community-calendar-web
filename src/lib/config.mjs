@@ -17,9 +17,8 @@ export default class Config {
     static async _load_settings() {
 
         try {
-            let settings_response = await axios.get( Model.apiVersion() + '/site');
             let languages_response = await axios.get( Model.apiVersion() + '/site/languages');
-            Config._settings = new Settings(settings_response.data);
+            Config._settings = await Settings.fetch();
             Config._languages = languages_response.data;
         }
         catch( error ) {

@@ -1,4 +1,3 @@
 #!env bash
 
-echo $PATH;
-vite --host;
+vite --host --config dev.vite.config.js;

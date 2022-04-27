@@ -56,11 +56,9 @@ export default class EventSearch {
             }
         }
 
-
-
         try {
 
-            this.events = await Event.list(this.current_query);
+            this.events = await Event.list(params);
 
             return this.eventsByDate();
 

@@ -2,9 +2,7 @@ import { Translatable } from '../model.mjs';
 
 export default class Settings extends Translatable {
 
-    static baseUrl() { return this.apiVersion() + '/site' }
-
-    modelUrl() { return Settings.baseUrl() }
+    static baseUrl() { return '/site' }
 
     initEmpty() {
         this.image            = null;

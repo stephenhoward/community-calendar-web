@@ -131,11 +131,12 @@ div.calendar {
     import moment from 'moment';
     import { ref, reactive, onBeforeMount, onMounted, onUnmounted, nextTick } from 'vue';
     import { useI18n } from 'vue-i18n';
+    import datetimeFormats from '../lib/i18n.mjs';
 
     const el    = ref(null);
     const props = defineProps(['selectedDate']);
     const emit  = defineEmits(['close','currentDate']);
-    const { t, d } = useI18n({});
+    const { t, d } = useI18n({ datetimeFormats });
 
     const state = reactive({
         selected:      moment(props.selectedDate),

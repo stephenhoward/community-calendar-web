@@ -126,7 +126,7 @@
                 </label>
                 <span aria-hidden="true" class="sr-only" id="dateButtonInstructions">{{ t('aria_click_to_change') }}</span>
             </fieldset>
-            <fieldset v-if="! baseQuery.category"><legend>{{ t('categories') }}</legend>
+            <fieldset v-if="showCategories"><legend>{{ t('categories') }}</legend>
                 <label v-for="category in state.categories">
                     <input v-model="category.selected" type="checkbox" name="category" /> {{ mt(category,'name') }}
                 </label>
@@ -171,10 +171,11 @@
 </i18n>
 
 <script setup>
-    import { reactive, computed, ref, watch } from 'vue';
+    import { reactive, computed, ref, watch, onMounted } from 'vue';
     import { useRouter, useRoute } from 'vue-router'
     import { useI18n } from 'vue-i18n';
     import useModelTranslate from '../../lib/mt.mjs';
+    import datetimeFormats from '../../lib/i18n.mjs';
     import moment from 'moment';
 
     import searchBox from './search.vue';
@@ -182,9 +183,17 @@
 
     import Category from '../../lib/model/category.mjs';
 
-    const props = defineProps(['query','base_query']);
-        const router = useRouter();
-        const route = useRoute();
+    const props = defineProps({
+        'query': {
+            type: Object,
+            required: true
+        },
+        'baseQuery': {
+            type: Object
+        }
+    });
+    const router = useRouter();
+    const route = useRoute();
 
 
     const to = ref(null);
@@ -192,9 +201,10 @@
     const refs = {
         to, from
     };
-    const baseQuery = props.base_query || {};
 
-    const { t, d, locale, fallbackLocale } = useI18n({});
+    const showCategories = computed(() => props.baseQuery == undefined || !props.baseQuery.category == undefined );
+
+    const { t, d, locale, fallbackLocale } = useI18n({ datetimeFormats });
     const mt = useModelTranslate( locale, fallbackLocale );
     const state = reactive({
         search_from: props.query.from || moment(),
@@ -204,39 +214,9 @@
         filterExpanded: false,
         showCalendar: false,
         calendarDate: moment(),
-        categories: [
-            new Category({
-                id: '12345',
-                strings: {
-                    en: {
-                        name: 'Music',
-                        description:'music desc'
-                    },
-                    es: {
-                        name: 'Música',
-                        description: 'no son aburrido'
-                    }
-                },
-                selected: true
-            }),
-            new Category({
-                id: '54321',
-                strings: {
-                    en: {
-                        name: 'Sports',
-                        description:'sports desc'
-                    },
-                    es: {
-                        name: 'Deportes',
-                        description: 'no son aburrido'
-                    }
-                }
-            })
-        ]
+        categories: []
     });
 
-    console.log(state.search_from);
-    console.log(state.search_to);
     // watch(() => props.query.from, (newVal, oldVal) => {
     //     state.search_from = newVal;
     // });
@@ -246,6 +226,15 @@
     // watch(() => props.query.search, (newVal, oldVal) => {
     //     state.search_terms = newVal;
     // });
+
+    onMounted( async () => {
+        try { 
+            state.categories = await Category.list();
+        }
+        catch {
+            state.categories = [];
+        }
+    });
 
     const fromLabel = computed(() => t('aria_date_start') + ' ' + d( state.search_from.toDate(), 'long') );
     const toLabel   = computed(() => t('aria_date_end')   + ' ' + d( state.search_to.toDate(),   'long') );
@@ -280,8 +269,7 @@
             from: state.search_from.format('YYYY-MM-DD'),
             to: state.search_to.format('YYYY-MM-DD'),
         };
-
-        if ( ! baseQuery.category ) {
+        if ( props.baseQuery == undefined || props.baseQuery.category == undefined ) {
             query.categories = state.categories
                 .filter( c => c.selected ? true : false )
                 .map( c => c.id )
@@ -289,7 +277,7 @@
         }
 
         router.push({
-            path: Object.keys(baseQuery).length ? route.path : 'events',
+            path: props.baseQuery != undefined && Object.keys(props.baseQuery).length ? route.path : 'events',
             query: query
         });
     }

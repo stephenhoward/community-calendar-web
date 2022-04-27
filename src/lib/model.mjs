@@ -34,7 +34,6 @@ export class Model {
     static apiVersion() { return '/v1' }
 
     static async fetch(id) {
-
         try {
             let response = await axios.get( this.modelUrl(id), { repsonseType: 'json' });
             if ( response.status >= 300 ) {

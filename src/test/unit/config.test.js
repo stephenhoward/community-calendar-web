@@ -8,7 +8,7 @@ test( 'load config', async() => {
 
     let axios_get = sinon.stub(axios,"get").callsFake((arg) => {
         let response = ( arg == '/v1/site')
-            ? { data :{ "test": "data"} }
+            ? { data: { strings: { 'en': {"test": "data"}} }}
             : { data: ['en-us'] };
 
         return new Promise( (resolve, reject) => { resolve(response) } );
@@ -16,7 +16,7 @@ test( 'load config', async() => {
 
     const config = await Config.init();
 
-    expect(config.settings().test).toBe("data");
+    expect(config.settings().get(['en'],'test')).toBe("data");
     expect(config.languages()).toEqual(["en-us"]);
 
 

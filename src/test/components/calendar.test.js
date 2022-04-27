@@ -7,6 +7,8 @@ import { test, expect } from 'vitest';
 import { createI18n } from 'vue-i18n'
 import moment from 'moment';
 import calendar from '../../components/calendar.vue';
+import datetimeFormats from '../../lib/i18n.mjs';
+
 
 const now   = moment().startOf('day');
 const cases = {
@@ -50,7 +52,6 @@ function initCalendar() {
             plugins: [ i18n ],
         }
     });
-
     return app;
 }
 

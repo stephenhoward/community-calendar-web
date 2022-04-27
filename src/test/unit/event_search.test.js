@@ -46,7 +46,7 @@ test('search with query', async () => {
 
     const results = search.search({ from: start, to: end, "category": "Music" });
 
-    expect( search.current_query ).toEqual( { from: start.format('YYYY-MM-DD'), to: end.format('YYYY-MM-DD'), "category": "Music" });
+    expect( search.current_query ).toEqual( { from: start, to: end, "category": "Music" });
     expect( event_list.lastCall.args ).toEqual([{ from: start.format('YYYY-MM-DD'), to: end.format('YYYY-MM-DD'), "category":"Music" }]);
 });
 
@@ -61,7 +61,7 @@ test('search with base query', async () => {
 
     const results = search.search({ from: start, to: end, "category":"Theater" });
 
-    expect( search.current_query ).toEqual( { from: start.format('YYYY-MM-DD'), to: end.format('YYYY-MM-DD'), "category": "Movies" });
+    expect( search.current_query ).toEqual( { from: start, to: end, "category": "Movies" });
     expect( event_list.lastCall.args ).toEqual([{ from: start.format('YYYY-MM-DD'), to: end.format('YYYY-MM-DD'), "category": "Movies" }]);
 });
 
