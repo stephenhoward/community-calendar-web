@@ -5,7 +5,7 @@ import { Translatable } from '../model.mjs';
 
 export default class Category extends Translatable {
 
-    static baseUrl() { return '/categories' };
+    static baseUrl() { return '/categories' }
 
     initEmpty() {
 

@@ -13,6 +13,7 @@ import LoginView from '../components/auth/login.vue';
 import LogoutView from '../components/auth/logout.vue';
 import PasswordForgotView from '../components/auth/password_forgot.vue';
 import PasswordResetView from '../components/auth/password_reset.vue';
+import SiteSetupView from '../components/auth/setup.vue';
 
 // const routesForModel = function(type, path) {
 
@@ -63,7 +64,7 @@ const routes = [
         { path: '/logout', component: LogoutView, name: 'logout' },
         { path: '/password/forgot', component: PasswordForgotView, name: 'forgot_password', props: true },
         { path: '/password/reset',  component: PasswordResetView, name: 'reset_password', props: true },
-        // { path: '/setup',  component: require('../vues/auth/setup.vue'), name: 'setup', props: true },
+        { path: '/setup',  component: SiteSetupView, name: 'setup', props: true },
 ];
 
 export default routes;

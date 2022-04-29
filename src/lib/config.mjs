@@ -14,6 +14,11 @@ export default class Config {
         return new Config();
     }
 
+    async reload() {
+
+        await Config._load_settings();
+    }
+
     static async _load_settings() {
 
         try {

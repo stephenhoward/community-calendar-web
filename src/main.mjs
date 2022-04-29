@@ -35,7 +35,8 @@ Config.init().then( (config) => {
     app.mount('#app');
 
     if ( config.settings().needs_setup ) {
-        app.$router.push({ name: 'setup' });
+        console.log('needs setup');
+        router.push({ name: 'setup' });
     }
 
 });
