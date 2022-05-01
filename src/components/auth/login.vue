@@ -1,6 +1,6 @@
 <template>
     <div class="login">
-        <h1>{{ settings.get('site_title') }}</h1>
+        <h1>{{ mt( settings, 'site_title') }}</h1>
         <h3>{{ t('title') }}</h3>
         <div class="error" v-if="state.err">{{ state.err }}</div>
         <input type="email"    v-bind:placeholder="t('email')"    v-model="state.email">
@@ -45,9 +45,11 @@ body {
     import { reactive, onBeforeMount, inject } from 'vue';
     import { useRouter } from 'vue-router'
     import { useI18n } from 'vue-i18n';
+    import useModelTranslate from '../../lib/mt.mjs';
 
     const router = useRouter();
-    const { t } = useI18n({});
+    const { t, locale, fallbackLocale } = useI18n({});
+    const mt = useModelTranslate( locale, fallbackLocale );
     const config = inject('site_config');
     const settings = config.settings();
     const authentication = inject('authentication');

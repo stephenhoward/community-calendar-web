@@ -1,19 +1,16 @@
-
-// import Event from './model/event.mjs';
-// import Series from './model/series.mjs';
-// import User from './model/user.mjs';
-// import Category from './model/category.mjs';
-//import compose from './compose.mjs';
-
 import PublicSite from '../components/public.vue';
 import PublicEvents from '../components/public/events.vue';
 import PublicEvent from '../components/public/event.vue';
 import PublicCategoryView from '../components/public/category.vue';
+
+import SiteSetupView from '../components/auth/setup.vue';
 import LoginView from '../components/auth/login.vue';
 import LogoutView from '../components/auth/logout.vue';
 import PasswordForgotView from '../components/auth/password_forgot.vue';
 import PasswordResetView from '../components/auth/password_reset.vue';
-import SiteSetupView from '../components/auth/setup.vue';
+
+import ManageView from '../components/manage.vue';
+import ManageListView from '../components/manage/list.vue';
 
 // const routesForModel = function(type, path) {
 
@@ -39,20 +36,22 @@ import SiteSetupView from '../components/auth/setup.vue';
 //};
 
 const routes = [
-        // {
-        //     path: '/manage', component: require('../vues/manage.vue'), name: 'manage',
-        //     children: [
-        //         { path: 'settings', component: require('../vues/manage/settings.vue'), name: 'site_settings' },
+        {
+            path: '/manage', component: ManageView, name: 'manage',
+            children: [
+                { path: 'events',     component: ManageListView, name: 'list_events',     props: true },
+                { path: 'categories', component: ManageListView, name: 'list_categories', props: true },
+                //{ path: 'settings', component: require('../vues/manage/settings.vue'), name: 'site_settings' },
         //         ...routesForModel( Category, 'categories'),
         //         ...routesForModel( Series, 'series'),
         //         ...routesForModel( Event,  'events'),
         //         ...routesForModel( User,   'users'),
-        //     ]
-        // },
+            ]
+        },
         { 
             path: '/', component: PublicSite,
             children: [
-                 { path: '',                     component: PublicEvents, name: 'today',     props: true },
+                 { path: '',                    component: PublicEvents, name: 'today',     props: true },
                  { path: 'this-week',            component: PublicEvents, name: 'this-week', props: true  },
                  { path: 'events',               component: PublicEvents, name: 'events',    props: true  },
                  { path: 'events/:id',           component: PublicEvent, name: 'event',     props: true  },
