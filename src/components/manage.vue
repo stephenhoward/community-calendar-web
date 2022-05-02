@@ -4,7 +4,7 @@
 
     div.root.manage {
 
-        grid-template-columns: [ left-rail ] auto [ main ] 40px [ end ];
+        grid-template-columns: [ left-rail ] 300px [ main ] auto [ end ];
         &.hide-menu {
             grid-template-columns: [ left-rail ] 0 [ main ] auto [ end ];
         }
@@ -13,6 +13,10 @@
             grid-template-columns: [ left-rail ] auto [ main ] 0px [ end ];
         }
 
+        div.main-menu h1 {
+            color: $dark-mode-text;
+            padding-left: 20px;
+        }
         & > h1 {
             @include page-title-positioning;
             margin-left: 40px;
@@ -44,6 +48,7 @@
     <h1>{{ t( state.pageTitle ) }}</h1>
     <a href="#main" @click.prevent="skipTo('main')" class="sr-only">{{ t('aria_skip_navigation') }}</a>
     <div class="main-menu">
+        <h1 v-if="route.name == 'manage'">{{ mt(settings,'site_title') }}</h1>
         <nav>
             <ul>
                 <li><router-link to="/">{{ t('home') }}</router-link></li>
@@ -113,14 +118,16 @@
 
     import languageSelector from './languageSelector.vue';
 
-    const { t } = useI18n({});
+    const { t, locale, fallbackLocale } = useI18n({});
+    const mt = useModelTranslate( locale, fallbackLocale );
     const router = useRouter();
     const route = useRoute();
     const config = inject("site_config");
+    const settings = config.settings();
     const authentication = inject("authentication");
 
     const state = reactive({
-        langs: config.settings().languages,
+        langs: settings.languages,
         menuVisible: false,
         pageTitle: '',
         user: new User({

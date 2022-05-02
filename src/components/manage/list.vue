@@ -51,7 +51,6 @@
 
     onBeforeMount( async() => {
         try {
-            console.log("listing");
             state.items = await components[route.name].type.list({});
         }
         catch( error ) {
